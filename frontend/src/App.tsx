@@ -3,8 +3,11 @@ import reactLogo from "./assets/react.svg";
 import viteLogo from "/vite.svg";
 import "./App.css";
 /*
-TODO: Generate tagline with LLM
-
+TODO: 
+- Generate tagline with LLM
+- Get experiences from DB
+- Get project spotlight
+- 
 */
 function App() {
 	const [count, setCount] = useState(0);
