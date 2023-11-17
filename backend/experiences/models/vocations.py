@@ -6,7 +6,7 @@ class Vocation(models.Model):
     company = models.CharField(max_length=50)
     title = models.CharField(max_length=50)
     start_date = models.DateField(auto_now=False, auto_now_add=False)
-    end_date = models.DateField(auto_now=False, auto_now_add=False, blank=True)
+    end_date = models.DateField(auto_now=False, auto_now_add=False, blank=True, null=True)
     city = models.CharField(max_length=50)
     country = models.CharField(max_length=50)
     description = models.TextField()
@@ -21,4 +21,4 @@ class Vocation(models.Model):
         verbose_name_plural = _("Vocations")
 
     def __str__(self):
-        return self.name
+        return f"{self.company} - {self.title}"
