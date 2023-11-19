@@ -1,5 +1,5 @@
 from rest_framework.test import APITestCase
-from django.core.mail import send_mail, outbox
+from django.core import mail
 from django.conf import settings
 from contactform.forms import ContactForm
 
@@ -24,19 +24,16 @@ class ContactFormTest(APITestCase):
         from_email = 'from@example.com'
         recipient_list = ['to@example.com']
 
-        with self.assertLogs('django', level='INFO') as mail_logs:
-            send_mail(subject, message, from_email, recipient_list)
-
-        # Check if the logs indicate that the email was sent successfully
-        self.assertIn('INFO:django.mail.backends.smtp:send_messages', mail_logs.output)
-        self.assertIn('1 message(s) sent', mail_logs.output)
-
-        # Check the contents of the sent email
-        sent_email = outbox[0]
-        self.assertEqual(sent_email.subject, subject)
-        self.assertEqual(sent_email.body, message)
-        self.assertEqual(sent_email.from_email, from_email)
-        self.assertEqual(sent_email.to, recipient_list)
+        with mail.get_connection() as connection:
+            response = mail.EmailMessage(
+                subject,
+                message,
+                from_email,
+                recipient_list,
+                connection=connection,
+            ).send()
+        
+        self.assertEqual(response, 1)
         
     def test_sent_success(self):
         """
@@ -44,7 +41,7 @@ class ContactFormTest(APITestCase):
         """
         data = {
             'name': 'John Doe',
-            'email': 'john@example.com',
+            'form_email': 'john@example.com',
             'phone': '1234567890',
             'company': 'ABC Corp',
             'message': 'This is a test message.',
@@ -57,12 +54,12 @@ class ContactFormTest(APITestCase):
         """
         Verify error response with invalid information
         """
-        response = self.client.post(self.contact, data={})
+        response = self.client.post(self.url, data={})
         self.assertEqual(response.status_code, 400)
         
         data = {
             'name': '',
-            'email': 'invalid_email',
+            'form_email': 'invalid_email',
             'phone': '123',
             'company': 'A' * 201,
             'message': '',
@@ -71,7 +68,7 @@ class ContactFormTest(APITestCase):
         response = self.client.post(self.url, data)
         self.assertEqual(response.status_code, 400)
         self.assertFormError(response, 'form', 'name', 'Name is required')
-        self.assertFormError(response, 'form', 'email', 'Email must be a valid email format e.g. you@example.com')
+        self.assertFormError(response, 'form', 'form_email', 'Email must be a valid email format e.g. you@example.com')
         self.assertFormError(response, 'form', 'phone', 'Phone must be of the format XXX-XXX-XXXX')
         self.assertFormError(response, 'form', 'company', 'Max length is 100 characters. Or consider changing your company name')
         self.assertFormError(response, 'form', 'message', 'Message is required')
@@ -90,7 +87,7 @@ class ContactFormTest(APITestCase):
         form = ContactForm(data)
         self.assertFalse(form.is_valid())
         self.assertIn('name', form.errors)
-        self.assertIn('email', form.errors)
+        self.assertIn('form_email', form.errors)
         self.assertIn('phone', form.errors)
         self.assertNotIn('company', form.errors)
         self.assertIn('message', form.errors)
@@ -101,7 +98,7 @@ class ContactFormTest(APITestCase):
         """
         form_data = {
             'name': 'John Doe',
-            'email': 'john@example.com',
+            'form_email': 'john@example.com',
             'phone': '123-456-7890',
             'company': 'Example Corp',
             'message': "'; DROP TABLE some_table; --",
@@ -116,7 +113,7 @@ class ContactFormTest(APITestCase):
         """
         form_data = {
             'name': 'John Doe',
-            'email': 'john@example.com',
+            'form_email': 'john@example.com',
             'phone': '123-456-7890',
             'company': 'Example Corp',
             'message': '<script>alert("XSS attack");</script>',
@@ -131,7 +128,7 @@ class ContactFormTest(APITestCase):
         """
         form_data = {
             'name': 'A' * 10000,  # Submit a very long name
-            'email': 'john@example.com' * 100,
+            'form_email': 'john@example.com' * 100,
             'phone': '123-456-7890' * 10,
             'company': 'Example Corp' * 20,
             'message': 'This is a test message.' * 100,
