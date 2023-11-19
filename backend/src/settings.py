@@ -37,9 +37,13 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    # Imports
     'corsheaders',
     'rest_framework',
+    'phonenumber_field',
+    # Modules
     'experiences',
+    'contactform',
 ]
 
 CORS_ORIGIN_WHITELIST = [
