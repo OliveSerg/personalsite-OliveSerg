@@ -13,6 +13,7 @@ class Vocation(models.Model):
     url = models.URLField(max_length=200)
     type = models.CharField(max_length=4, choices=[("WORK", _("work")), ("VOLU", _("volunteer")), ("NONP", _("non-profit")),], default="WORK")
     skills = models.ManyToManyField(Skill)
+    logo = models.ImageField(upload_to='images/', null=True, blank=True)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 
