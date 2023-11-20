@@ -9,7 +9,7 @@ class ContactFormView(APIView):
     def post(self, request, *args, **kwargs):
         form = ContactForm(request.POST)
         if form.is_valid():
-            from_email = form.cleaned_data['email']
+            from_email = form.cleaned_data['from_email']
             email_content = f"""
             Name: {form.cleaned_data['name']}
             Phone: {form.cleaned_data['phone']}
@@ -23,7 +23,7 @@ class ContactFormView(APIView):
                     "Peronsal Site Contact Submission",
                     email_content,
                     from_email,
-                    settings.EMAIL_HOST_USER,
+                    [settings.EMAIL_HOST_USER],
                 )
             except BadHeaderError:
                 return Response({'errors': {'form': "Invalid headers found"}}, status=status.HTTP_422_UNPROCESSABLE_ENTITY)

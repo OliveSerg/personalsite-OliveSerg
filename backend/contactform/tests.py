@@ -1,3 +1,4 @@
+import json
 from rest_framework.test import APITestCase
 from django.core import mail
 from django.conf import settings
@@ -5,7 +6,7 @@ from contactform.forms import ContactForm
 
 class ContactFormTest(APITestCase):
     def setUp(self):
-        self.url = '/contact/'
+        self.url = '/api/contact/'
         return super().setUp()
     
     def test_email_connection(self):
@@ -41,8 +42,8 @@ class ContactFormTest(APITestCase):
         """
         data = {
             'name': 'John Doe',
-            'form_email': 'john@example.com',
-            'phone': '1234567890',
+            'from_email': 'john@example.com',
+            'phone': '5194741981',
             'company': 'ABC Corp',
             'message': 'This is a test message.',
         }
@@ -59,19 +60,21 @@ class ContactFormTest(APITestCase):
         
         data = {
             'name': '',
-            'form_email': 'invalid_email',
+            'from_email': 'invalid_email',
             'phone': '123',
             'company': 'A' * 201,
             'message': '',
         }
 
         response = self.client.post(self.url, data)
+        errors = json.loads(response.content)['errors']
         self.assertEqual(response.status_code, 400)
-        self.assertFormError(response, 'form', 'name', 'Name is required')
-        self.assertFormError(response, 'form', 'form_email', 'Email must be a valid email format e.g. you@example.com')
-        self.assertFormError(response, 'form', 'phone', 'Phone must be of the format XXX-XXX-XXXX')
-        self.assertFormError(response, 'form', 'company', 'Max length is 100 characters. Or consider changing your company name')
-        self.assertFormError(response, 'form', 'message', 'Message is required')
+        self.assertIn('name', errors)
+        self.assertIn('from_email', errors)
+        self.assertIn('phone', errors)
+        self.assertIn('company', errors)
+        self.assertIn('message', errors)
+
         
     def test_invalid_submission(self):
         """
@@ -87,7 +90,7 @@ class ContactFormTest(APITestCase):
         form = ContactForm(data)
         self.assertFalse(form.is_valid())
         self.assertIn('name', form.errors)
-        self.assertIn('form_email', form.errors)
+        self.assertIn('from_email', form.errors)
         self.assertIn('phone', form.errors)
         self.assertNotIn('company', form.errors)
         self.assertIn('message', form.errors)
@@ -96,7 +99,7 @@ class ContactFormTest(APITestCase):
         """
         SQL inject attack
         """
-        form_data = {
+        data = {
             'name': 'John Doe',
             'form_email': 'john@example.com',
             'phone': '123-456-7890',
@@ -104,35 +107,35 @@ class ContactFormTest(APITestCase):
             'message': "'; DROP TABLE some_table; --",
         }
 
-        response = self.client.post(self.url, data=form_data)
+        response = self.client.post(self.url, data)
         self.assertEqual(response.status_code, 400)
 
     def test_xss_attempt(self):
         """
         Cross-site-scripting attempt
         """
-        form_data = {
+        data = {
             'name': 'John Doe',
-            'form_email': 'john@example.com',
+            'from_email': 'john@example.com',
             'phone': '123-456-7890',
             'company': 'Example Corp',
             'message': '<script>alert("XSS attack");</script>',
         }
 
-        response = self.client.post(self.url, data=form_data)
+        response = self.client.post(self.url, data)
         self.assertEqual(response.status_code, 400)
           
     def test_long_strings(self):
         """
         DOS attempt
         """
-        form_data = {
+        data = {
             'name': 'A' * 10000,  # Submit a very long name
-            'form_email': 'john@example.com' * 100,
+            'from_email': 'john@example.com' * 100,
             'phone': '123-456-7890' * 10,
             'company': 'Example Corp' * 20,
             'message': 'This is a test message.' * 100,
         }
 
-        response = self.client.post(self.url, data=form_data)
+        response = self.client.post(self.url, data)
         self.assertEqual(response.status_code, 400)
