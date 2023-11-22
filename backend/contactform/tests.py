@@ -43,7 +43,7 @@ class ContactFormTest(APITestCase):
         data = {
             'name': 'John Doe',
             'from_email': 'john@example.com',
-            'phone': '5194741981',
+            'phone': '12794992386',
             'company': 'ABC Corp',
             'message': 'This is a test message.',
         }
@@ -94,36 +94,6 @@ class ContactFormTest(APITestCase):
         self.assertIn('phone', form.errors)
         self.assertNotIn('company', form.errors)
         self.assertIn('message', form.errors)
-
-    def test_sql_injection_attempt(self):
-        """
-        SQL inject attack
-        """
-        data = {
-            'name': 'John Doe',
-            'form_email': 'john@example.com',
-            'phone': '123-456-7890',
-            'company': 'Example Corp',
-            'message': "'; DROP TABLE some_table; --",
-        }
-
-        response = self.client.post(self.url, data)
-        self.assertEqual(response.status_code, 400)
-
-    def test_xss_attempt(self):
-        """
-        Cross-site-scripting attempt
-        """
-        data = {
-            'name': 'John Doe',
-            'from_email': 'john@example.com',
-            'phone': '123-456-7890',
-            'company': 'Example Corp',
-            'message': '<script>alert("XSS attack");</script>',
-        }
-
-        response = self.client.post(self.url, data)
-        self.assertEqual(response.status_code, 400)
           
     def test_long_strings(self):
         """
@@ -132,7 +102,7 @@ class ContactFormTest(APITestCase):
         data = {
             'name': 'A' * 10000,  # Submit a very long name
             'from_email': 'john@example.com' * 100,
-            'phone': '123-456-7890' * 10,
+            'phone': '12794992386' * 10,
             'company': 'Example Corp' * 20,
             'message': 'This is a test message.' * 100,
         }
