@@ -12,6 +12,7 @@ class ContactFormView(APIView):
             from_email = form.cleaned_data['from_email']
             email_content = f"""
             Name: {form.cleaned_data['name']}
+            Email: {from_email}
             Phone: {form.cleaned_data['phone']}
             Company: {form.cleaned_data['company']}
             
