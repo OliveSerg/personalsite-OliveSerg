@@ -53,6 +53,13 @@ function App() {
 			<div className="projects">Project spotlight</div>
 			<div className="call-to-action">
 				<p>Contact form</p>
+				<form action="api/contact/" method="post">
+					<input type="text" name="name" id="name" />
+					<input type="email" name="from_email" id="email" />
+					<input type="tel" name="phone" id="phone" />
+					<input type="text" name="company" id="company" />
+					<textarea name="message" id="message"></textarea>
+				</form>
 				<p>VA interview</p>
 			</div>
 			<footer>
