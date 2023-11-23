@@ -1,6 +1,6 @@
 import { Skill } from "@features/experiences/types/skill";
 
-export type Vocaiton = {
+export type Vocation = {
 	company: string;
 	title: string;
 	start_date: string;

@@ -1,6 +1,7 @@
 import { useState } from "react";
 import viteLogo from "/vite.svg";
 import "./App.css";
+import ExperiencesWrapper from "@features/experiences/experiences-wrapper";
 /*
 TODO: 
 - Generate tagline with LLM
@@ -41,6 +42,7 @@ function App() {
 				<img src={viteLogo} className="virtual-avatar" alt="Avatar" />
 			</div>
 			<div className="experince-skills">
+				<ExperiencesWrapper />
 				<p>Loop experince as cards. List cards in json or something</p>
 				<p>
 					Skill bubbles. Size determines skill level. Highlights when
