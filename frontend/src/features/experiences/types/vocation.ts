@@ -1,4 +1,4 @@
-import { Skill } from "@features/experiences";
+import { Skill } from "@features/experiences/types/skill";
 
 export type Vocaiton = {
 	company: string;
