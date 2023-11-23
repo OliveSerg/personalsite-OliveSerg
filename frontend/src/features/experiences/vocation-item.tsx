@@ -3,12 +3,12 @@ import { MouseEventHandler } from "react";
 
 type Props = {
 	vocation: Vocation;
-	onClick?: MouseEventHandler;
+	handleClick: (vocaitonID: number) => void;
 };
 
-const VocationItem = ({ vocation, onClick }: Props) => {
+const VocationItem = ({ vocation, handleClick }: Props) => {
 	return (
-		<div>
+		<div onClick={() => handleClick(vocation.id)}>
 			<img src={vocation.logo} alt="" />
 			<p>{vocation.company}</p>
 			<p></p>
