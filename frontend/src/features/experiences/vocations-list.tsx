@@ -19,13 +19,15 @@ const VocationsList = ({ handleClick }: Props) => {
 
 	return (
 		<div>
-			{vocationsQuery.data?.map((vocation: Vocation) => (
-				<VocationItem
-					key={vocation.id}
-					vocation={vocation}
-					handleClick={handleClick}
-				/>
-			))}
+			{vocationsQuery.data
+				?.sort((cur, next) => (cur.type > next.type ? -1 : 1))
+				.map((vocation: Vocation) => (
+					<VocationItem
+						key={vocation.id}
+						vocation={vocation}
+						handleClick={handleClick}
+					/>
+				))}
 		</div>
 	);
 };
