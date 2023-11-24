@@ -1,5 +1,3 @@
-import { Skill } from "@features/experiences/types/skill";
-
 export type Vocation = {
 	id: number;
 	company: string;
@@ -11,6 +9,6 @@ export type Vocation = {
 	description: string;
 	url: string;
 	type: string;
-	skills: Skill[];
+	skills: Set<number>;
 	logo: string;
 };

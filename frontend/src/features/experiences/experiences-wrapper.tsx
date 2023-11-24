@@ -4,12 +4,12 @@ import { Skill } from "./types/skill";
 import VocationItem from "./vocation-item";
 import SkillItem from "./skill-item";
 import { useState } from "react";
-import { MouseEventHandler } from "react";
 
 type ApiReponse = Skill | Vocation;
 
 const ExperiencesWrapper = () => {
-	const [vocationClicked, setVocationClicked] = useState<number>(-1);
+	const [vocationSkills, setVocationSkills] = useState<number[]>([]);
+
 	const fetchExperience = (path: string): Promise<ApiReponse[]> => {
 		return fetch(import.meta.env.VITE_API_URL + path).then((response) =>
 			response.json()
@@ -33,13 +33,18 @@ const ExperiencesWrapper = () => {
 	const vocaitonsQuery = useVocaitons();
 	const skillsQuery = useSkills();
 
-	const onVocationClick = (vocationID: number) => {
-		let newId = vocationID;
-		if (vocationID == vocationClicked) {
-			newId = -1;
+	const onVocationClick = (newVocationSkills: number[]) => {
+		let nextSet: number[] = [];
+		if (
+			newVocationSkills.length !== vocationSkills.length &&
+			newVocationSkills.every(
+				(newSKill, i) => newSKill !== vocationSkills[i]
+			)
+		) {
+			nextSet = newVocationSkills;
 		}
-
-		setVocationClicked(newId);
+		console.log(vocationSkills);
+		setVocationSkills(nextSet);
 	};
 
 	if (vocaitonsQuery.isLoading || skillsQuery.isLoading) return "Loading...";
@@ -56,7 +61,13 @@ const ExperiencesWrapper = () => {
 		);
 	});
 	const skillsList = skillsQuery.data?.map((skill: Skill) => {
-		return <SkillItem key={skill.id} skill={skill} />;
+		return (
+			<SkillItem
+				key={skill.id}
+				skill={skill}
+				vocationSkills={vocationSkills}
+			/>
+		);
 	});
 	return (
 		<>
