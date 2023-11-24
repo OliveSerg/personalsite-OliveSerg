@@ -18,7 +18,10 @@ const ExperiencesWrapper = () => {
 
 	return (
 		<div>
-			<VocationsList handleClick={onVocationClick} />
+			<VocationsList
+				handleClick={onVocationClick}
+				vocationSkills={vocationSkills}
+			/>
 			<SkillsList vocationSkills={vocationSkills} />
 		</div>
 	);

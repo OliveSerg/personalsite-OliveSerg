@@ -3,13 +3,50 @@ import { Vocation } from "@features/experiences/types/vocation";
 type Props = {
 	vocation: Vocation;
 	handleClick: (skillIds: number[]) => void;
+	isSelected: boolean;
 };
 
-const VocationItem = ({ vocation, handleClick }: Props) => {
+const classNameMap = {
+	background: {
+		VOLU: "bg-blue",
+		NONP: "bg-purple",
+		WORK: "bg-red",
+	},
+};
+
+const VocationItem = ({ vocation, handleClick, isSelected }: Props) => {
 	return (
-		<div onClick={() => handleClick([vocation.id, ...vocation.skills])}>
-			<img src={vocation.logo} alt="" />
-			<p>{vocation.company}</p>
+		<div
+			className={`cursor-pointer w-1/3 mb-4 transition-all overflow-hidden ${
+				isSelected
+					? classNameMap["background"][vocation.type]
+					: "bg-slate"
+			} ${isSelected ? "w-full order-first" : "w-1/3 p-4"}`}
+			onClick={() => handleClick([vocation.id, ...vocation.skills])}>
+			<img
+				src={vocation.logo}
+				alt={vocation.company}
+				className="w-16 h-16 object-cover mr-4"
+			/>
+			<a
+				className="hover:text-grey-100"
+				href={vocation.url}
+				target="_blank"
+				rel="noopener noreferrer">
+				{vocation.company} - {vocation.title}
+			</a>
+			{isSelected && (
+				<div className="mt-4">
+					<p className="">
+						{vocation.city}, {vocation.country}
+					</p>
+					<p className="">
+						{vocation.start_date} -{" "}
+						{vocation.end_date ? vocation.end_date : "present"}
+					</p>
+					<p className="">{vocation.description}</p>
+				</div>
+			)}
 		</div>
 	);
 };
