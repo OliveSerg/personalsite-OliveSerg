@@ -8,15 +8,9 @@ const ExperiencesWrapper = () => {
 	const onVocationClick = useCallback(
 		(newVocationSkills: number[]) => {
 			let nextSet: number[] = [];
-			if (
-				newVocationSkills.length !== vocationSkills.length ||
-				newVocationSkills.some(
-					(newSKill, i) => newSKill !== vocationSkills[i]
-				)
-			) {
+			if (newVocationSkills[0] !== vocationSkills[0]) {
 				nextSet = newVocationSkills;
 			}
-
 			setVocationSkills(nextSet);
 		},
 		[vocationSkills]
