@@ -26,10 +26,10 @@ const VocationItem = ({ vocation, handleClick, isSelected }: Props) => {
 			<img
 				src={vocation.logo}
 				alt={vocation.company}
-				className="w-16 h-16 object-cover mr-4"
+				className="w-36 h-16 object-contain"
 			/>
 			<a
-				className="hover:text-grey-100"
+				className="hover:text-gray-600"
 				href={vocation.url}
 				target="_blank"
 				rel="noopener noreferrer">
