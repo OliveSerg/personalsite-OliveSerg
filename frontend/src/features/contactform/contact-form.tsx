@@ -23,9 +23,9 @@ const ContactForm = () => {
 			<input
 				type="checkbox"
 				value="1"
-				style={{ display: "none" }}
 				tabIndex="-1"
 				autoComplete="off"
+				className="hidden"
 				{...register("contact_me")}
 			/>
 			<div className="pt-0 mb-3">
@@ -34,14 +34,18 @@ const ContactForm = () => {
 					placeholder="Your name"
 					className="focus:outline-none focus:ring relative w-full px-3 py-3 text-sm text-gray-600 placeholder-gray-400 bg-white border-0 rounded shadow outline-none"
 					{...register("name", {
-						required: true,
+						required: "This is required",
 						maxLength: {
 							value: 40,
 							message: "No one's name is this long...",
 						},
 					})}
 				/>
-				{errors.name && <p>{errors.name.message}</p>}
+				{errors.name && (
+					<p className="text-red-500 text-xs italic">
+						{errors.name.message}
+					</p>
+				)}
 			</div>
 			<div className="pt-0 mb-3">
 				<input
@@ -49,14 +53,18 @@ const ContactForm = () => {
 					placeholder="Email"
 					className="focus:outline-none focus:ring relative w-full px-3 py-3 text-sm text-gray-600 placeholder-gray-400 bg-white border-0 rounded shadow outline-none"
 					{...register("from_email", {
-						required: true,
+						required: "This is required",
 						pattern: {
 							value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i,
 							message: "Invalid email address",
 						},
 					})}
 				/>
-				{errors.from_email && <p>{errors.from_email.message}</p>}
+				{errors.from_email && (
+					<p className="text-red-500 text-xs italic">
+						{errors.from_email.message}
+					</p>
+				)}
 			</div>
 			<div className="pt-0 mb-3">
 				<input
@@ -64,14 +72,18 @@ const ContactForm = () => {
 					placeholder="Phone"
 					className="focus:outline-none focus:ring relative w-full px-3 py-3 text-sm text-gray-600 placeholder-gray-400 bg-white border-0 rounded shadow outline-none"
 					{...register("phone", {
-						required: true,
+						required: "This is required",
 						pattern: {
 							value: /^(?:(?:\+1)|(?:1-))?(\d{3})[-.\s]?(\d{3})[-.\s]?(\d{4})$/,
 							message: "Incorrect phone number",
 						},
 					})}
 				/>
-				{errors.phone && <p>{errors.phone.message}</p>}
+				{errors.phone && (
+					<p className="text-red-500 text-xs italic">
+						{errors.phone.message}
+					</p>
+				)}
 			</div>
 			<div className="pt-0 mb-3">
 				<input
@@ -86,19 +98,27 @@ const ContactForm = () => {
 						},
 					})}
 				/>
-				{errors.company && <p>{errors.company.message}</p>}
+				{errors.company && (
+					<p className="text-red-500 text-xs italic">
+						{errors.company.message}
+					</p>
+				)}
 			</div>
 			<div className="pt-0 mb-3">
 				<textarea
 					placeholder="Your message"
 					className="focus:outline-none focus:ring relative w-full px-3 py-3 text-sm text-gray-600 placeholder-gray-400 bg-white border-0 rounded shadow outline-none"
-					{...register("message", { required: true })}
+					{...register("message", { required: "This is required" })}
 				/>
-				{errors.message && <p>{errors.message.message}</p>}
+				{errors.message && (
+					<p className="text-red-500 text-xs italic">
+						{errors.message.message}
+					</p>
+				)}
 			</div>
 			<div className="pt-0 mb-3">
 				<button
-					className="active:bg-blue-600 hover:shadow-lg focus:outline-none px-6 py-3 mb-1 mr-1 text-sm font-bold text-white uppercase transition-all duration-150 ease-linear bg-blue-500 rounded shadow outline-none"
+					className="active:bg-scarlet-600 hover:shadow-lg focus:outline-none px-6 py-3 mb-1 mr-1 text-sm font-bold text-white uppercase transition-all duration-150 ease-linear bg-scarlet-500 rounded shadow outline-none"
 					type="submit">
 					Send a message
 				</button>
