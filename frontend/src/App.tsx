@@ -51,8 +51,15 @@ function App() {
 				</p>
 			</div>
 			<div className="projects">Project spotlight</div>
-			<div className="call-to-action">
-				<ContactForm />
+			<div className="bg-scarlet-500 grid grid-cols-1 justify-items-center p-8">
+				<div className="max-w-screen-sm w-full p-4 bg-white rounded">
+					<h3 className="text-4xl mb-4">Drop Me a Line</h3>
+					<p className="mb-6">
+						Drop me a Line, Not a Bug! Let's Chat, Debug, and Maybe
+						Conspire on the Virtual World!
+					</p>
+					<ContactForm />
+				</div>
 			</div>
 			<footer>
 				<span>socials</span>
