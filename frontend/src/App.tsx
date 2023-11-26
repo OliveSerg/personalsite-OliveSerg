@@ -2,6 +2,7 @@ import { useState } from "react";
 import viteLogo from "/vite.svg";
 import "./App.css";
 import ExperiencesWrapper from "@features/experiences/experiences-wrapper";
+import ContactForm from "@features/contactform/contact-form";
 /*
 TODO: 
 - Generate tagline with LLM
@@ -51,15 +52,7 @@ function App() {
 			</div>
 			<div className="projects">Project spotlight</div>
 			<div className="call-to-action">
-				<p>Contact form</p>
-				<form action="api/contact/" method="post">
-					<input type="text" name="name" id="name" />
-					<input type="email" name="from_email" id="email" />
-					<input type="tel" name="phone" id="phone" />
-					<input type="text" name="company" id="company" />
-					<textarea name="message" id="message"></textarea>
-				</form>
-				<p>VA interview</p>
+				<ContactForm />
 			</div>
 			<footer>
 				<span>socials</span>
