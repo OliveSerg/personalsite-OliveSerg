@@ -1,7 +1,7 @@
 import { ContactInputs } from "@features/contactform/types/inputs";
 import { fetchApiResponse } from "@features/utilities/api";
 import { useForm, SubmitHandler } from "react-hook-form";
-import "@features/contactform/contact-form.css";
+import "@features/contactform/css/index.css";
 
 const ContactForm = () => {
 	const {
@@ -60,7 +60,7 @@ const ContactForm = () => {
 		);
 	}
 
-	if (!isSubmitting) {
+	if (isSubmitting) {
 		return (
 			<div>
 				<svg
@@ -93,7 +93,7 @@ const ContactForm = () => {
 			action={import.meta.env.VITE_API_URL + "contact"}
 			onSubmit={handleSubmit(onSubmit)}
 			method="POST">
-			{!errors.root?.api_error && (
+			{errors.root?.api_error && (
 				<div className="col-span-full mb-3">
 					<p className="text-red-500 text-sm italic">
 						Oops! It seems like there's a bug in sending your

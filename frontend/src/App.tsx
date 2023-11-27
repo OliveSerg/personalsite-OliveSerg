@@ -1,4 +1,3 @@
-import { useState } from "react";
 import viteLogo from "/vite.svg";
 import "./App.css";
 import ExperiencesWrapper from "@features/experiences/experiences-wrapper";
