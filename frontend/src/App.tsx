@@ -1,7 +1,7 @@
-import { useState } from "react";
 import viteLogo from "/vite.svg";
 import "./App.css";
 import ExperiencesWrapper from "@features/experiences/experiences-wrapper";
+import ContactForm from "@features/contactform/contact-form";
 /*
 TODO: 
 - Generate tagline with LLM
@@ -50,16 +50,15 @@ function App() {
 				</p>
 			</div>
 			<div className="projects">Project spotlight</div>
-			<div className="call-to-action">
-				<p>Contact form</p>
-				<form action="api/contact/" method="post">
-					<input type="text" name="name" id="name" />
-					<input type="email" name="from_email" id="email" />
-					<input type="tel" name="phone" id="phone" />
-					<input type="text" name="company" id="company" />
-					<textarea name="message" id="message"></textarea>
-				</form>
-				<p>VA interview</p>
+			<div className="bg-scarlet-500 grid grid-cols-1 justify-items-center p-8">
+				<div className="max-w-screen-sm w-full p-4 bg-white rounded">
+					<h3 className="text-4xl mb-4">Drop Me a Line</h3>
+					<p className="mb-6">
+						Drop me a Line, Not a Bug! Let's Chat, Debug, and Maybe
+						Conspire on the Virtual World!
+					</p>
+					<ContactForm />
+				</div>
 			</div>
 			<footer>
 				<span>socials</span>
