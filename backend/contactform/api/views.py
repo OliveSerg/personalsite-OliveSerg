@@ -9,8 +9,6 @@ from django.conf import settings
 class ContactFormView(APIView):
     def post(self, request, *args, **kwargs):
         form = ContactForm(data=request.data)
-        print(form.is_valid())
-        print(form.errors)
         if form.is_valid():
             from_email = form.validated_data['from_email']
             email_content = f"""
