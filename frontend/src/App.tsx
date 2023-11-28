@@ -2,10 +2,10 @@ import viteLogo from "/vite.svg";
 import "./App.css";
 import ExperiencesWrapper from "@features/experiences/experiences-wrapper";
 import ContactForm from "@features/contactform/contact-form";
+
 /*
 TODO: 
 - Generate tagline with LLM
-- Get experiences from DB
 - Get project spotlight
 - 
 */
@@ -43,11 +43,6 @@ function App() {
 			</div>
 			<div className="experince-skills">
 				<ExperiencesWrapper />
-				<p>Loop experince as cards. List cards in json or something</p>
-				<p>
-					Skill bubbles. Size determines skill level. Highlights when
-					experince is focused. Skills as json or something
-				</p>
 			</div>
 			<div className="projects">Project spotlight</div>
 			<div className="bg-scarlet-500 grid grid-cols-1 justify-items-center p-8">
