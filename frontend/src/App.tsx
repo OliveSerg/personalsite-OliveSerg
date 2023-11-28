@@ -2,17 +2,37 @@ import viteLogo from "/vite.svg";
 import "./App.css";
 import ExperiencesWrapper from "@features/experiences/experiences-wrapper";
 import ContactForm from "@features/contactform/contact-form";
-
+import HeaderSocial from "@features/socials/header-social";
 /*
 TODO: 
 - Generate tagline with LLM
 - Get project spotlight
 - 
 */
+import { FaGithubSquare } from "react-icons/fa";
+import { FaLinkedin } from "react-icons/fa";
+import { FaEnvelope } from "react-icons/fa";
+
 function App() {
 	return (
 		<>
-			<header className="">Fixed nav</header>
+			<div className="fixed top-10 right-10 flex flex-row gap-4">
+				<HeaderSocial
+					icon={<FaGithubSquare />}
+					text="OliveSerg"
+					link="https://www.github.com/OliveSerg"
+				/>
+				<HeaderSocial
+					icon={<FaLinkedin />}
+					text="SergioOliveira"
+					link="http://linkedin.com/in/sergio-o-83a820126"
+				/>
+				<HeaderSocial
+					icon={<FaEnvelope />}
+					text="oliveserg@gmail.com"
+					link="mailto:oliveserg@gmail.com"
+				/>
+			</div>
 			<div className="hero">
 				<h1>Meet Sergio Oliveira:</h1>
 				<h2 className="">Empowering Ideas Through Code</h2>
