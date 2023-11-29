@@ -2,11 +2,11 @@ import json
 from rest_framework.test import APITestCase
 from django.core import mail
 from django.conf import settings
-from contactform.forms import ContactForm
+from contactform.api.serializers import ContactForm
 
 class ContactFormTest(APITestCase):
     def setUp(self):
-        self.url = '/api/contact/'
+        self.url = '/api/contact'
         return super().setUp()
     
     def test_email_connection(self):
@@ -55,7 +55,7 @@ class ContactFormTest(APITestCase):
         """
         Verify error response with invalid information
         """
-        response = self.client.post(self.url, data={})
+        response = self.client.post(self.url, ({}))
         self.assertEqual(response.status_code, 400)
         
         data = {
@@ -86,8 +86,14 @@ class ContactFormTest(APITestCase):
         Message - Must be long text
         """
         
-        data = {}
-        form = ContactForm(data)
+        data = {
+            'name': '',
+            'from_email': '',
+            'phone': '',
+            'message': '',
+        }
+        form = ContactForm(data=data)
+        print(form)
         self.assertFalse(form.is_valid())
         self.assertIn('name', form.errors)
         self.assertIn('from_email', form.errors)

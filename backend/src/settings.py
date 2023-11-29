@@ -148,3 +148,9 @@ EMAIL_HOST_PASSWORD = os.environ.get('EMAIL_HOST_PASSWORD')
 EMAIL_PORT = os.environ.get('EMAIL_PORT')
 EMAIL_USE_TLS = True
 EMAIL_TIMEOUT = 300
+
+# Rest Framework
+
+REST_FRAMEWORK = {
+    'TEST_REQUEST_DEFAULT_FORMAT': 'json'
+}
