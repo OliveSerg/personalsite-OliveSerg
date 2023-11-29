@@ -1,4 +1,5 @@
-import viteLogo from "/vite.svg";
+import SLogo from "./assets/S img.svg";
+import OLogo from "./assets/O img.svg";
 import "./App.css";
 import ExperiencesWrapper from "@features/experiences/experiences-wrapper";
 import ContactForm from "@features/contactform/contact-form";
@@ -16,7 +17,7 @@ import { FaEnvelope } from "react-icons/fa";
 function App() {
 	return (
 		<>
-			<div className="fixed top-10 right-10 flex flex-row gap-4">
+			<div className="fixed top-10 right-10 flex flex-row gap-4 z-50">
 				<HeaderSocial
 					icon={<FaGithubSquare />}
 					text="OliveSerg"
@@ -33,20 +34,26 @@ function App() {
 					link="mailto:oliveserg@gmail.com"
 				/>
 			</div>
-			<div className="hero">
-				<h1>Meet Sergio Oliveira:</h1>
-				<h2 className="">Empowering Ideas Through Code</h2>
-				<img
-					src={viteLogo}
-					className="background-image"
-					alt="S part of logo (SVG)"
-				/>
-				<img
-					src={viteLogo}
-					className="background-image"
-					alt="O part of logo (SVG)"
-				/>
-			</div>
+			<section className="hero">
+				<div className="grid max-w-screen-xl mx-auto grid-cols-12 px-6 mb-10">
+					<div className="my-40 place-self-center col-[1_/_span_7] row-[1] z-10">
+						<h1 className="max-w-2xl italic text-2xl md:text-3xl lg:text-4xl tracking-tight leading-none">
+							Meet Sergio Oliveira
+						</h1>
+						<p className="max-w-2xl text-4xl md:text-5xl lg:text-6xl font-extrabold">
+							Empowering Ideas Through Code
+						</p>
+					</div>
+					<div className="relative col-[5_/_span_12] row-[1] place-self-center">
+						<img
+							className="absolute top-0"
+							src={SLogo}
+							alt="mockup"
+						/>
+						<img className="" src={OLogo} alt="mockup" />
+					</div>
+				</div>
+			</section>
 			<div className="about">
 				<h3>About Me:</h3>
 				<p>
@@ -59,7 +66,7 @@ function App() {
 					occaecat cupidatat non proident, sunt in culpa qui officia
 					deserunt mollit anim id est laborum.
 				</p>
-				<img src={viteLogo} className="virtual-avatar" alt="Avatar" />
+				<img src="" className="virtual-avatar" alt="Avatar" />
 			</div>
 			<div className="experince-skills">
 				<ExperiencesWrapper />
