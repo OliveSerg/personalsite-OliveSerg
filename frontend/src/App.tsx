@@ -4,6 +4,7 @@ import "./App.css";
 import ExperiencesWrapper from "@features/experiences/experiences-wrapper";
 import ContactForm from "@features/contactform/contact-form";
 import HeaderSocial from "@features/socials/header-social";
+import DiagonalLine from "@features/background-layers/diagonal-line";
 /*
 TODO: 
 - Generate tagline with LLM
@@ -16,7 +17,37 @@ import { FaEnvelope } from "react-icons/fa";
 
 function App() {
 	return (
-		<>
+		<div className="relative overflow-hidden">
+			<DiagonalLine
+				skew="skew-y-[130deg]"
+				offset="-top-[50vw]"
+				color="from-scarlet-600 to-sunglow-600"
+			/>
+			<DiagonalLine
+				skew="skew-y-[130deg]"
+				offset="-top-[40vw]"
+				color="from-scarlet-600 to-sunglow-600"
+			/>
+			<DiagonalLine
+				skew="skew-y-[130deg]"
+				offset="top-[60%]"
+				color="from-scarlet-600 to-sunglow-600"
+			/>
+			<DiagonalLine
+				skew="skew-y-[130deg]"
+				offset="top-[70%]"
+				color="from-scarlet-600 to-sunglow-600"
+			/>
+			<DiagonalLine
+				skew="skew-y-[130deg]"
+				offset="top-[90%]"
+				color="from-scarlet-600 to-sunglow-600"
+			/>
+			<DiagonalLine
+				skew="skew-y-[130deg]"
+				offset="top-[100%]"
+				color="from-scarlet-600 to-sunglow-600"
+			/>
 			<div className="fixed top-10 right-10 flex flex-row gap-4 z-50">
 				<HeaderSocial
 					icon={<FaGithubSquare />}
@@ -35,8 +66,8 @@ function App() {
 				/>
 			</div>
 			<section className="hero">
-				<div className="grid max-w-screen-xl mx-auto grid-cols-12 px-6 mb-10">
-					<div className="my-40 place-self-center col-[1_/_span_7] row-[1] z-10">
+				<div className="grid max-w-screen-xl mx-auto grid-cols-10 px-6 mb-10">
+					<div className="my-40 row-span-full col-start-1 col-span-6 self-center z-10">
 						<h1 className="max-w-2xl italic text-2xl md:text-3xl lg:text-4xl tracking-tight leading-none">
 							Meet Sergio Oliveira
 						</h1>
@@ -44,7 +75,7 @@ function App() {
 							Empowering Ideas Through Code
 						</p>
 					</div>
-					<div className="relative col-[5_/_span_12] row-[1] place-self-center">
+					<div className="relative col-start-5 col-span-6 row-span-full self-center">
 						<img
 							className="absolute top-0"
 							src={SLogo}
@@ -96,7 +127,7 @@ function App() {
 				<span>Name:email</span>
 				<span>other</span>
 			</footer>
-		</>
+		</div>
 	);
 }
 
