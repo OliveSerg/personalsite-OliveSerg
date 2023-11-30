@@ -65,7 +65,7 @@ function App() {
 					link="mailto:oliveserg@gmail.com"
 				/>
 			</div>
-			<section className="hero">
+			<section className="hero mb-30">
 				<div className="grid max-w-screen-xl mx-auto grid-cols-10 px-6 mb-10">
 					<div className="my-40 row-span-full col-start-1 col-span-6 self-center z-10">
 						<h1 className="max-w-2xl italic text-2xl md:text-3xl lg:text-4xl tracking-tight leading-none">
@@ -85,7 +85,7 @@ function App() {
 					</div>
 				</div>
 			</section>
-			<div className="max-w-screen-xl mx-auto grid grid-cols-12 gap-4 py-8 px-6 backdrop-blur-md bg-white/30 rounded">
+			<div className="container my-20 mx-auto grid grid-cols-12 gap-4 py-8 px-6 backdrop-blur-md bg-white/30 rounded">
 				<div className="col-span-12 md:col-span-7">
 					<h2 className="mb-6 text-2xl md:text-3xl lg:text-4xl font-bold tracking-wide uppercase">
 						About Me
@@ -108,7 +108,7 @@ function App() {
 					alt="Avatar"
 				/>
 			</div>
-			<div className="experince-skills">
+			<div className="experince-skills my-20">
 				<ExperiencesWrapper />
 			</div>
 			<div className="projects">Project spotlight</div>
