@@ -54,19 +54,28 @@ function App() {
 					</div>
 				</div>
 			</section>
-			<div className="about">
-				<h3>About Me:</h3>
-				<p>
-					Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed
-					do eiusmod tempor incididunt ut labore et dolore magna
-					aliqua. Ut enim ad minim veniam, quis nostrud exercitation
-					ullamco laboris nisi ut aliquip ex ea commodo consequat.
-					Duis aute irure dolor in reprehenderit in voluptate velit
-					esse cillum dolore eu fugiat nulla pariatur. Excepteur sint
-					occaecat cupidatat non proident, sunt in culpa qui officia
-					deserunt mollit anim id est laborum.
-				</p>
-				<img src="" className="virtual-avatar" alt="Avatar" />
+			<div className="max-w-screen-xl mx-auto grid grid-cols-12 gap-4 py-8 px-6 backdrop-blur-md bg-white/30 rounded">
+				<div className="col-span-12 md:col-span-7">
+					<h2 className="mb-6 text-2xl md:text-3xl lg:text-4xl font-bold tracking-wide uppercase">
+						About Me
+					</h2>
+					<p>
+						I'm an experienced Developer with a diverse skill set
+						encompassing various programming languages, software
+						tools, and platforms, along with a strong background in
+						AI and machine learning. My insatiable appetite for
+						learning has driven my success in the tech industry,
+						propelling me to explore new and challenging subjects.
+						When faced with high pressure situations, I maintain
+						composure, stay focused, and exhibit natural leadership
+						qualities, helping to foster direction amidst chaos.
+					</p>
+				</div>
+				<img
+					src=""
+					className="col-span-12 md:col-span-5"
+					alt="Avatar"
+				/>
 			</div>
 			<div className="experince-skills">
 				<ExperiencesWrapper />
