@@ -85,7 +85,7 @@ function App() {
 					</div>
 				</div>
 			</section>
-			<div className="container my-20 mx-auto grid grid-cols-12 gap-4 py-8 px-6 backdrop-blur-md bg-white/30 rounded">
+			<div className="container my-20 mx-auto grid grid-cols-12 gap-4 py-8 px-6 backdrop-blur-m rounded">
 				<div className="col-span-12 md:col-span-7">
 					<h2 className="mb-6 text-2xl md:text-3xl lg:text-4xl font-bold tracking-wide uppercase">
 						About Me
@@ -108,9 +108,9 @@ function App() {
 					alt="Avatar"
 				/>
 			</div>
-			<div className="experince-skills my-20">
+			<section className="experince-skills my-20">
 				<ExperiencesWrapper />
-			</div>
+			</section>
 			<div className="projects">Project spotlight</div>
 			<div className="bg-scarlet-500 grid grid-cols-1 justify-items-center p-8">
 				<div className="max-w-screen-sm w-full p-4 bg-white rounded">
