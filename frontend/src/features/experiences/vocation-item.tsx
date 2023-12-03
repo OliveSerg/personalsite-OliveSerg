@@ -1,53 +1,57 @@
 import { Vocation } from "@features/experiences/types/vocation";
+import { motion } from "framer-motion";
 
 type Props = {
 	vocation: Vocation;
 	handleClick: (skillIds: number[]) => void;
-	isSelected: boolean;
+	selectedId: number;
 };
 
 const classNameMap = {
 	background: {
-		VOLU: "bg-blue",
-		NONP: "bg-purple",
-		WORK: "bg-red",
+		VOLU: "bg-scarlet-600",
+		NONP: "bg-slate-300",
+		WORK: "bg-sunglow-600",
 	},
 };
 
-const VocationItem = ({ vocation, handleClick, isSelected }: Props) => {
+const VocationItem = ({ vocation, handleClick, selectedId }: Props) => {
+	const isSelected = selectedId === vocation.id;
+
 	return (
-		<div
-			className={`cursor-pointer w-1/3 mb-4 transition-all overflow-hidden ${
-				isSelected
-					? classNameMap["background"][vocation.type]
-					: "bg-slate"
-			} ${isSelected ? "w-full order-first" : "w-1/3 p-4"}`}
-			onClick={() => handleClick([vocation.id, ...vocation.skills])}>
-			<img
-				src={vocation.logo}
-				alt={vocation.company}
-				className="w-36 h-16 object-contain"
-			/>
-			<a
-				className="hover:text-gray-600"
-				href={vocation.url}
-				target="_blank"
-				rel="noopener noreferrer">
-				{vocation.company} - {vocation.title}
-			</a>
-			{isSelected && (
-				<div className="mt-4">
+		<motion.div
+			className={`cursor-pointer overflow-hidden p-6  ${
+				isSelected ? "order-last w-full" : ""
+			}`}
+			onClick={() => handleClick([vocation.id, ...vocation.skills])}
+			layout>
+			<motion.div className="">
+				<img
+					src={vocation.logo}
+					alt={vocation.company}
+					className="w-36 h-16 object-contain"
+				/>
+				<a
+					className={`hover:text-gray-600 ${
+						selectedId == undefined || isSelected ? "" : "hidden"
+					}`}
+					href={vocation.url}
+					target="_blank"
+					rel="noopener noreferrer">
+					{vocation.company} - {vocation.title}
+				</a>
+				<div className={`mt-4 ${isSelected ? "" : "hidden"}`}>
 					<p className="">
 						{vocation.city}, {vocation.country}
 					</p>
 					<p className="">
-						{vocation.start_date} -{" "}
+						{vocation.start_date} -
 						{vocation.end_date ? vocation.end_date : "present"}
 					</p>
 					<p className="">{vocation.description}</p>
 				</div>
-			)}
-		</div>
+			</motion.div>
+		</motion.div>
 	);
 };
 

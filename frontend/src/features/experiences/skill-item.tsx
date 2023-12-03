@@ -10,7 +10,7 @@ const classNameMap = {
 	size: [
 		"w-14 h-14 text-xs",
 		"w-16 h-16 text-sm",
-		"w-20 h-20  text-base",
+		"w-20 h-20 text-base",
 		"w-24 h-24 text-lg",
 		"w-28 h-28 text-xl",
 	],

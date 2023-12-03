@@ -14,24 +14,25 @@ const VocationsList = ({ vocationSkills, handleClick }: Props) => {
 		queryFn: () => fetchApiResponse<Vocation>("vocations/"),
 	});
 
-	const isSelected = (vocaitonID: number) => vocationSkills[0] === vocaitonID;
-
 	if (vocationsQuery.isLoading) return <div>Loading...</div>;
 	if (vocationsQuery.error)
 		return <div>Error: {vocationsQuery.error.message}</div>;
 
 	return (
-		<div className="container mx-auto flex flex-row flex-wrap justify-center">
-			{vocationsQuery.data
-				?.sort((cur, next) => (cur.type > next.type ? -1 : 1))
-				.map((vocation: Vocation) => (
-					<VocationItem
-						key={vocation.id}
-						vocation={vocation}
-						handleClick={handleClick}
-						isSelected={isSelected(vocation.id)}
-					/>
-				))}
+		<div className="container mx-auto px-6">
+			{/* <div className="grid grid-cols-[repeat(auto-fit,minmax(250px,1fr))] gap-2 relative"> */}
+			<div className="flex flex-wrap gap-2 relative bg-slate-300">
+				{vocationsQuery.data
+					?.sort((cur, next) => (cur.type > next.type ? -1 : 1))
+					.map((vocation: Vocation) => (
+						<VocationItem
+							key={vocation.id}
+							vocation={vocation}
+							handleClick={handleClick}
+							selectedId={vocationSkills[0]}
+						/>
+					))}
+			</div>
 		</div>
 	);
 };
