@@ -1,21 +1,9 @@
 import { Skill } from "@features/experiences/types/skill";
-import { motion, useAnimation } from "framer-motion";
-import { useEffect } from "react";
+import { motion } from "framer-motion";
 
 type Props = {
 	skill: Skill;
 	vocationSkills: number[];
-};
-
-const classNameMap = {
-	background: ["bg-blue-600", "bg-purple-600", "bg-red-600", "bg-gray-600"],
-	size: [
-		"w-16 h-16 text-xs",
-		"w-20 h-20 text-sm",
-		"w-24 h-24 text-base",
-		"w-28 h-28 text-lg",
-		"w-32 h-32 text-xl",
-	],
 };
 
 const TextBlob = ({ cx, cy, r, text }) => {
@@ -28,7 +16,8 @@ const TextBlob = ({ cx, cy, r, text }) => {
 				textAnchor="middle"
 				dominantBaseline="middle"
 				fill="#fff"
-				overflow="hidden">
+				overflow="hidden"
+				fontSize={r / 4}>
 				{text}
 			</motion.text>
 		</motion.g>
@@ -36,13 +25,11 @@ const TextBlob = ({ cx, cy, r, text }) => {
 };
 
 const SkillItem = ({ skill, vocationSkills }: Props) => {
-	// let tailwindClasses = `text-gray-100 font-bold aspect-square ${
-	// 	classNameMap["background"][skill.id % classNameMap["background"].length]
-	// } ${classNameMap["size"][skill.level - 1]}`;
-	// if (vocationSkills.includes(skill.id, 1)) {
-	// 	tailwindClasses += " bg-green-600";
-	// }
-	const centralBlob = { x: 300, y: 300, radius: 120 };
+	const centralBlob = {
+		x: 60 + skill.level * 15,
+		y: 60 + skill.level * 15,
+		radius: 30 + skill.level * 7,
+	};
 
 	const calculateBlobPosition = (
 		centerX: number,
@@ -66,7 +53,7 @@ const SkillItem = ({ skill, vocationSkills }: Props) => {
 			const { x, y } = calculateBlobPosition(
 				centralBlob.x,
 				centralBlob.y,
-				centralBlob.radius + centralBlob.radius / 2,
+				centralBlob.radius + centralBlob.radius / 2 - 10,
 				angle
 			);
 			return (
@@ -82,8 +69,13 @@ const SkillItem = ({ skill, vocationSkills }: Props) => {
 	};
 
 	return (
-		<div className="w-full h-full">
-			<motion.svg width="300" height="300" viewBox="0 0 600 600">
+		<div className="inline-block">
+			<motion.svg
+				width={centralBlob.radius * 4}
+				height={centralBlob.radius * 4}
+				viewBox={`0 0 ${centralBlob.radius * 4} ${
+					centralBlob.radius * 4
+				}`}>
 				<defs>
 					<filter id="goo">
 						<feGaussianBlur
@@ -106,7 +98,7 @@ const SkillItem = ({ skill, vocationSkills }: Props) => {
 						cx={centralBlob.x}
 						cy={centralBlob.y}
 						r={centralBlob.radius}
-						text={skill.name}
+						text={skill.level}
 					/>
 				</motion.g>
 			</motion.svg>
