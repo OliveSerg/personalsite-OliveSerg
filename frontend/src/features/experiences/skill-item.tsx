@@ -25,10 +25,11 @@ const TextBlob = ({ cx, cy, r, text }) => {
 };
 
 const SkillItem = ({ skill, vocationSkills }: Props) => {
+	const commonFactor = 60 + skill.level * 15;
 	const centralBlob = {
-		x: 60 + skill.level * 15,
-		y: 60 + skill.level * 15,
-		radius: 30 + skill.level * 7,
+		x: commonFactor,
+		y: commonFactor,
+		radius: commonFactor / 2,
 	};
 
 	const calculateBlobPosition = (
@@ -69,40 +70,37 @@ const SkillItem = ({ skill, vocationSkills }: Props) => {
 	};
 
 	return (
-		<div className="inline-block">
-			<motion.svg
-				width={centralBlob.radius * 4}
-				height={centralBlob.radius * 4}
-				viewBox={`0 0 ${centralBlob.radius * 4} ${
-					centralBlob.radius * 4
-				}`}>
-				<defs>
-					<filter id="goo">
-						<feGaussianBlur
-							in="SourceGraphic"
-							result="blur"
-							stdDeviation="10"
-						/>
-						<feColorMatrix
-							in="blur"
-							mode="matrix"
-							values="1 0 0 0 0  0 1 0 0 0  0 0 1 0 0  0 0 0 18 -7"
-							result="goo"
-						/>
-						<feBlend in2="goo" in="SourceGraphic" result="mix" />
-					</filter>
-				</defs>
-				<motion.g filter="url(#goo)" fill="black">
-					{skill.subskills && surroundingBlobs(skill.subskills)}
-					<TextBlob
-						cx={centralBlob.x}
-						cy={centralBlob.y}
-						r={centralBlob.radius}
-						text={skill.level}
+		<motion.svg
+			width={centralBlob.radius * 4}
+			height={centralBlob.radius * 4}
+			viewBox={`0 0 ${centralBlob.radius * 4} ${centralBlob.radius * 4}`}
+			className="">
+			<defs>
+				<filter id="goo">
+					<feGaussianBlur
+						in="SourceGraphic"
+						result="blur"
+						stdDeviation="10"
 					/>
-				</motion.g>
-			</motion.svg>
-		</div>
+					<feColorMatrix
+						in="blur"
+						mode="matrix"
+						values="1 0 0 0 0  0 1 0 0 0  0 0 1 0 0  0 0 0 18 -7"
+						result="goo"
+					/>
+					<feBlend in2="goo" in="SourceGraphic" result="mix" />
+				</filter>
+			</defs>
+			<motion.g filter="url(#goo)" fill="black">
+				{skill.subskills && surroundingBlobs(skill.subskills)}
+				<TextBlob
+					cx={centralBlob.x}
+					cy={centralBlob.y}
+					r={centralBlob.radius}
+					text={skill.level}
+				/>
+			</motion.g>
+		</motion.svg>
 	);
 };
 

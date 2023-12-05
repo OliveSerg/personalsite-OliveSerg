@@ -17,7 +17,7 @@ const SkillsList = ({ vocationSkills }: Props) => {
 	if (skillsQuery.error) return <div>Error: {skillsQuery.error.message}</div>;
 
 	return (
-		<div className="container mx-auto relative">
+		<div className="container mx-auto relative min-h-[50vh] flex flex-wrap justify-center">
 			{skillsQuery.data?.map((vocation: Skill) => (
 				<SkillItem
 					key={vocation.id}

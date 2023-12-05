@@ -1,6 +1,5 @@
 import { Vocation } from "@features/experiences/types/vocation";
 import { motion } from "framer-motion";
-import { useState } from "react";
 
 type Props = {
 	vocation: Vocation;

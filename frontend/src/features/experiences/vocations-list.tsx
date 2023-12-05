@@ -20,7 +20,7 @@ const VocationsList = ({ vocationSkills, handleClick }: Props) => {
 		return <div>Error: {vocationsQuery.error.message}</div>;
 
 	return (
-		<div className="container my-20 mx-auto py-8 px-6 backdrop-blur-md rounded">
+		<div className="container mt-20 mx-auto py-8 px-6 backdrop-blur-md rounded">
 			<div className="flex flex-wrap gap-2 relative justify-center">
 				<LayoutGroup>
 					{vocationsQuery.data
