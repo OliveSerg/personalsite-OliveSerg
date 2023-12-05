@@ -1,5 +1,6 @@
 import { Skill } from "@features/experiences/types/skill";
 import { motion } from "framer-motion";
+import { useRef } from "react";
 
 type Props = {
 	skill: Skill;
@@ -24,7 +25,17 @@ const TextBlob = ({ cx, cy, r, text }) => {
 	);
 };
 
+const BGCOLORS = [
+	"fill-scarlet-300",
+	"fill-scarlet-400",
+	"fill-scarlet-500",
+	"fill-scarlet-600",
+	"fill-scarlet-700",
+];
+
 const SkillItem = ({ skill, vocationSkills }: Props) => {
+	const isSelected = vocationSkills.includes(skill.id);
+	const bgColour = isSelected ? "fill-sunglow-500" : BGCOLORS[skill.id % 5];
 	const commonFactor = 60 + skill.level * 15;
 	const centralBlob = {
 		x: commonFactor,
@@ -91,13 +102,15 @@ const SkillItem = ({ skill, vocationSkills }: Props) => {
 					<feBlend in2="goo" in="SourceGraphic" result="mix" />
 				</filter>
 			</defs>
-			<motion.g filter="url(#goo)" fill="black">
+			<motion.g
+				className={`${bgColour} transition-colors`}
+				filter="url(#goo)">
 				{skill.subskills && surroundingBlobs(skill.subskills)}
 				<TextBlob
 					cx={centralBlob.x}
 					cy={centralBlob.y}
 					r={centralBlob.radius}
-					text={skill.level}
+					text={skill.name}
 				/>
 			</motion.g>
 		</motion.svg>
