@@ -7,20 +7,18 @@ type Props = {
 	cy: number;
 };
 
-const TextBlob = ({ cx = 0, cy = 0, r, text }: Props) => {
+const TextBlob = ({ cx, cy, r, text }: Props) => {
 	return (
 		<>
 			<motion.circle cx={cx} cy={cy} r={r} />
-			<motion.text
-				x={cx}
-				y={cy}
-				textAnchor="middle"
-				dominantBaseline="middle"
-				fill="#fff"
-				overflow="hidden"
-				fontSize={r / 4}>
-				{text}
-			</motion.text>
+			<foreignObject x={cx - r} y={cy - r} width={r * 2} height={r * 2}>
+				<p
+					style={{ fontSize: r / 3 }}
+					className="flex items-center justify-center h-full leading-none text-center text-white"
+					xmlns="http://www.w3.org/1999/xhtml">
+					{text}
+				</p>
+			</foreignObject>
 		</>
 	);
 };
