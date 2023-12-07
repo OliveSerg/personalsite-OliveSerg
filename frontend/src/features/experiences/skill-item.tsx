@@ -23,7 +23,7 @@ const SkillItem = ({ skill, vocationSkills }: Props) => {
 	const x = commonFactor;
 	const y = commonFactor;
 	const radius = commonFactor / 2;
-	const offset = 20;
+	const offset = 30;
 	const path = `M ${x} ${y - radius - offset} a ${radius + offset} ${
 		radius + offset
 	} 0 1 1 0 ${(radius + offset) * 2} a ${radius + offset} ${
