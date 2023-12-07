@@ -1,16 +1,49 @@
 import { Skill } from "@features/experiences/types/skill";
 import { motion } from "framer-motion";
-import { useRef } from "react";
+import { Children } from "react";
 
 type Props = {
 	skill: Skill;
 	vocationSkills: number[];
 };
 
-const TextBlob = ({ cx, cy, r, text }) => {
+type Blob = {
+	text: string;
+	r: number;
+	cx: number;
+	cy: number;
+	path?: string;
+};
+
+const MotionBlob = ({ path, position, children }) => {
+	const transition = {
+		duration: 4,
+		repeat: Infinity,
+		repeatType: "reverse",
+		ease: "easeInOut",
+	};
+
+	let pathProps;
+	if (path) {
+		const offset = Math.random() * 20 + 10;
+		pathProps = {
+			style: {
+				offsetPath: `path("${path}")`,
+				offsetDistance: "var(--offset)",
+				offsetRotate: "0deg",
+			},
+			initial: { "--offset": `${position}%` },
+			animate: { "--offset": `${position + offset}%` },
+			transition: transition,
+		};
+	}
+	return <motion.g {...pathProps}>{children}</motion.g>;
+};
+
+const TextBlob = ({ cx = 0, cy = 0, r, text }: Blob) => {
 	return (
-		<motion.g>
-			<motion.circle cx={cx} cy={cy} r={r} custom={1} />
+		<>
+			<motion.circle cx={cx} cy={cy} r={r} />
 			<motion.text
 				x={cx}
 				y={cy}
@@ -21,7 +54,7 @@ const TextBlob = ({ cx, cy, r, text }) => {
 				fontSize={r / 4}>
 				{text}
 			</motion.text>
-		</motion.g>
+		</>
 	);
 };
 
@@ -37,83 +70,66 @@ const SkillItem = ({ skill, vocationSkills }: Props) => {
 	const isSelected = vocationSkills.includes(skill.id);
 	const bgColour = isSelected ? "fill-sunglow-500" : BGCOLORS[skill.id % 5];
 	const commonFactor = 60 + skill.level * 15;
-	const centralBlob = {
-		x: commonFactor,
-		y: commonFactor,
-		radius: commonFactor / 2,
-	};
-
-	const calculateBlobPosition = (
-		centerX: number,
-		centerY: number,
-		radius: number,
-		angleInDegrees: number
-	) => {
-		const angleInRadians = (angleInDegrees * Math.PI) / 180;
-
-		const x = centerX + radius * Math.cos(angleInRadians);
-		const y = centerY + radius * Math.sin(angleInRadians);
-
-		return { x, y };
-	};
+	const x = commonFactor;
+	const y = commonFactor;
+	const radius = commonFactor / 2;
+	const offset = 10;
+	const path = `M ${x} ${y - radius - offset} a ${radius + offset} ${
+		radius + offset
+	} 0 1 1 0 ${(radius + offset) * 2} a ${radius + offset} ${
+		radius + offset
+	} 0 1 1 0 ${-(radius + offset) * 2}`;
 
 	const surroundingBlobs = (subSkills: string[]) => {
-		const angleIncrement = (Math.PI * 120) / subSkills.length;
-
 		return subSkills.map((skill, index) => {
-			const angle = index * angleIncrement;
-			const { x, y } = calculateBlobPosition(
-				centralBlob.x,
-				centralBlob.y,
-				centralBlob.radius + centralBlob.radius / 2 - 10,
-				angle
-			);
+			const position = (index / subSkills.length) * 80;
+
 			return (
-				<TextBlob
-					key={index}
-					cx={x}
-					cy={y}
-					r={centralBlob.radius / 2}
-					text={skill}
-				/>
+				<MotionBlob key={index} path={path} position={position}>
+					<TextBlob
+						key={index}
+						cx={0}
+						cy={0}
+						r={radius / 2}
+						text={skill}
+					/>
+				</MotionBlob>
 			);
 		});
 	};
 
 	return (
-		<motion.svg
-			width={centralBlob.radius * 4}
-			height={centralBlob.radius * 4}
-			viewBox={`0 0 ${centralBlob.radius * 4} ${centralBlob.radius * 4}`}
-			className="">
-			<defs>
-				<filter id="goo">
-					<feGaussianBlur
-						in="SourceGraphic"
-						result="blur"
-						stdDeviation="10"
-					/>
-					<feColorMatrix
-						in="blur"
-						mode="matrix"
-						values="1 0 0 0 0  0 1 0 0 0  0 0 1 0 0  0 0 0 18 -7"
-						result="goo"
-					/>
-					<feBlend in2="goo" in="SourceGraphic" result="mix" />
-				</filter>
-			</defs>
-			<motion.g
-				className={`${bgColour} transition-colors`}
-				filter="url(#goo)">
-				{skill.subskills && surroundingBlobs(skill.subskills)}
-				<TextBlob
-					cx={centralBlob.x}
-					cy={centralBlob.y}
-					r={centralBlob.radius}
-					text={skill.name}
-				/>
-			</motion.g>
-		</motion.svg>
+		<>
+			<motion.svg
+				xmlns="http://www.w3.org/2000/svg"
+				width={radius * 4}
+				height={radius * 4}
+				viewBox={`0 0 ${radius * 4} ${radius * 4}`}
+				className="overflow-visible">
+				<defs>
+					<filter id="goo">
+						<feGaussianBlur
+							in="SourceGraphic"
+							result="blur"
+							stdDeviation="10"
+						/>
+						<feColorMatrix
+							in="blur"
+							mode="matrix"
+							values="1 0 0 0 0  0 1 0 0 0  0 0 1 0 0  0 0 0 18 -7"
+							result="goo"
+						/>
+						<feBlend in2="goo" in="SourceGraphic" result="mix" />
+					</filter>
+				</defs>
+				<motion.g
+					className={`${bgColour} transition-colors`}
+					filter="url(#goo)">
+					{skill.subskills && surroundingBlobs(skill.subskills)}
+					<TextBlob cx={x} cy={y} r={radius} text={skill.name} />
+				</motion.g>
+			</motion.svg>
+		</>
 	);
 };
 
