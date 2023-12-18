@@ -85,22 +85,20 @@ function App() {
 				<Glow top="0" left="-10%" width="50%" height="100%" />
 				<Glow top="25%" left="75%" width="25%" height="75%" />
 
-				<div className="container my-20 mx-auto grid grid-cols-12 gap-4 py-8 px-6 backdrop-blur-m rounded">
+				<div className="container my-20 mx-auto grid grid-cols-12 gap-4 py-8 px-6 backdrop-blur-sm rounded bg-white bg-opacity-30">
 					<div className="col-span-12 md:col-span-7">
 						<h2 className="mb-6 text-2xl md:text-3xl lg:text-4xl font-bold tracking-wide uppercase">
 							About Me
 						</h2>
 						<p>
-							I'm an experienced Developer with a diverse skill
-							set encompassing various programming languages,
-							software tools, and platforms, along with a strong
-							background in AI and machine learning. My insatiable
-							appetite for learning has driven my success in the
-							tech industry, propelling me to explore new and
-							challenging subjects. When faced with high pressure
-							situations, I maintain composure, stay focused, and
-							exhibit natural leadership qualities, helping to
-							foster direction amidst chaos.
+							Welcome to my digital playground, where lines of
+							code become works of art. I'm Sergio, a dedicated
+							software developer weaving together creativity and
+							technology to build solutions that stand out. With a
+							passion for innovation and a knack for precision, I
+							invite you to explore my journey in crafting digital
+							excellence. Let's connect and explore the endless
+							possibilities of code!
 						</p>
 					</div>
 					<img
@@ -110,8 +108,10 @@ function App() {
 					/>
 				</div>
 			</section>
-			<section className="experince-skills my-20">
-				<ExperiencesWrapper />
+			<section className="experince-skills my-20 relative ">
+				<div className="container mx-auto backdrop-blur-sm rounded">
+					<ExperiencesWrapper />
+				</div>
 			</section>
 			<div className="projects">Project spotlight</div>
 			<div className="bg-scarlet-500 grid grid-cols-1 justify-items-center p-8">
