@@ -3,7 +3,7 @@ type Props = {
 	left: string;
 	width: string;
 	height: string;
-	color: string;
+	color?: string;
 };
 
 const Glow = ({
@@ -15,7 +15,7 @@ const Glow = ({
 }: Props) => {
 	return (
 		<div
-			className={`absolute bg-gradient-to-r -z-20 ${color} rounded-full blur-3xl`}
+			className={`absolute bg-gradient-radial ${color} -z-20 rounded-full blur-3xl`}
 			style={{
 				top: top,
 				left: left,

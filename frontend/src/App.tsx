@@ -5,12 +5,6 @@ import ExperiencesWrapper from "@features/experiences/experiences-wrapper";
 import ContactForm from "@features/contactform/contact-form";
 import HeaderSocial from "@features/socials/header-social";
 import DiagonalLine from "@features/background-layers/diagonal-line";
-/*
-TODO: 
-- Generate tagline with LLM
-- Get project spotlight
-- 
-*/
 import { FaGithubSquare } from "react-icons/fa";
 import { FaLinkedin } from "react-icons/fa";
 import { FaEnvelope } from "react-icons/fa";
