@@ -5,15 +5,10 @@ import ExperiencesWrapper from "@features/experiences/experiences-wrapper";
 import ContactForm from "@features/contactform/contact-form";
 import HeaderSocial from "@features/socials/header-social";
 import DiagonalLine from "@features/background-layers/diagonal-line";
-/*
-TODO: 
-- Generate tagline with LLM
-- Get project spotlight
-- 
-*/
 import { FaGithubSquare } from "react-icons/fa";
 import { FaLinkedin } from "react-icons/fa";
 import { FaEnvelope } from "react-icons/fa";
+import Glow from "@features/background-layers/glow";
 
 function App() {
 	return (
@@ -65,7 +60,8 @@ function App() {
 					link="mailto:oliveserg@gmail.com"
 				/>
 			</div>
-			<section className="hero mb-30">
+			<section className="hero mb-30 relative">
+				<Glow top="-25%" left="-25%" width="50%" height="75%" />
 				<div className="grid max-w-screen-xl mx-auto grid-cols-10 px-6 mb-10">
 					<div className="my-40 row-span-full col-start-1 col-span-6 self-center z-10">
 						<h1 className="max-w-2xl italic text-2xl md:text-3xl lg:text-4xl tracking-tight leading-none">
@@ -85,29 +81,35 @@ function App() {
 					</div>
 				</div>
 			</section>
-			<div className="container my-20 mx-auto grid grid-cols-12 gap-4 py-8 px-6 backdrop-blur-md bg-white/30 rounded">
-				<div className="col-span-12 md:col-span-7">
-					<h2 className="mb-6 text-2xl md:text-3xl lg:text-4xl font-bold tracking-wide uppercase">
-						About Me
-					</h2>
-					<p>
-						I'm an experienced Developer with a diverse skill set
-						encompassing various programming languages, software
-						tools, and platforms, along with a strong background in
-						AI and machine learning. My insatiable appetite for
-						learning has driven my success in the tech industry,
-						propelling me to explore new and challenging subjects.
-						When faced with high pressure situations, I maintain
-						composure, stay focused, and exhibit natural leadership
-						qualities, helping to foster direction amidst chaos.
-					</p>
+			<section className="relative">
+				<Glow top="0" left="-10%" width="50%" height="100%" />
+				<Glow top="25%" left="75%" width="25%" height="75%" />
+
+				<div className="container my-20 mx-auto grid grid-cols-12 gap-4 py-8 px-6 backdrop-blur-md bg-white/30 rounded">
+					<div className="col-span-12 md:col-span-7">
+						<h2 className="mb-6 text-2xl md:text-3xl lg:text-4xl font-bold tracking-wide uppercase">
+							About Me
+						</h2>
+						<p>
+							I'm an experienced Developer with a diverse skill
+							set encompassing various programming languages,
+							software tools, and platforms, along with a strong
+							background in AI and machine learning. My insatiable
+							appetite for learning has driven my success in the
+							tech industry, propelling me to explore new and
+							challenging subjects. When faced with high pressure
+							situations, I maintain composure, stay focused, and
+							exhibit natural leadership qualities, helping to
+							foster direction amidst chaos.
+						</p>
+					</div>
+					<img
+						src=""
+						className="col-span-12 md:col-span-5"
+						alt="Avatar"
+					/>
 				</div>
-				<img
-					src=""
-					className="col-span-12 md:col-span-5"
-					alt="Avatar"
-				/>
-			</div>
+			</section>
 			<div className="experince-skills my-20">
 				<ExperiencesWrapper />
 			</div>
