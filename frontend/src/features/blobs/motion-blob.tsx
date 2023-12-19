@@ -9,14 +9,13 @@ type Props = {
 
 const MotionBlob = ({ path, offsetDistance, children }: Props) => {
 	const transition = {
-		duration: 10,
+		duration: Math.floor(Math.random() * (15 - 10 + 1)) + 10,
 		repeat: Infinity,
 		repeatType: "reverse",
 		ease: "easeInOut",
 		delay: Math.random() * 3,
 	};
-
-	const offset = Math.random() * 25 + 15;
+	const offset = Math.floor(Math.random() * (25 - 15 + 1)) + 15;
 
 	return (
 		<motion.g

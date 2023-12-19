@@ -8,22 +8,14 @@ type Props = {
 	vocationSkills: number[];
 };
 
-const BGCOLORS = [
-	"fill-scarlet-300",
-	"fill-scarlet-400",
-	"fill-scarlet-500",
-	"fill-scarlet-600",
-	"fill-scarlet-700",
-];
-
 const SkillItem = ({ skill, vocationSkills }: Props) => {
 	const isSelected = vocationSkills.includes(skill.id);
-	const bgColour = isSelected ? "fill-sunglow-500" : BGCOLORS[skill.id % 5];
+	const bgColour = isSelected ? "fill-sunglow-500" : "fill-scarlet-700";
 	const commonFactor = 60 + skill.level * 15;
 	const x = commonFactor;
 	const y = commonFactor;
 	const radius = commonFactor / 2;
-	const offset = 30;
+	const offset = 25;
 	const path = `M ${x} ${y - radius - offset} a ${radius + offset} ${
 		radius + offset
 	} 0 1 1 0 ${(radius + offset) * 2} a ${radius + offset} ${
@@ -49,7 +41,6 @@ const SkillItem = ({ skill, vocationSkills }: Props) => {
 	};
 
 	return (
-		<>
 			<motion.svg
 				xmlns="http://www.w3.org/2000/svg"
 				width={radius * 4}
@@ -73,13 +64,12 @@ const SkillItem = ({ skill, vocationSkills }: Props) => {
 					</filter>
 				</defs>
 				<motion.g
-					className={`${bgColour} transition-colors duration-500`}
+					className={`${bgColour} bg-gradient-radial from-scarlet-600 to-sunglow-600 transition-colors duration-500`}
 					filter="url(#goo)">
 					{skill.subskills && surroundingBlobs(skill.subskills)}
 					<TextBlob cx={x} cy={y} r={radius} text={skill.name} />
 				</motion.g>
 			</motion.svg>
-		</>
 	);
 };
 

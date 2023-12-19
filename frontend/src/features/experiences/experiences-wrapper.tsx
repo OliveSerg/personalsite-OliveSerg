@@ -29,7 +29,7 @@ const ExperiencesWrapper = () => {
 			<h3 className="text-center text-2xl font-bold mb-2">
 				Languages, Frameworks, and Tools
 			</h3>
-			<p className="max-w-2xl m-auto">
+			<p className="max-w-2xl m-auto mb-4">
 				Explore the arsenal of skills that fuel my journey in software
 				development. From seamlessly orchestrating code to harnessing
 				the power of cutting-edge technologies, I specialize in crafting
