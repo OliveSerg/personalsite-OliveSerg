@@ -26,6 +26,7 @@ const SkillsList = ({ vocationSkills }: Props) => {
 							vocationSkills.includes(vocation.id) &&
 							"order-first"
 						}`}
+						transition={{ layout: { duration: 0.5 } }}
 						layout>
 						<SkillItem
 							key={vocation.id}
