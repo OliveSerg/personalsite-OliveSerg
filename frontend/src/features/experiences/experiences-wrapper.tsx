@@ -18,14 +18,14 @@ const ExperiencesWrapper = () => {
 
 	return (
 		<>
-			<h2 className="text-center text-4xl font-bold uppercase">
+			<h2 className="text-center text-4xl font-bold uppercase mb-4">
 				Professional Experiences
 			</h2>
 			<VocationsList
 				handleClick={onVocationClick}
 				vocationSkills={vocationSkills}
 			/>
-			<hr className="mb-12 mx-auto w-1/2 border-scarlet-700 border-t-2" />
+			<hr className="my-12 mx-auto w-1/2 border-scarlet-700 border-t-2" />
 			<h3 className="text-center text-2xl font-bold mb-2">
 				Languages, Frameworks, and Tools
 			</h3>

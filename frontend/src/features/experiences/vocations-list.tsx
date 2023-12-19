@@ -20,8 +20,8 @@ const VocationsList = ({ vocationSkills, handleClick }: Props) => {
 		return <div>Error: {vocationsQuery.error.message}</div>;
 
 	return (
-		<div className="container mx-auto py-8 px-6">
-			<div className="flex flex-wrap gap-4 relative justify-center">
+		<div className="container mx-auto py-8 px-6 backdrop-blur-sm rounded-lg bg-white bg-opacity-30">
+			<div className="flex flex-wrap gap-4 relative justify-center ">
 				<LayoutGroup>
 					{vocationsQuery.data
 						?.sort((cur, next) => (cur.type > next.type ? -1 : 1))
