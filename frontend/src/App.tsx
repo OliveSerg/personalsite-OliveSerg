@@ -109,6 +109,9 @@ function App() {
 				</div>
 			</section>
 			<section className="experince-skills my-20 relative ">
+				<Glow top="2%" left="" width="100%" height="500px" />
+				<Glow top="0" left="75%" width="400px" height="100px" />
+				<Glow top="70%" left="0" width="400px" height="400px" />
 				<div className="container mx-auto">
 					<ExperiencesWrapper />
 				</div>
