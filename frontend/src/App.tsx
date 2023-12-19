@@ -109,7 +109,7 @@ function App() {
 				</div>
 			</section>
 			<section className="experince-skills my-20 relative ">
-				<div className="container mx-auto backdrop-blur-sm rounded">
+				<div className="container mx-auto">
 					<ExperiencesWrapper />
 				</div>
 			</section>
