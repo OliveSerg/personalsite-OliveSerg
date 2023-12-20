@@ -1,5 +1,4 @@
 import MotionBlob from "@features/blobs/motion-blob";
-import TextBlob from "@features/blobs/text-blob";
 import { Skill } from "@features/experiences/types/skill";
 import { motion } from "framer-motion";
 
@@ -34,41 +33,23 @@ const SkillItem = ({ skill, vocationSkills }: Props) => {
 		};
 
 		blobs.push(
-			<motion.g
+			<MotionBlob
 				key={subSkill + index}
-				style={{
-					offsetPath: `path("${path}")`,
-					offsetDistance: "var(--offset)",
-					offsetRotate: "0deg",
-				}}
-				initial={{
-					"--offset": `${position}%`,
-				}}
-				animate={{
-					"--offset": `${position + offset}%`,
-				}}
+				path={path}
+				offsetDistance={position}
 				transition={transition}
-				key={index}>
+				offset={offset}>
 				<motion.circle cx={x} cy={y} r={radius / 2} fill="white" />
-			</motion.g>
+			</MotionBlob>
 		);
 
 		titles.push(
-			<motion.g
+			<MotionBlob
 				key={subSkill + index}
-				style={{
-					offsetPath: `path("${path}")`,
-					offsetDistance: "var(--offset)",
-					offsetRotate: "0deg",
-				}}
-				initial={{
-					"--offset": `${position}%`,
-				}}
-				animate={{
-					"--offset": `${position + offset}%`,
-				}}
+				path={path}
+				offsetDistance={position}
 				transition={transition}
-				key={index}>
+				offset={offset}>
 				<foreignObject
 					key={subSkill}
 					x={x - radius / 2}
@@ -82,10 +63,9 @@ const SkillItem = ({ skill, vocationSkills }: Props) => {
 						{subSkill}
 					</p>
 				</foreignObject>
-			</motion.g>
+			</MotionBlob>
 		);
 	});
-	console.log(radius);
 
 	return (
 		<motion.svg

@@ -1,22 +1,22 @@
-import { motion } from "framer-motion";
+import { Transition, motion } from "framer-motion";
 import { ReactNode } from "react";
 
 type Props = {
 	path: string;
 	offsetDistance: number;
+	transition: Transition;
+	delay: number;
+	offset: number;
 	children: ReactNode;
 };
 
-const MotionBlob = ({ path, offsetDistance, children }: Props) => {
-	const transition = {
-		duration: Math.floor(Math.random() * (15 - 10 + 1)) + 10,
-		repeat: Infinity,
-		repeatType: "reverse",
-		ease: "easeInOut",
-		delay: Math.random() * 3,
-	};
-	const offset = Math.floor(Math.random() * (25 - 15 + 1)) + 15;
-
+const MotionBlob = ({
+	path,
+	offsetDistance,
+	transition,
+	offset,
+	children,
+}: Props) => {
 	return (
 		<motion.g
 			style={{
