@@ -67,13 +67,23 @@ const SkillItem = ({ skill, vocationSkills }: Props) => {
 		);
 	});
 
+	const variants = {
+		initial: {
+			filter: "drop-shadow(0 10px 8px rgb(0 0 0 / 0.04)) drop-shadow(0 4px 3px rgb(0 0 0 / 0.1))",
+		},
+		selected: { filter: "drop-shadow(0 0 30px #ffc857)" },
+	};
+
 	return (
 		<motion.svg
 			xmlns="http://www.w3.org/2000/svg"
 			width={radius * 4}
 			height={radius * 4}
 			viewBox={`0 0 ${radius * 4} ${radius * 4}`}
-			className="overflow-visible">
+			className="overflow-visible"
+			animate={isSelected ? "selected" : "initial"}
+			transition={{ duration: 2 }}
+			variants={variants}>
 			<defs>
 				<filter id="goo">
 					<feGaussianBlur
@@ -90,10 +100,10 @@ const SkillItem = ({ skill, vocationSkills }: Props) => {
 					<feBlend in2="goo" in="SourceGraphic" result="mix" />
 				</filter>
 				<linearGradient
-					id="skills-gradient"
+					id={`gradient_${skill.id}`}
 					gradientUnits="userSpaceOnUse">
-					<stop offset="0%" stopColor="#FF9133" />
-					<stop offset="100%" stopColor="#FF0015" />
+					<stop offset="0%" className="stop-sunglow-300" />
+					<stop offset="100%" className="stop-scarlet-500" />
 				</linearGradient>
 			</defs>
 			<mask id={`mask_${skill.id}`}>
@@ -106,7 +116,7 @@ const SkillItem = ({ skill, vocationSkills }: Props) => {
 				x="0"
 				y="0"
 				mask={`url(#mask_${skill.id})`}
-				fill="url(#skills-gradient)"
+				fill={`url(#gradient_${skill.id})`}
 				width={radius * 4}
 				height={radius * 4}></rect>
 			{skill.subskills && titles}
