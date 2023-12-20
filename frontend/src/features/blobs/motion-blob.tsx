@@ -5,7 +5,6 @@ type Props = {
 	path: string;
 	offsetDistance: number;
 	transition: Transition;
-	delay: number;
 	offset: number;
 	children: ReactNode;
 };

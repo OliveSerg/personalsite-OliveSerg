@@ -25,7 +25,7 @@ const ExperiencesWrapper = () => {
 				handleClick={onVocationClick}
 				vocationSkills={vocationSkills}
 			/>
-			<hr className="my-12 mx-auto w-1/2 border-scarlet-700 border-t-2" />
+			<hr className="my-12 mx-auto w-1/2 border-scarlet-600 border-t-2" />
 			<h3 className="text-center text-2xl font-bold mb-2">
 				Languages, Frameworks, and Tools
 			</h3>

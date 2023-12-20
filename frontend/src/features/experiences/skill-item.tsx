@@ -9,7 +9,6 @@ type Props = {
 
 const SkillItem = ({ skill, vocationSkills }: Props) => {
 	const isSelected = vocationSkills.includes(skill.id);
-	const bgColour = isSelected ? "fill-sunglow-500" : "fill-scarlet-700";
 	const blobs: JSX.Element[] = [];
 	const titles: JSX.Element[] = [];
 	const commonFactor = 60 + skill.level * 15;
@@ -58,8 +57,7 @@ const SkillItem = ({ skill, vocationSkills }: Props) => {
 					height={radius}>
 					<p
 						style={{ fontSize: radius / 2 / 3 }}
-						className="flex items-center justify-center h-full leading-none text-center text-white"
-						xmlns="http://www.w3.org/1999/xhtml">
+						className="flex items-center justify-center h-full leading-none text-center text-white">
 						{subSkill}
 					</p>
 				</foreignObject>
@@ -118,7 +116,8 @@ const SkillItem = ({ skill, vocationSkills }: Props) => {
 				mask={`url(#mask_${skill.id})`}
 				fill={`url(#gradient_${skill.id})`}
 				width={radius * 4}
-				height={radius * 4}></rect>
+				height={radius * 4}
+			/>
 			{skill.subskills && titles}
 			<foreignObject
 				x={x - radius}
@@ -127,8 +126,7 @@ const SkillItem = ({ skill, vocationSkills }: Props) => {
 				height={radius * 2}>
 				<p
 					style={{ fontSize: radius / 3 }}
-					className="flex items-center justify-center h-full leading-none text-center text-white"
-					xmlns="http://www.w3.org/1999/xhtml">
+					className="flex items-center justify-center h-full leading-none text-center text-white">
 					{skill.name}
 				</p>
 			</foreignObject>
