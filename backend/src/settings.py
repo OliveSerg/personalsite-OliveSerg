@@ -44,6 +44,7 @@ INSTALLED_APPS = [
     # Modules
     'experiences',
     'contactform',
+    'authentication',
 ]
 
 CORS_ORIGIN_WHITELIST = [
