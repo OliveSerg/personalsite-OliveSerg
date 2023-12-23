@@ -45,6 +45,7 @@ INSTALLED_APPS = [
     'experiences',
     'contactform',
     'authentication',
+    'interviews',
 ]
 
 CORS_ORIGIN_WHITELIST = [
