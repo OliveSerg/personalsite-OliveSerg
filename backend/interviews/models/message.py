@@ -15,4 +15,4 @@ class Message(models.Model):
         verbose_name_plural = _("Chat Messages")
         
     def __str__(self):
-        return f"{self.conversation}: {self.id}"
+        return f"{self.interview}: {self.id}"
