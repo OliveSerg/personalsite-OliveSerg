@@ -30,7 +30,6 @@ class Migration(migrations.Migration):
         migrations.CreateModel(
             name='Message',
             fields=[
-                ('id', models.AutoField(primary_key=True, serialize=False)),
                 ('message', models.TextField()),
                 ('from_user', models.BooleanField()),
                 ('created_at', models.DateTimeField(auto_now_add=True)),
