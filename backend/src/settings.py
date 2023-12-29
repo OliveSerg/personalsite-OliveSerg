@@ -46,6 +46,7 @@ INSTALLED_APPS = [
     'contactform',
     'authentication',
     'interviews',
+    'bot_core',
 ]
 
 CORS_ORIGIN_WHITELIST = [
