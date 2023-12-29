@@ -1,79 +1,47 @@
-# This file may be used to create an environment using:
-# $ conda create --name <env> --file <this file>
-# platform: linux-64
-_libgcc_mutex=0.1=conda_forge
-_openmp_mutex=4.5=2_gnu
-aiohttp=3.9.1=pypi_0
-aiosignal=1.3.1=pypi_0
-annotated-types=0.6.0=pypi_0
-anyio=4.2.0=pypi_0
-asgiref=3.7.2=pyhd8ed1ab_0
-attrs=23.1.0=pypi_0
-backports.zoneinfo=0.2.1=py311h38be061_8
-bzip2=1.0.8=h7b6447c_0
-ca-certificates=2023.08.22=h06a4308_0
-certifi=2023.11.17=pypi_0
-charset-normalizer=3.3.2=pypi_0
-dataclasses-json=0.6.3=pypi_0
-django=4.2.7=pyhd8ed1ab_0
-django-cors-headers=4.3.0=pyhd8ed1ab_0
-django-phonenumber-field=7.2.0=pypi_0
-django-rest-framework=0.1.0=pypi_0
-djangorestframework=3.14.0=pyhd8ed1ab_0
-frozenlist=1.4.1=pypi_0
-greenlet=3.0.2=pypi_0
-idna=3.6=pypi_0
-jsonpatch=1.33=pypi_0
-jsonpointer=2.4=pypi_0
-keyutils=1.6.1=h166bdaf_0
-krb5=1.21.2=h659d440_0
-langchain=0.0.352=pypi_0
-langchain-community=0.0.6=pypi_0
-langchain-core=0.1.3=pypi_0
-langsmith=0.0.73=pypi_0
-ld_impl_linux-64=2.38=h1181459_1
-libedit=3.1.20191231=he28a2e2_2
-libffi=3.4.4=h6a678d5_0
-libgcc-ng=13.2.0=h807b86a_3
-libgomp=13.2.0=h807b86a_3
-libpq=16.1=hfc447b1_0
-libstdcxx-ng=13.2.0=h7e041cc_3
-libuuid=1.41.5=h5eee18b_0
-libzlib=1.2.13=hd590300_5
-marshmallow=3.20.1=pypi_0
-multidict=6.0.4=pypi_0
-mypy-extensions=1.0.0=pypi_0
-ncurses=6.4=h6a678d5_0
-numpy=1.26.2=pypi_0
-openssl=3.1.4=hd590300_0
-packaging=23.2=pypi_0
-phonenumberslite=8.13.25=pypi_0
-pillow=10.1.0=pypi_0
-pip=23.3=py311h06a4308_0
-psycopg=3.1.12=py311h0cfe25b_1
-psycopg-c=3.1.12=py311h03dec38_1
-psycopg2=2.9.7=py311h03dec38_1
-pydantic=2.5.2=pypi_0
-pydantic-core=2.14.5=pypi_0
-python=3.11.5=h955ad1f_0
-python_abi=3.11=2_cp311
-pytz=2023.3.post1=pyhd8ed1ab_0
-pyyaml=6.0.1=pypi_0
-readline=8.2=h5eee18b_0
-requests=2.31.0=pypi_0
-setuptools=68.0.0=py311h06a4308_0
-sniffio=1.3.0=pypi_0
-sqlalchemy=2.0.23=pypi_0
-sqlite=3.41.2=h5eee18b_0
-sqlparse=0.4.4=pyhd8ed1ab_0
-tenacity=8.2.3=pypi_0
-tk=8.6.12=h1ccaba5_0
-typing-extensions=4.8.0=hd8ed1ab_0
-typing-inspect=0.9.0=pypi_0
-typing_extensions=4.8.0=pyha770c72_0
-tzdata=2023c=h04d1e81_0
-urllib3=2.1.0=pypi_0
-wheel=0.41.2=py311h06a4308_0
-xz=5.4.2=h5eee18b_0
-yarl=1.9.4=pypi_0
-zlib=1.2.13=hd590300_5
+aiohttp==3.9.1
+aiosignal==1.3.1
+annotated-types==0.6.0
+anyio==4.2.0
+asgiref @ file:///home/conda/feedstock_root/build_artifacts/asgiref_1685243452975/work
+attrs==23.1.0
+certifi==2023.11.17
+charset-normalizer==3.3.2
+dataclasses-json==0.6.3
+Django @ file:///home/conda/feedstock_root/build_artifacts/django_1698832743720/work
+django-cors-headers @ file:///home/conda/feedstock_root/build_artifacts/django-cors-headers_1697026299595/work
+django-phonenumber-field==7.2.0
+django-rest-framework==0.1.0
+djangorestframework @ file:///home/conda/feedstock_root/build_artifacts/djangorestframework_1663854154474/work
+frozenlist==1.4.1
+greenlet==3.0.2
+idna==3.6
+jsonpatch==1.33
+jsonpointer==2.4
+langchain==0.0.352
+langchain-community==0.0.6
+langchain-core==0.1.3
+langsmith==0.0.73
+marshmallow==3.20.1
+multidict==6.0.4
+mypy-extensions==1.0.0
+numpy==1.26.2
+packaging==23.2
+pgvector==0.2.4
+phonenumberslite==8.13.25
+Pillow==10.1.0
+psycopg @ file:///home/conda/feedstock_root/build_artifacts/psycopg-split_1696017067733/work/psycopg
+psycopg-c @ file:///home/conda/feedstock_root/build_artifacts/psycopg-split_1696017067733/work/psycopg-c
+psycopg2 @ file:///home/conda/feedstock_root/build_artifacts/psycopg2-split_1697059297905/work
+pydantic==2.5.2
+pydantic_core==2.14.5
+pytz @ file:///home/conda/feedstock_root/build_artifacts/pytz_1693930252784/work
+PyYAML==6.0.1
+requests==2.31.0
+sniffio==1.3.0
+SQLAlchemy==2.0.23
+sqlparse @ file:///home/conda/feedstock_root/build_artifacts/sqlparse_1681817562700/work
+tenacity==8.2.3
+typing-inspect==0.9.0
+typing_extensions @ file:///home/conda/feedstock_root/build_artifacts/typing_extensions_1695040754690/work
+urllib3==2.1.0
+yarl==1.9.4
