@@ -7,7 +7,7 @@ from bot_core.models import Collection
 class Embedding(models.Model):
     uuid = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     collection = models.ForeignKey(Collection, default=None, on_delete=models.CASCADE)
-    embedding = VectorField(dimensions=1536)
+    embedding = VectorField(dimensions=4096)
     document = models.CharField(blank=True, null=True)
     
     class Meta:

@@ -4,7 +4,7 @@ from django.utils.translation import gettext_lazy as _
 from bot_core.models import Collection
 
 class FileUploadForm(forms.ModelForm):
-    ALLOWED_EXTENSIONS = ['txt', 'pdf', 'doc', 'docx']
+    ALLOWED_EXTENSIONS = ['txt'] # Handle other types at a later date
     file = forms.FileField(label='Upload and Process File', validators=[
         lambda file: _validate_file_type(file, FileUploadForm.ALLOWED_EXTENSIONS)
     ])
