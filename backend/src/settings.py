@@ -157,3 +157,6 @@ EMAIL_TIMEOUT = 300
 REST_FRAMEWORK = {
     'TEST_REQUEST_DEFAULT_FORMAT': 'json'
 }
+
+# Ollama Server
+OLLAMA_BASE_URL = os.environ.get('OLLAMA_BASE_URL')
