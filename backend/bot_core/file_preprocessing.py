@@ -1,11 +1,20 @@
 import os
 from django.contrib import admin
 from django.core.exceptions import ValidationError
-from bot_core.models import Embedding, Collection
 from bot_core.file_upload_form import FileUploadForm
 from langchain.text_splitter import RecursiveCharacterTextSplitter, Language
 from langchain.embeddings import OllamaEmbeddings
+from langchain.vectorstores.pgvector import PGVector
 from django.conf import settings
+
+CONNECTION_STRING = PGVector.connection_string_from_db_params(
+    driver="psycopg2",
+    host=settings.DATABASES["default"]["HOST"],
+    port=settings.DATABASES["default"]["PORT"],
+    database=settings.DATABASES["default"]["NAME"],
+    user=settings.DATABASES["default"]["USER"],
+    password=settings.DATABASES["default"]["PASSWORD"],
+)
 
 class FilePreprocessingAdmin(admin.ModelAdmin):
     form = FileUploadForm
@@ -16,7 +25,7 @@ class FilePreprocessingAdmin(admin.ModelAdmin):
             raise ValidationError("Invalid form data. Please check the form fields.")
         
         file = form.cleaned_data['file']
-        file_name, file_extension = os.path.splitext(file.name)
+        file_name, _ = os.path.splitext(file.name)
         file_content = file.read().decode('utf-8')
         
         # Split and chunk
@@ -31,11 +40,9 @@ class FilePreprocessingAdmin(admin.ModelAdmin):
               
         # Create embedding
         embedder = OllamaEmbeddings(base_url= settings.OLLAMA_BASE_URL, model='mistral')
-        embedding_vectors = embedder.embed_documents(documents)
-        print(len(embedding_vectors[0]))
-        print(len(embedding_vectors[1]))
-        collection = Collection(name = file_name, file_type = file_extension) # Use library to get mime type instead
-        for index, embedding_vector in enumerate(embedding_vectors):
-            collection.embedding_set.create(embedding = embedding_vector, document = documents[index].page_content)
-        
-        collection.save()
+        PGVector.from_documents(
+            embedding=embedder,
+            documents=documents,
+            collection_name=file_name,
+            connection_string=CONNECTION_STRING
+        )

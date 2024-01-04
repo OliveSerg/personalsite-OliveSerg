@@ -1,2 +1,2 @@
-from bot_core.models.collection import Collection
-from bot_core.models.embedding import Embedding
+from bot_core.models.collection import LangchainPgCollection
+from bot_core.models.embedding import LangchainPgEmbedding

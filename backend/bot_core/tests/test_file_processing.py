@@ -1,10 +1,9 @@
-import os
 from django.test import TestCase
 from django.contrib.auth.models import User
 from django.core.files.uploadedfile import SimpleUploadedFile
 from django.core.files.storage import default_storage
 from django.urls import reverse
-from bot_core.models.embedding import Embedding
+from bot_core.models import LangchainPgEmbedding
 
 class FileProcessingTest(TestCase):
     def setUp(self):
@@ -21,9 +20,9 @@ class FileProcessingTest(TestCase):
         })
         
         self.assertEqual(response.status_code, 302)
-        self.assertEqual(Embedding.objects.count(), 1)
+        self.assertEqual(LangchainPgEmbedding.objects.count(), 1)
         
-        embedding = Embedding.objects.first()
+        embedding = LangchainPgEmbedding.objects.first()
         self.assertEqual(embedding.document, "Test Document")
         self.assertIsInstance(embedding.embedding, )
         
@@ -37,7 +36,7 @@ class FileProcessingTest(TestCase):
         })
 
         self.assertEqual(response.status_code, 200)
-        self.assertEqual(Embedding.objects.count(), 0)
+        self.assertEqual(LangchainPgEmbedding.objects.count(), 0)
 
     def test_missing_file_upload(self):
         response = self.client.post(reverse('admin:create_embedding_from_file'), {
@@ -45,4 +44,4 @@ class FileProcessingTest(TestCase):
         })
 
         self.assertEqual(response.status_code, 200)
-        self.assertEqual(Embedding.objects.count(), 0)
+        self.assertEqual(LangchainPgEmbedding.objects.count(), 0)

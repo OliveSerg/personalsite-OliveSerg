@@ -1,7 +1,7 @@
 from django import forms
 from django.core.exceptions import ValidationError
 from django.utils.translation import gettext_lazy as _
-from bot_core.models import Collection
+from bot_core.models import LangchainPgCollection
 
 class FileUploadForm(forms.ModelForm):
     ALLOWED_EXTENSIONS = ['txt'] # Handle other types at a later date
@@ -10,7 +10,7 @@ class FileUploadForm(forms.ModelForm):
     ])
     
     class Meta:
-        model = Collection
+        model = LangchainPgCollection
         fields = ['file']
 
 def _validate_file_type(file, allowed_extensions):
