@@ -2,7 +2,7 @@ import os
 from django.contrib import admin
 from django.core.exceptions import ValidationError
 from bot_core.file_upload_form import FileUploadForm
-from langchain.text_splitter import RecursiveCharacterTextSplitter, Language
+from langchain.text_splitter import Language, MarkdownTextSplitter
 from langchain.embeddings import OllamaEmbeddings
 from langchain_community.vectorstores.pgvector import PGVector
 from django.conf import settings
@@ -22,10 +22,9 @@ class FilePreprocessingAdmin(admin.ModelAdmin):
         # Split and chunk
         # Considerations: 
         # Use basic django chunking. Convert file to html/markdown or load text to memory. Add fields for dynamic splitter variables.
-        splitter = RecursiveCharacterTextSplitter.from_language(
+        splitter = MarkdownTextSplitter(
             chunk_size=500,
-            chunk_overlap=10,
-            language=Language.MARKDOWN
+            chunk_overlap=10
         )
         documents = splitter.create_documents([file_content])   
               

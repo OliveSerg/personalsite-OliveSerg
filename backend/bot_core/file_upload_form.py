@@ -4,7 +4,7 @@ from django.utils.translation import gettext_lazy as _
 from bot_core.models import LangchainPgCollection
 
 class FileUploadForm(forms.ModelForm):
-    ALLOWED_EXTENSIONS = ['txt'] # Handle other types at a later date
+    ALLOWED_EXTENSIONS = ['txt', 'md', 'markdown'] # Handle other types at a later date
     file = forms.FileField(label='Upload and Process File', validators=[
         lambda file: _validate_file_type(file, FileUploadForm.ALLOWED_EXTENSIONS)
     ])
