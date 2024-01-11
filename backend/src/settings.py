@@ -96,6 +96,9 @@ DATABASES = {
         'PASSWORD': os.environ.get('POSTGRES_PASSWORD'),
         'HOST': os.environ.get('POSTGRES_HOST'),
         'PORT': os.environ.get('POSTGRES_PORT'),
+        'TEST': {
+            'NAME': os.environ.get('POSTGRES_TEST_NAME')
+        }
     }
 }
 
@@ -160,3 +163,4 @@ REST_FRAMEWORK = {
 
 # Ollama Server
 OLLAMA_BASE_URL = os.environ.get('OLLAMA_BASE_URL')
+OLLAMA_MODEL = 'mistral'
