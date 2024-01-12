@@ -40,8 +40,7 @@ class FileProcessingTestCase(TestCase):
         # Test if uploading a file with an invalid extension raises a validation error
         invalid_extension_file = SimpleUploadedFile("invalid_file.invalid", b"Invalid content", content_type="text/plain")
         file_upload_form = FileUploadForm(files={'file':invalid_extension_file})
-        with self.assertRaises(ValidationError):
-            file_upload_form.full_clean()
+        self.assertFalse(file_upload_form.is_valid())
         
     def test_empty_file_upload(self):
         # Upload an empty file and check if it's considered invalid
