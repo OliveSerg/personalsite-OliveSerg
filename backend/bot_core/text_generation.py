@@ -38,8 +38,8 @@ class ChatHistory(BaseModel):
 class TextGeneration():   
     def __init__(self):
         self.chat_model = ChatOllama(base_url=settings.OLLAMA_BASE_URL, model=settings.OLLAMA_MODEL)
-        self.vectorstore = PGVector.from_existing_index(
-            embedding=OllamaEmbeddings(base_url= settings.OLLAMA_BASE_URL, model=settings.OLLAMA_MODEL),
+        self.vectorstore = PGVector(
+            embedding_function=OllamaEmbeddings(base_url= settings.OLLAMA_BASE_URL, model=settings.OLLAMA_MODEL),
             connection_string=CONNECTION_STRING,
         )
         self.retriever = self.vectorstore.as_retriever()
@@ -63,10 +63,10 @@ class TextGeneration():
     
     def _build_chain(self):
         return RunnablePassthrough.assign(
-            context=self.contextualized_question | self.retriever | self._combine_documents
+            context=self._contextualized_question | self.retriever | self._combine_documents
             ) | self.response_chain_prompt | self.chat_model
         
-    def contextualized_question(self, input: dict) -> RunnableSerializable[Dict, str] | str:
+    def _contextualized_question(self, input: dict) -> RunnableSerializable[Dict, str] | str:
         if input.get("chat_history"):
             return self.question_chain_prompt | self.chat_model | StrOutputParser()
         else:

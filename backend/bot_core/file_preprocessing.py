@@ -2,7 +2,7 @@ import os
 from django.contrib import admin
 from django.core.exceptions import ValidationError
 from bot_core.file_upload_form import FileUploadForm
-from langchain.text_splitter import Language, MarkdownTextSplitter
+from langchain.text_splitter import MarkdownHeaderTextSplitter
 from langchain.embeddings import OllamaEmbeddings
 from langchain_community.vectorstores.pgvector import PGVector
 from django.conf import settings
@@ -22,11 +22,14 @@ class FilePreprocessingAdmin(admin.ModelAdmin):
         # Split and chunk
         # Considerations: 
         # Use basic django chunking. Convert file to html/markdown or load text to memory. Add fields for dynamic splitter variables.
-        splitter = MarkdownTextSplitter(
-            chunk_size=500,
-            chunk_overlap=10
+        splitter = MarkdownHeaderTextSplitter(
+            [
+                ("#", "Header 1"),
+                ("##", "Header 2"),
+                ("###", "Header 3"),
+            ]
         )
-        documents = splitter.create_documents([file_content])   
+        documents = splitter.split_text(file_content)
               
         # Create embedding
         embedder = OllamaEmbeddings(base_url= settings.OLLAMA_BASE_URL, model=settings.OLLAMA_MODEL)
