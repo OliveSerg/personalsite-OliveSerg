@@ -9,6 +9,7 @@ import { FaGithubSquare } from "react-icons/fa";
 import { FaLinkedin } from "react-icons/fa";
 import { FaEnvelope } from "react-icons/fa";
 import Glow from "@features/background-layers/glow";
+import { Tabs, Tab } from "@features/tabs";
 
 function App() {
 	return (
@@ -118,14 +119,22 @@ function App() {
 			</section>
 			<div className="projects">Project spotlight</div>
 			<div className="bg-scarlet-500 grid grid-cols-1 justify-items-center p-8">
-				<div className="max-w-screen-sm w-full p-4 bg-white rounded">
-					<h3 className="text-4xl mb-4">Drop Me a Line</h3>
-					<p className="mb-6">
-						Drop me a Line, Not a Bug! Let's Chat, Debug, and Maybe
-						Conspire on the Virtual World!
-					</p>
-					<ContactForm />
-				</div>
+				<Tabs
+					containerClassName="overflow-hidden max-w-screen-sm w-full bg-white rounded"
+					headerClassName="relative flex flex-wrap bg-black font-medium text-white"
+					contentClassName="bg-white p-4">
+					<Tab label="Contact Form">
+						<h3 className="text-4xl mb-4">Drop Me a Line</h3>
+						<p className="mb-6">
+							Drop me a Line, Not a Bug! Let's Chat, Debug, and
+							Maybe Conspire on the Virtual World!
+						</p>
+						<ContactForm />
+					</Tab>
+					<Tab label="Other Form">
+						<h3 className="text-4xl mb-4">Drop Me a Line</h3>
+					</Tab>
+				</Tabs>
 			</div>
 			<footer>
 				<span>socials</span>
