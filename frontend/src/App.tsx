@@ -10,7 +10,7 @@ import { FaLinkedin } from "react-icons/fa";
 import { FaEnvelope } from "react-icons/fa";
 import Glow from "@features/background-layers/glow";
 import { Tabs, Tab } from "@features/tabs";
-import { RegistrationForm } from "@features/mock-interview";
+import { RegistrationForm, UserProvider } from "@features/mock-interview";
 
 function App() {
 	return (
@@ -119,34 +119,37 @@ function App() {
 				</div>
 			</section>
 			<div className="projects">Project spotlight</div>
-			<div className="bg-scarlet-500 grid grid-cols-1 justify-items-center p-8">
-				<Tabs
-					containerClassName="overflow-hidden max-w-screen-sm w-full bg-white rounded"
-					headerClassName="relative flex flex-wrap bg-black font-medium text-white"
-					contentClassName="bg-white p-4">
-					<Tab label="Contact Form">
-						<h3 className="text-4xl mb-4">Drop Me a Line</h3>
-						<p className="mb-6">
-							Drop me a Line, Not a Bug! Let's Chat, Debug, and
-							Maybe Conspire on the Virtual World!
-						</p>
-						<ContactForm />
-					</Tab>
-					<Tab label="Mock Interview">
-						<h3 className="text-4xl mb-4">
-							Simulating Real-world Scenarios
-						</h3>
-						<p className="mb-6">
-							Engage in a simulated interview experience with me,
-							your handy virtual assistant. This mock interview
-							chat leverages retrieval augmented generation based
-							on my personal career experience, providing dynamic
-							and tailored insights.
-						</p>
-						<RegistrationForm />
-					</Tab>
-				</Tabs>
-			</div>
+			<UserProvider>
+				<div className="bg-scarlet-500 grid grid-cols-1 justify-items-center p-8">
+					<Tabs
+						containerClassName="overflow-hidden max-w-screen-sm w-full bg-white rounded"
+						headerClassName="relative flex flex-wrap bg-black font-medium text-white"
+						contentClassName="bg-white p-4">
+						<Tab label="Contact Form">
+							<h3 className="text-4xl mb-4">Drop Me a Line</h3>
+							<p className="mb-6">
+								Drop me a Line, Not a Bug! Let's Chat, Debug,
+								and Maybe Conspire on the Virtual World!
+							</p>
+							<ContactForm />
+						</Tab>
+						<Tab label="Mock Interview">
+							<h3 className="text-4xl mb-4">
+								Simulating Real-world Scenarios
+							</h3>
+							<p className="mb-6">
+								Engage in a simulated interview experience with
+								me, your handy virtual assistant. This mock
+								interview chat leverages retrieval augmented
+								generation based on my personal career
+								experience, providing dynamic and tailored
+								insights.
+							</p>
+							<RegistrationForm />
+						</Tab>
+					</Tabs>
+				</div>
+			</UserProvider>
 			<footer>
 				<span>socials</span>
 				<span>Name:email</span>
