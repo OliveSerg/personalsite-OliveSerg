@@ -1,4 +1,5 @@
 import { ReactNode, useState, Children, isValidElement } from "react";
+import { motion } from "framer-motion";
 
 type Props = {
 	children: ReactNode;
@@ -24,11 +25,22 @@ const Tabs = ({
 			if (isValidElement(child)) {
 				return (
 					<div
-						className={`p-2 cursor-pointer ${
-							activeTab === index ? "bg-white" : ""
+						className={`cursor-pointer relative p-2 transition ${
+							activeTab === index ? "" : "hover:text-white/60"
 						}`}
 						onClick={() => handleTabClick(index)}>
 						{child.props.label}
+						{activeTab === index && (
+							<motion.span
+								layoutId="bubble"
+								className="absolute inset-0 z-10 bg-white mix-blend-difference rounded-t"
+								transition={{
+									type: "spring",
+									bounce: 0.2,
+									duration: 0.6,
+								}}
+							/>
+						)}
 					</div>
 				);
 			}
