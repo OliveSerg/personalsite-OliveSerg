@@ -1,10 +1,11 @@
-type User = {
+export type User = {
 	name: string;
 	email: string;
 	company?: string;
+	token: string;
 };
 
-type Message = {
+export type Message = {
 	message: string;
 	formUser: boolean;
 };

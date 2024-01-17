@@ -2,6 +2,7 @@ import { RegistrationInputs } from "./types/inputs";
 import { useForm, SubmitHandler } from "react-hook-form";
 import "@features/contactform/css/index.css";
 import { authenticateUser } from "./services/auth-service";
+import { useUser } from "./user-context";
 
 const RegistrationForm = () => {
 	const {
@@ -10,18 +11,22 @@ const RegistrationForm = () => {
 		formState: { errors, isSubmitting, isSubmitSuccessful },
 		setError,
 	} = useForm<RegistrationInputs>();
+	const { setUser } = useUser();
 
-	const onSubmit: SubmitHandler<RegistrationInputs> = async (data) => {
+	const onSubmit: SubmitHandler<RegistrationInputs> = async (
+		data: RegistrationInputs
+	) => {
 		if (data.contact_me) {
 			return;
 		}
 		try {
-			const token = await authenticateUser(
-				data.name,
-				data.from_email,
-				data.company
-			);
-			console.log("Token:", token);
+			const token = await authenticateUser(data.name, data.from_email);
+			setUser({
+				name: data.name,
+				email: data.from_email,
+				company: data.company,
+				token: token,
+			});
 		} catch (error) {
 			const err = error as Error;
 			setError("root.api_error", {
