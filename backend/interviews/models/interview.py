@@ -14,3 +14,21 @@ class Interview(models.Model):
     
     def __str__(self) -> str:
         return f"{self.user}:{self.created_at}"
+    
+    def get_message_tuples(self):
+        messages = self.messages.all()
+        formatted_messages = []
+
+        # Should always start with human message
+        for i in range(0, len(messages), 2):
+            if i + 1 < len(messages):
+                if messages[i].from_user:
+                    human_message = messages[i].message
+                    ai_message = messages[i + 1].message        
+                else:
+                    ai_message = messages[i].message
+                    human_message = messages[i + 1].message
+                    
+                formatted_messages.append((human_message, ai_message))
+
+        return formatted_messages

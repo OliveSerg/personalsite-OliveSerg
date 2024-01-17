@@ -7,6 +7,8 @@ class MessageSerializer(serializers.ModelSerializer):
         fields = '__all__'
 
 class InterviewSerializer(serializers.ModelSerializer):
+    messages = MessageSerializer(many=True, read_only=True)
+    
     class Meta:
         model= Interview
         fields= '__all__'
