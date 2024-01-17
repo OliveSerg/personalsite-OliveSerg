@@ -13,7 +13,8 @@ export const authenticateUser = async (
 
 		return await registerUser(name, email);
 	} catch (error) {
-		throw new Error(`Authentication failed: ${error.message}`);
+		const err = error as Error;
+		throw new Error(`Authentication failed: ${err.message}`);
 	}
 };
 
@@ -53,6 +54,7 @@ const registerUser = async (name: string, email: string): Promise<string> => {
 
 		return response.token;
 	} catch (error) {
-		throw new Error(`Registration failed: ${error.message}`);
+		const err = error as Error;
+		throw new Error(`Registration failed: ${err.message}`);
 	}
 };

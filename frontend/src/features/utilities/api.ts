@@ -11,6 +11,7 @@ export const fetchApiResponse = async <T>(
 
 		return await response.json();
 	} catch (error) {
-		throw new Error(`Error fetching data: ${error.message}`);
+		const err = error as Error;
+		throw new Error(`Error fetching data: ${err.message}`);
 	}
 };
