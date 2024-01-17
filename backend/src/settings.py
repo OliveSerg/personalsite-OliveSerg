@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     # Imports
     'corsheaders',
     'rest_framework',
+    'rest_framework.authtoken',
     'phonenumber_field',
     # Modules
     'experiences',
