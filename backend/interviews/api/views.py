@@ -17,7 +17,7 @@ class InterviewChat(APIView):
             serializer = InterviewSerializer(interview)
             return Response(serializer.data, status=status.HTTP_200_OK)
         except Interview.DoesNotExist:
-            serializer = InterviewSerializer(data={"user": request.user.pk, "company": request.query_params["company"]})
+            serializer = InterviewSerializer(data={"user": request.user.pk, "company": request.query_params.get("company")})
             if serializer.is_valid():
                 serializer.save()
                 return Response(serializer.data, status=status.HTTP_201_CREATED)
