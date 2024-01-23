@@ -1,5 +1,5 @@
 import { createContext, useContext, ReactNode, useState } from "react";
-import { User } from "./types/interview";
+import { User } from "./types/user";
 
 type Props = {
 	children: ReactNode;

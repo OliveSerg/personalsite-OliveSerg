@@ -4,8 +4,3 @@ export type User = {
 	company?: string;
 	token: string;
 };
-
-export type Message = {
-	message: string;
-	formUser: boolean;
-};
