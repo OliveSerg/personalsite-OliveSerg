@@ -1,11 +1,11 @@
 import { fetchApiResponse } from "@features/utilities/api";
-import { Message } from "@features/chat/types/interviews";
+import { Interview } from "../types/interview";
 
-export const fetchChatHistory = async (token: string): Promise<Message[]> => {
+export const fetchChatHistory = async (token: string): Promise<Interview> => {
 	try {
-		const response = await fetchApiResponse<Message[]>("interviews", {
+		const response = await fetchApiResponse<Interview[]>("interviews", {
 			headers: {
-				Authorization: `Bearer ${token}`,
+				Authorization: `Token ${token}`,
 			},
 		});
 

@@ -11,7 +11,7 @@ import { FaEnvelope } from "react-icons/fa";
 import Glow from "@features/background-layers/glow";
 import { Tabs, Tab } from "@features/tabs";
 import { RegistrationForm, UserProvider } from "@features/user-auth";
-import { ChatWindow } from "./chat/chat-window";
+import ChatWindow from "./chat/chat-window";
 
 function App() {
 	return (
