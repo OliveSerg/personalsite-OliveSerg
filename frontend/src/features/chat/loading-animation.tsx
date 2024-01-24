@@ -25,15 +25,15 @@ const loadingCircleVariants = {
 };
 
 const loadingCircleTransition = {
-	duration: 0.5,
-	yoyo: Infinity,
-	ease: "easeInOut",
+	duration: 0.75,
+	repeat: Infinity,
+	repeatType: "reverse",
 };
 
 const LoadingAnimation = () => {
 	return (
 		<motion.div
-			className="flex w-10 h-5 justify-around"
+			className="flex w-10 h-4 justify-around mx-auto"
 			variants={loadingContainerVariants}
 			initial="start"
 			animate="end">
