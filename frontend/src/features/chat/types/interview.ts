@@ -1,6 +1,7 @@
 export type Message = {
+	id: number;
 	message: string;
-	fromUser: boolean;
+	from_user: boolean;
 };
 
 export type Interview = {
