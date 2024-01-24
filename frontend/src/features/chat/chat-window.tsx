@@ -1,7 +1,7 @@
 import { useUser } from "@features/user-auth";
 import { useEffect, useState } from "react";
-import { Message, Interview } from "./types/interview";
-import { fetchChatHistory } from "./services/chat-service";
+import { Message } from "./types/interview";
+import { fetchAIResponse, fetchChatHistory } from "./services/chat-service";
 import { useForm, SubmitHandler } from "react-hook-form";
 import MessageComponent from "./message-component";
 
@@ -12,7 +12,7 @@ type MessageInput = {
 
 const ChatWindow = () => {
 	const { user } = useUser();
-	const [chatHistory, setChatHistory] = useState<Interview>();
+	const [chatHistory, setChatHistory] = useState<Message[]>([]);
 	const {
 		register,
 		handleSubmit,
@@ -23,7 +23,14 @@ const ChatWindow = () => {
 	const onSubmit: SubmitHandler<MessageInput> = async (
 		data: MessageInput
 	) => {
+		if (data.message_me || !user?.token) {
+			return;
+		}
 		try {
+			const message = await fetchAIResponse(data.message, user?.token);
+			console.log(message);
+
+			setChatHistory([message, ...chatHistory]);
 		} catch (error) {
 			const err = error as Error;
 			setError("root.api_error", {
@@ -36,12 +43,10 @@ const ChatWindow = () => {
 		const fetchChatData = async () => {
 			try {
 				if (user?.token) {
-					console.log(user.token);
-
 					const history = await fetchChatHistory(user.token);
 					console.log(history);
 
-					setChatHistory(history);
+					setChatHistory(history.messages);
 				}
 			} catch (error) {
 				const err = error as Error;
@@ -83,7 +88,7 @@ const ChatWindow = () => {
 								message="Hello and welcome! Thank you for trying out this AI interview bot. Try asking an interview-style question about me, and I will answer it to the best of my ability."
 								fromUser={false}
 							/>
-							{chatHistory?.messages.map((message: Message) => (
+							{chatHistory?.map((message: Message) => (
 								<MessageComponent {...message} />
 							))}
 						</div>

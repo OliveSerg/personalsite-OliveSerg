@@ -1,6 +1,6 @@
 export type Message = {
 	message: string;
-	formUser: boolean;
+	fromUser: boolean;
 };
 
 export type Interview = {
