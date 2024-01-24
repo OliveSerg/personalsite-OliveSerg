@@ -66,9 +66,9 @@ const ChatWindow = () => {
 			<div className="fixed inset-0 z-10 w-screen">
 				<div className="flex min-h-full justify-center items-center">
 					<div className="relative transform overflow-hidden rounded-lg bg-white shadow-xl transition-all mx-4 p-4 w-full max-w-2xl sm:m-8">
-						<div className="flex relative h-auto min-h-[75vh] rounded-lg bg-gray-100 mb-4 p-4 overflow-y-auto">
+						<div className="flex relative h-auto min-h-[75vh] flex-col justify-end rounded-lg bg-gray-100 mb-4 p-4 overflow-y-auto">
 							{errors.root?.api_error && (
-								<div className="col-span-full mb-3">
+								<div className="absolute top-0 left-0 w-full mb-3">
 									<p className="text-red-500 text-sm italic">
 										Oops! It seems like there's a bug in
 										sending your request. Double-check and
@@ -79,16 +79,13 @@ const ChatWindow = () => {
 									</p>
 								</div>
 							)}
-							{chatHistory?.messages.length ? (
-								chatHistory.messages.map((message: Message) => (
-									<MessageComponent {...message} />
-								))
-							) : (
-								<MessageComponent
-									message="This chat is empty"
-									fromUser={false}
-								/>
-							)}
+							<MessageComponent
+								message="Hello and welcome! Thank you for trying out this AI interview bot. Try asking an interview-style question about me, and I will answer it to the best of my ability."
+								fromUser={false}
+							/>
+							{chatHistory?.messages.map((message: Message) => (
+								<MessageComponent {...message} />
+							))}
 						</div>
 						<form
 							className="flex items-center justify-center w-full space-x-2"
