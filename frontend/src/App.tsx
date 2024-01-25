@@ -123,9 +123,9 @@ function App() {
 				</div>
 			</section>
 			<UserProvider>
-				<div className="bg-scarlet-500 grid grid-cols-1 justify-items-center p-8">
+				<div className="faded-gradient grid grid-cols-1 justify-items-center p-8">
 					<Tabs
-						containerClassName="overflow-hidden max-w-screen-sm w-full bg-white rounded"
+						containerClassName="z-10 overflow-hidden max-w-screen-sm w-full bg-white rounded"
 						headerClassName="relative flex flex-wrap bg-black font-medium text-white"
 						contentClassName="bg-white p-4">
 						<Tab label="Contact Form">
