@@ -122,7 +122,6 @@ function App() {
 					<ExperiencesWrapper />
 				</div>
 			</section>
-			<div className="projects">Project spotlight</div>
 			<UserProvider>
 				<div className="bg-scarlet-500 grid grid-cols-1 justify-items-center p-8">
 					<Tabs
@@ -158,10 +157,11 @@ function App() {
 					setIsModalOpen={setIsModalOpen}
 				/>
 			</UserProvider>
-			<footer>
-				<span>socials</span>
-				<span>Name:email</span>
-				<span>other</span>
+			<footer className="flex justify-around bg-gradient-to-r from-sunglow-300 to-scarlet-500 p-8">
+				<span className="text-center font-medium text-white">
+					Developed by Sergio Oliveira <br /> 3D art by Michael
+					Oliveira
+				</span>
 			</footer>
 		</div>
 	);
