@@ -86,17 +86,33 @@ const ChatWindow = () => {
 			aria-modal="true"
 			aria-hidden={user?.token ? "true" : "false"}>
 			<div className="flex relative flex-col rounded-lg bg-white shadow-xl transition-all p-4 w-full max-w-2xl">
+				<div className="text-2xl font-bold mb-3">
+					<p>Interview with {user?.company ?? user?.name}</p>
+				</div>
 				<div className="relative rounded-lg bg-gray-100 mb-4 p-4">
-					{errors.root?.api_error && (
-						<div className="absolute inset-0 w-full">
-							<p className="text-red-500 text-sm italic">
-								Oops! It seems like there's a bug in sending
-								your request. Double-check and try again, or
-								send a carrier pigeon as a backup. If the
-								problem persists, contact your friendly
-								neighborhood developer (that's me!) for
-								assistance.
-							</p>
+					{(errors.root?.api_error || isSubmitting) && (
+						<div className="absolute inset-0 w-full z-10">
+							{errors.root?.api_error && (
+								<p className="text-white font-medium text-sm italic px-4 py-2 bg-red-500">
+									Oops! It seems like there's a bug in sending
+									your request. Double-check and try again, or
+									send a carrier pigeon as a backup. If the
+									problem persists, contact your friendly
+									neighborhood developer (that's me!) for
+									assistance.
+								</p>
+							)}
+							{isSubmitting && (
+								<p className="text-white font-medium text-sm italic px-4 py-2 bg-slate-900">
+									<span className="font-bold">
+										This may take while!
+									</span>{" "}
+									You see servers are expensive and AI models
+									are costly, so this is fetching to a server
+									powered by Nibbles... the rabbit. So please
+									be patient, Nibbles is doing their best.
+								</p>
+							)}
 						</div>
 					)}
 					<div
