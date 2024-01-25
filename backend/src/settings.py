@@ -40,10 +40,14 @@ INSTALLED_APPS = [
     # Imports
     'corsheaders',
     'rest_framework',
+    'rest_framework.authtoken',
     'phonenumber_field',
     # Modules
     'experiences',
     'contactform',
+    'authentication',
+    'interviews',
+    'bot_core',
 ]
 
 CORS_ORIGIN_WHITELIST = [
@@ -93,6 +97,9 @@ DATABASES = {
         'PASSWORD': os.environ.get('POSTGRES_PASSWORD'),
         'HOST': os.environ.get('POSTGRES_HOST'),
         'PORT': os.environ.get('POSTGRES_PORT'),
+        'TEST': {
+            'NAME': os.environ.get('POSTGRES_TEST_NAME')
+        }
     }
 }
 
@@ -154,3 +161,7 @@ EMAIL_TIMEOUT = 300
 REST_FRAMEWORK = {
     'TEST_REQUEST_DEFAULT_FORMAT': 'json'
 }
+
+# Ollama Server
+OLLAMA_BASE_URL = os.environ.get('OLLAMA_BASE_URL')
+OLLAMA_MODEL = 'mistral'
