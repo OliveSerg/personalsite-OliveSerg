@@ -26,7 +26,7 @@ const ChatWindow = () => {
 	const onSubmit: SubmitHandler<MessageInput> = async (
 		data: MessageInput
 	) => {
-		if (data.message_me || !user?.token) {
+		if (data.message_me || !user?.token || isSubmitting) {
 			return;
 		}
 		addChatMessage({
@@ -87,7 +87,10 @@ const ChatWindow = () => {
 			aria-hidden={user?.token ? "true" : "false"}>
 			<div className="flex relative flex-col rounded-lg bg-white shadow-xl transition-all p-4 w-full max-w-2xl">
 				<div className="text-2xl font-bold mb-3">
-					<p>Interview with {user?.company ?? user?.name}</p>
+					<p>
+						Interview with{" "}
+						{user?.company?.length ? user?.company : user?.name}
+					</p>
 				</div>
 				<div className="relative rounded-lg bg-gray-100 mb-4 p-4">
 					{(errors.root?.api_error || isSubmitting) && (
@@ -125,7 +128,7 @@ const ChatWindow = () => {
 					</div>
 				</div>
 				<form
-					className="flex items-center justify-center w-full space-x-2"
+					className="flex items-center justify-center w-full"
 					action={import.meta.env.VITE_API_URL + "interviews/"}
 					onSubmit={handleSubmit(onSubmit)}
 					method="POST">
@@ -137,7 +140,7 @@ const ChatWindow = () => {
 						className="hidden"
 						{...register("message_me")}
 					/>
-					<div className="w-full">
+					<div className="w-full mr-2">
 						<input
 							type="text"
 							placeholder="Your message"

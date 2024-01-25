@@ -20,6 +20,7 @@ const RegistrationForm = () => {
 		}
 		try {
 			const token = await authenticateUser(data.name, data.from_email);
+
 			setUser({
 				name: data.name,
 				email: data.from_email,
