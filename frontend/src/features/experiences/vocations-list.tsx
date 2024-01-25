@@ -18,13 +18,13 @@ const VocationsList = ({ vocationSkills, handleClick }: Props) => {
 	if (vocationsQuery.isLoading) return <div>Loading...</div>;
 	if (vocationsQuery.error)
 		return <div>Error: {vocationsQuery.error.message}</div>;
-
+	const vocations = vocationsQuery.data as Array<Vocation>;
 	return (
 		<div className="container mx-auto py-8 px-6 backdrop-blur-sm rounded-lg bg-white bg-opacity-30">
 			<div className="flex flex-wrap gap-4 relative justify-center ">
 				<LayoutGroup>
-					{vocationsQuery.data
-						?.sort((cur, next) => (cur.type > next.type ? -1 : 1))
+					{vocations
+						.sort((cur, next) => (cur.type > next.type ? -1 : 1))
 						.map((vocation: Vocation) => (
 							<VocationItem
 								key={vocation.id}

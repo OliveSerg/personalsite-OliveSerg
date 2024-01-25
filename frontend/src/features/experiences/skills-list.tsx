@@ -16,10 +16,11 @@ const SkillsList = ({ vocationSkills }: Props) => {
 
 	if (skillsQuery.isLoading) return <div>Loading...</div>;
 	if (skillsQuery.error) return <div>Error: {skillsQuery.error.message}</div>;
+	const skills = skillsQuery.data as Array<Skill>;
 
 	return (
 		<div className="container mx-auto relative min-h-[50vh] flex flex-wrap justify-center">
-			{skillsQuery.data?.map((vocation: Skill) => (
+			{skills.map((vocation: Skill) => (
 				<LayoutGroup key={vocation.id}>
 					<motion.div
 						className={`${
