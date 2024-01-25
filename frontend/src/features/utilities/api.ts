@@ -1,7 +1,7 @@
 export const fetchApiResponse = async <T>(
 	path: string,
 	init?: RequestInit | undefined
-): Promise<T[]> => {
+): Promise<T | T[]> => {
 	try {
 		const response = await fetch(import.meta.env.VITE_API_URL + path, init);
 

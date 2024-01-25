@@ -8,6 +8,9 @@ export const fetchChatHistory = async (token: string): Promise<Interview> => {
 				Authorization: `Token ${token}`,
 			},
 		});
+		if (Array.isArray(response)) {
+			return response[0];
+		}
 
 		return response;
 	} catch (error) {
@@ -29,6 +32,9 @@ export const fetchAIResponse = async (
 			},
 			body: JSON.stringify({ message: message }),
 		});
+		if (Array.isArray(response)) {
+			return response[0];
+		}
 
 		return response;
 	} catch (error) {

@@ -1,5 +1,9 @@
 import { fetchApiResponse } from "@features/utilities/api";
 
+type Token = {
+	token: string;
+};
+
 export const authenticateUser = async (
 	name: string,
 	email: string
@@ -23,13 +27,16 @@ const fetchAuthToken = async (
 	email: string
 ): Promise<string | null> => {
 	try {
-		const response = await fetchApiResponse<string>("get-auth", {
+		const response = await fetchApiResponse<Token>("get-auth", {
 			method: "POST",
 			headers: {
 				"Content-Type": "application/json",
 			},
 			body: JSON.stringify({ username: email, password: name }),
 		});
+		if (Array.isArray(response)) {
+			return response[0].token;
+		}
 
 		return response.token;
 	} catch (error) {
@@ -40,7 +47,7 @@ const fetchAuthToken = async (
 
 const registerUser = async (name: string, email: string): Promise<string> => {
 	try {
-		const response = await fetchApiResponse<string>("register", {
+		const response = await fetchApiResponse<Token>("register", {
 			method: "POST",
 			headers: {
 				"Content-Type": "application/json",
@@ -51,6 +58,9 @@ const registerUser = async (name: string, email: string): Promise<string> => {
 				email: email,
 			}),
 		});
+		if (Array.isArray(response)) {
+			return response[0].token;
+		}
 
 		return response.token;
 	} catch (error) {

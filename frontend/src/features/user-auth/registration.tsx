@@ -97,7 +97,7 @@ const RegistrationForm = ({ setIsModalOpen }: Props) => {
 			<input
 				type="checkbox"
 				value="1"
-				tabIndex="-1"
+				tabIndex={-1}
 				autoComplete="off"
 				className="hidden"
 				{...register("contact_me")}
