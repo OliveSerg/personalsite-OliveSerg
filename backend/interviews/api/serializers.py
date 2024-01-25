@@ -11,4 +11,4 @@ class InterviewSerializer(serializers.ModelSerializer):
     
     class Meta:
         model= Interview
-        fields= ['updated_at','created_at','messages']
+        fields= ['user', 'company', 'updated_at','created_at','messages']

@@ -10,5 +10,5 @@ class AuthView(APIView):
         if serializer.is_valid(raise_exception=True):
             user = serializer.save()
             token = Token.objects.get_or_create(user=user)
-            return Response(token.key, status=status.HTTP_201_CREATED)
+            return Response({'token': token[0].key}, status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
