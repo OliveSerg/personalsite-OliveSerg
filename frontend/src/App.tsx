@@ -12,8 +12,11 @@ import Glow from "@features/background-layers/glow";
 import { Tabs, Tab } from "@features/tabs";
 import { RegistrationForm, UserProvider } from "@features/user-auth";
 import ChatWindow from "./features/chat/chat-window";
+import { useState } from "react";
 
 function App() {
+	const [isModalOpen, setIsModalOpen] = useState(false);
+
 	return (
 		<div className="relative overflow-hidden">
 			<DiagonalLine
@@ -146,11 +149,14 @@ function App() {
 								experience, providing dynamic and tailored
 								insights.
 							</p>
-							<RegistrationForm />
+							<RegistrationForm setIsModalOpen={setIsModalOpen} />
 						</Tab>
 					</Tabs>
 				</div>
-				<ChatWindow />
+				<ChatWindow
+					isModalOpen={isModalOpen}
+					setIsModalOpen={setIsModalOpen}
+				/>
 			</UserProvider>
 			<footer>
 				<span>socials</span>

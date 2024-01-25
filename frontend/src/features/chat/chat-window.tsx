@@ -11,7 +11,12 @@ type MessageInput = {
 	message_me: boolean;
 };
 
-const ChatWindow = () => {
+type Props = {
+	isModalOpen: boolean;
+	setIsModalOpen: React.Dispatch<React.SetStateAction<boolean>>;
+};
+
+const ChatWindow = ({ isModalOpen = true, setIsModalOpen }: Props) => {
 	const { user } = useUser();
 	const [chatHistory, setChatHistory] = useState<Message[]>([]);
 	const {
@@ -79,7 +84,7 @@ const ChatWindow = () => {
 	return (
 		<div
 			className={`fixed inset-0 z-50 h-full w-full justify-center items-center space-x-4 bg-gray-500 bg-opacity-75 transition-opacity overflow-y-auto overflow-x-hidden outline-none ${
-				user?.token ? "flex" : "hidden"
+				user?.token && isModalOpen ? "flex" : "hidden"
 			}`}
 			aria-labelledby="modal-chat"
 			role="dialog"
@@ -91,6 +96,11 @@ const ChatWindow = () => {
 						Interview with{" "}
 						{user?.company?.length ? user?.company : user?.name}
 					</p>
+					<button
+						onClick={() => setIsModalOpen(false)}
+						className="absolute top-2 right-2 p-2 z-50 text-2xl font-bold hover:text-gray-700 focus:outline-none">
+						X
+					</button>
 				</div>
 				<div className="relative rounded-lg bg-gray-100 mb-4 p-4">
 					{(errors.root?.api_error || isSubmitting) && (
@@ -111,9 +121,10 @@ const ChatWindow = () => {
 										This may take while!
 									</span>{" "}
 									You see servers are expensive and AI models
-									are costly, so this is fetching to a server
-									powered by Nibbles... the rabbit. So please
-									be patient, Nibbles is doing their best.
+									are costly, so this message is sending to a
+									server powered by Nibbles... the rabbit. So
+									please be patient, Nibbles is doing their
+									best.
 								</p>
 							)}
 						</div>

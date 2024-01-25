@@ -3,7 +3,11 @@ import { useForm, SubmitHandler } from "react-hook-form";
 import { authenticateUser } from "./services/auth-service";
 import { useUser } from "./user-context";
 
-const RegistrationForm = () => {
+type Props = {
+	setIsModalOpen: React.Dispatch<React.SetStateAction<boolean>>;
+};
+
+const RegistrationForm = ({ setIsModalOpen }: Props) => {
 	const {
 		register,
 		handleSubmit,
@@ -20,7 +24,7 @@ const RegistrationForm = () => {
 		}
 		try {
 			const token = await authenticateUser(data.name, data.from_email);
-
+			setIsModalOpen(true);
 			setUser({
 				name: data.name,
 				email: data.from_email,
@@ -34,6 +38,17 @@ const RegistrationForm = () => {
 			});
 		}
 	};
+
+	if (isSubmitSuccessful) {
+		return (
+			<button
+				className="active:bg-scarlet-600 hover:shadow-lg focus:outline-none px-6 py-3 text-sm font-bold text-white uppercase transition-all duration-150 ease-linear bg-scarlet-500 rounded shadow outline-none"
+				type="button"
+				onClick={() => setIsModalOpen(true)}>
+				Return to Interview
+			</button>
+		);
+	}
 
 	if (isSubmitting) {
 		return (
