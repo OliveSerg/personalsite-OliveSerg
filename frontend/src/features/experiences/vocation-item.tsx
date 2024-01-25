@@ -7,7 +7,7 @@ type Props = {
 	selectedId: number;
 };
 
-const VOCATION_TYPES = {
+const VOCATION_TYPES: { [index: string]: { text: string; bgColor: string } } = {
 	NONP: {
 		text: "non-profit",
 		bgColor: "bg-scarlet-400",

@@ -20,7 +20,7 @@ const SkillsList = ({ vocationSkills }: Props) => {
 	return (
 		<div className="container mx-auto relative min-h-[50vh] flex flex-wrap justify-center">
 			{skillsQuery.data?.map((vocation: Skill) => (
-				<LayoutGroup>
+				<LayoutGroup key={vocation.id}>
 					<motion.div
 						className={`${
 							vocationSkills.includes(vocation.id) &&
@@ -29,7 +29,6 @@ const SkillsList = ({ vocationSkills }: Props) => {
 						transition={{ layout: { duration: 0.5 } }}
 						layout>
 						<SkillItem
-							key={vocation.id}
 							skill={vocation}
 							vocationSkills={vocationSkills}
 						/>

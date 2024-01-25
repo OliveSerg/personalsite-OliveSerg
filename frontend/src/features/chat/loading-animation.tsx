@@ -27,7 +27,7 @@ const loadingCircleVariants = {
 const loadingCircleTransition = {
 	duration: 0.75,
 	repeat: Infinity,
-	repeatType: "reverse",
+	repeatType: "reverse" as const,
 };
 
 const LoadingAnimation = () => {

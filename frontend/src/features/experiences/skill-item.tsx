@@ -21,12 +21,12 @@ const SkillItem = ({ skill, vocationSkills }: Props) => {
 	)} 0 A 1 1 0 0 0 ${radius + offset} 0`;
 
 	skill.subskills?.forEach((subSkill, index) => {
-		const position = (index / skill.subskills.length) * 100;
+		const position = (index / (skill.subskills?.length ?? 1)) * 100;
 		const offset = Math.floor(Math.random() * (25 - 15 + 1)) + 15;
 		const transition = {
 			duration: Math.floor(Math.random() * (15 - 10 + 1)) + 10,
 			repeat: Infinity,
-			repeatType: "reverse",
+			repeatType: "reverse" as const,
 			ease: "easeInOut",
 			delay: Math.random() * 3,
 		};
