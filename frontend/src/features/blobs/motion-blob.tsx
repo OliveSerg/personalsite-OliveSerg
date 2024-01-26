@@ -23,7 +23,9 @@ const MotionBlob = ({
 				offsetDistance: "var(--offset)",
 				offsetRotate: "0deg",
 			}}
+			//@ts-ignore
 			initial={{ "--offset": `${offsetDistance}%` }}
+			//@ts-ignore
 			animate={{ "--offset": `${offsetDistance + offset}%` }}
 			transition={transition}>
 			{children}
