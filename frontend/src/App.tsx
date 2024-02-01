@@ -1,5 +1,5 @@
-import SLogo from "./assets/S img.svg";
-import OLogo from "./assets/O img.svg";
+import SLogo from "./assets/S_img.svg";
+import OLogo from "./assets/O_img.svg";
 import "./App.css";
 import ExperiencesWrapper from "@features/experiences/experiences-wrapper";
 import ContactForm from "@features/contactform/contact-form";
