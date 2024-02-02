@@ -49,9 +49,7 @@ INSTALLED_APPS = [
     'bot_core',
 ]
 
-CORS_ORIGIN_WHITELIST = [
-    'http://localhost:3000'
-]
+CORS_ALLOWED_ORIGINS = os.environ.get("CORS_ALLOWED_ORIGINS", "").split(" ")
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
