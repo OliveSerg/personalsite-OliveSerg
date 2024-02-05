@@ -25,6 +25,8 @@ const VOCATION_TYPES: { [index: string]: { text: string; bgColor: string } } = {
 const VocationItem = ({ vocation, handleClick, selectedId }: Props) => {
 	const isSelected = selectedId === vocation.id;
 
+	const vocationLogo = vocation.logo.split("/").slice(-1)[0];
+
 	return (
 		<motion.div
 			className={`relative cursor-pointer overflow-hidden p-6 w-auto backdrop-blur-sm rounded-lg bg-white ${
@@ -37,7 +39,7 @@ const VocationItem = ({ vocation, handleClick, selectedId }: Props) => {
 			layout>
 			<div className="max-w-3xl m-auto">
 				<motion.img
-					src={vocation.logo}
+					src={`/images/${vocationLogo}`}
 					alt={vocation.company}
 					className="w-36 h-16 object-contain"
 					transition={{
