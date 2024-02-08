@@ -1,9 +1,9 @@
-import os
 from django.contrib import admin
 from django.core.exceptions import ValidationError
 from bot_core.file_upload_form import FileUploadForm
 from langchain.text_splitter import MarkdownHeaderTextSplitter
-from langchain.embeddings import OllamaEmbeddings
+from langchain_community.embeddings import HuggingFaceInferenceAPIEmbeddings
+from langchain_community.embeddings import HuggingFaceHubEmbeddings
 from langchain_community.vectorstores.pgvector import PGVector
 from django.conf import settings
 from bot_core.pgvector_settings import CONNECTION_STRING
@@ -32,7 +32,7 @@ class FilePreprocessingAdmin(admin.ModelAdmin):
         documents = splitter.split_text(file_content)
               
         # Create embedding
-        embedder = OllamaEmbeddings(base_url= settings.OLLAMA_BASE_URL, model=settings.OLLAMA_MODEL)
+        embedder = HuggingFaceHubEmbeddings()
         PGVector.from_documents(
             embedding=embedder,
             documents=documents,

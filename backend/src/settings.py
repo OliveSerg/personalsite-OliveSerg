@@ -159,6 +159,7 @@ REST_FRAMEWORK = {
     'TEST_REQUEST_DEFAULT_FORMAT': 'json'
 }
 
-# Ollama Server
-OLLAMA_BASE_URL = os.environ.get('OLLAMA_BASE_URL')
-OLLAMA_MODEL = 'mistral'
+# HuggingFace Config
+
+HUGGINGFACEHUB_API_TOKEN = os.environ.get('HUGGING_FACE_HUB_TOKEN')
+HUGGINGFACE_REPO_ID = 'HuggingFaceH4/zephyr-7b-beta'

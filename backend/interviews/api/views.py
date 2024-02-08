@@ -44,7 +44,7 @@ class InterviewChat(APIView):
         chat_history = interview.get_message_tuples()
         response = TextGeneration().generate_response(question=message_serialized.data['message'], chat_history=chat_history)
         message = {"interview": interview.pk,
-                   "message": response.content,
+                   "message": response,
                    "from_user": False}
         
         ai_message_serialized = MessageSerializer(data=message)
