@@ -78,11 +78,10 @@ class TextGeneration():
     
     def _build_chain(self) -> BasePromptTemplate:
         _search_query = RunnableBranch(
-        # If input includes chat_history, we condense it with the follow-up question
         (
             RunnableLambda(lambda x: bool(x.get("chat_history"))).with_config(
                 run_name="HasChatHistoryCheck"
-            ),  # Condense follow-up question and chat into a standalone_question
+            ),
             RunnablePassthrough.assign(
                 chat_history=lambda x: self._format_chat_history(x["chat_history"])
             )
@@ -90,7 +89,6 @@ class TextGeneration():
             | self.chat_model
             | StrOutputParser(),
         ),
-            # Else, we have no chat history, so just pass through the question
             RunnableLambda(itemgetter("question")),
         )
 
