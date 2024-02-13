@@ -23,7 +23,7 @@ type GLTFResult = GLTF & {
 	};
 };
 
-export function Model(props: JSX.IntrinsicElements["group"]) {
+const Model = (props: JSX.IntrinsicElements["group"]) => {
 	const model = useRef();
 	const { nodes, materials, animations } = useGLTF(
 		"/3d/Amazon danbo.glb"
@@ -80,7 +80,7 @@ export function Model(props: JSX.IntrinsicElements["group"]) {
 			</group>
 		</group>
 	);
-}
+};
 
 useGLTF.preload("/3d/Amazon danbo.glb");
 export default Model;
