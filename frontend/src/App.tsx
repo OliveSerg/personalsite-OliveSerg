@@ -12,7 +12,11 @@ import Glow from "@features/background-layers/glow";
 import { Tabs, Tab } from "@features/tabs";
 import { RegistrationForm, UserProvider } from "@features/user-auth";
 import ChatWindow from "./features/chat/chat-window";
-import { useState } from "react";
+import { Suspense, useState } from "react";
+import { Canvas } from "@react-three/fiber";
+import Model from "@features/virtual-assistant/model";
+import { VirtualAssistantProvider } from "@features/virtual-assistant/model-context";
+import { Environment } from "@react-three/drei";
 
 function App() {
 	const [isModalOpen, setIsModalOpen] = useState(false);
@@ -107,11 +111,14 @@ function App() {
 							possibilities of code!
 						</p>
 					</div>
-					<img
-						src=""
-						className="col-span-12 md:col-span-5"
-						alt="Avatar"
-					/>
+					<VirtualAssistantProvider>
+						<Canvas>
+							<Suspense fallback={null}>
+								<ambientLight />
+								<Model />
+							</Suspense>
+						</Canvas>
+					</VirtualAssistantProvider>
 				</div>
 			</section>
 			<section className="experince-skills my-20 relative ">
