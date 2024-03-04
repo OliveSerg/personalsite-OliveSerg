@@ -19,7 +19,7 @@ type VirtualAssistantState = {
 
 type VirtualAssistantAction = {
 	pushAnimation: (animation: AnimationEvent) => void;
-	popAnimation: (animationIndex: number) => void;
+	popAnimation: () => void;
 };
 
 type ContextType = {
@@ -31,7 +31,7 @@ const VirtualAssistantContext = createContext<ContextType>({
 	state: { animations: [] },
 	actions: {
 		pushAnimation: (animation: AnimationEvent) => {},
-		popAnimation: (animationIndex: number) => {},
+		popAnimation: () => {},
 	},
 });
 
@@ -49,10 +49,7 @@ const VirtualAssistantProvider = ({ children }: Props) => {
 	);
 
 	const popAnimation = useCallback(
-		(animationIndex: number) =>
-			setAnimations((prevAnimations) =>
-				prevAnimations.filter((_, i) => i !== animationIndex)
-			),
+		() => setAnimations((prevAnimations) => prevAnimations.slice(1)),
 		[]
 	);
 
