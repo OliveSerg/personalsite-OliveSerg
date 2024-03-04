@@ -6,81 +6,139 @@ import { GLTF } from "three-stdlib";
 
 type GLTFResult = GLTF & {
 	nodes: {
-		Cube000: THREE.SkinnedMesh;
-		Cube000_1: THREE.SkinnedMesh;
-		Cube000_2: THREE.SkinnedMesh;
-		Cube000_3: THREE.SkinnedMesh;
-		Badan: THREE.Bone;
-		Pinggul_L: THREE.Bone;
-		Pinggul_R: THREE.Bone;
-		neutral_bone: THREE.Bone;
+		EyeLeft: THREE.SkinnedMesh;
+		EyeRight: THREE.SkinnedMesh;
+		Wolf3D_Body: THREE.SkinnedMesh;
+		Wolf3D_Hair: THREE.SkinnedMesh;
+		Wolf3D_Head: THREE.SkinnedMesh;
+		Wolf3D_Outfit_Bottom: THREE.SkinnedMesh;
+		Wolf3D_Outfit_Footwear: THREE.SkinnedMesh;
+		Wolf3D_Outfit_Top: THREE.SkinnedMesh;
+		Wolf3D_Teeth: THREE.SkinnedMesh;
+		Hips: THREE.Bone;
 	};
 	materials: {
-		["Material.000"]: THREE.MeshStandardMaterial;
-		["Material.017"]: THREE.MeshStandardMaterial;
-		["Material.019"]: THREE.MeshStandardMaterial;
-		["Material.020"]: THREE.MeshStandardMaterial;
+		Wolf3D_Eye: THREE.MeshStandardMaterial;
+		Wolf3D_Body: THREE.MeshStandardMaterial;
+		Wolf3D_Hair: THREE.MeshStandardMaterial;
+		Wolf3D_Skin: THREE.MeshStandardMaterial;
+		Wolf3D_Outfit_Bottom: THREE.MeshStandardMaterial;
+		Wolf3D_Outfit_Footwear: THREE.MeshStandardMaterial;
+		Wolf3D_Outfit_Top: THREE.MeshStandardMaterial;
+		Wolf3D_Teeth: THREE.MeshStandardMaterial;
 	};
 };
 
+type ActionNames = "idle" | "jumping_down" | "walking";
+type GLTFActions = Record<ActionNames, THREE.AnimationAction>;
+
 const Model = (props: JSX.IntrinsicElements["group"]) => {
-	const model = useRef();
+	const model = useRef<THREE.Group>();
 	const { nodes, materials, animations } = useGLTF(
-		"/3d/Amazon danbo.glb"
+		"/3d/avatar.glb"
 	) as GLTFResult;
-	const { actions, names } = useAnimations(animations, model);
-	const { setAnimations, animationIndex } = useVirtualAssistant();
+	const { actions, names } = useAnimations<GLTFActions>(animations, model);
+	const { animations: animationEvents } = useVirtualAssistant();
+	const animationIndex = animationEvents[0]?.animationIndex ?? 0;
 
 	useEffect(() => {
-		setAnimations(names);
-	}, [names]);
-
-	useEffect(() => {
-		return () => {};
-	}, [animationIndex]);
+		if (names[animationIndex]) {
+			const animationName = names[animationIndex];
+			actions[animationName]?.reset().fadeIn(0.5).play();
+			return () => {
+				actions[animationName]?.fadeOut(0.5);
+			};
+		}
+	}, [animationIndex, names]);
 
 	return (
-		<group ref={model} {...props} dispose={null}>
+		<group ref={model} {...props} dispose={null} position={[0, -1, 0]}>
 			<group name="Scene">
-				<group
-					name="Armature"
-					scale={0.75}
-					userData={{ name: "Armature" }}>
-					<group name="body001" userData={{ name: "body.001" }}>
-						<skinnedMesh
-							name="Cube000"
-							geometry={nodes.Cube000.geometry}
-							material={materials["Material.000"]}
-							skeleton={nodes.Cube000.skeleton}
-						/>
-						<skinnedMesh
-							name="Cube000_1"
-							geometry={nodes.Cube000_1.geometry}
-							material={materials["Material.017"]}
-							skeleton={nodes.Cube000_1.skeleton}
-						/>
-						<skinnedMesh
-							name="Cube000_2"
-							geometry={nodes.Cube000_2.geometry}
-							material={materials["Material.019"]}
-							skeleton={nodes.Cube000_2.skeleton}
-						/>
-						<skinnedMesh
-							name="Cube000_3"
-							geometry={nodes.Cube000_3.geometry}
-							material={materials["Material.020"]}
-							skeleton={nodes.Cube000_3.skeleton}
-						/>
-					</group>
-					<primitive object={nodes.Badan} />
-					<primitive object={nodes.Pinggul_L} />
-					<primitive object={nodes.Pinggul_R} />
-					<primitive object={nodes.neutral_bone} />
+				<group name="Armature">
+					<skinnedMesh
+						name="EyeLeft"
+						geometry={nodes.EyeLeft.geometry}
+						material={materials.Wolf3D_Eye}
+						skeleton={nodes.EyeLeft.skeleton}
+						morphTargetDictionary={
+							nodes.EyeLeft.morphTargetDictionary
+						}
+						morphTargetInfluences={
+							nodes.EyeLeft.morphTargetInfluences
+						}
+					/>
+					<skinnedMesh
+						name="EyeRight"
+						geometry={nodes.EyeRight.geometry}
+						material={materials.Wolf3D_Eye}
+						skeleton={nodes.EyeRight.skeleton}
+						morphTargetDictionary={
+							nodes.EyeRight.morphTargetDictionary
+						}
+						morphTargetInfluences={
+							nodes.EyeRight.morphTargetInfluences
+						}
+					/>
+					<skinnedMesh
+						name="Wolf3D_Body"
+						geometry={nodes.Wolf3D_Body.geometry}
+						material={materials.Wolf3D_Body}
+						skeleton={nodes.Wolf3D_Body.skeleton}
+					/>
+					<skinnedMesh
+						name="Wolf3D_Hair"
+						geometry={nodes.Wolf3D_Hair.geometry}
+						material={materials.Wolf3D_Hair}
+						skeleton={nodes.Wolf3D_Hair.skeleton}
+					/>
+					<skinnedMesh
+						name="Wolf3D_Head"
+						geometry={nodes.Wolf3D_Head.geometry}
+						material={materials.Wolf3D_Skin}
+						skeleton={nodes.Wolf3D_Head.skeleton}
+						morphTargetDictionary={
+							nodes.Wolf3D_Head.morphTargetDictionary
+						}
+						morphTargetInfluences={
+							nodes.Wolf3D_Head.morphTargetInfluences
+						}
+					/>
+					<skinnedMesh
+						name="Wolf3D_Outfit_Bottom"
+						geometry={nodes.Wolf3D_Outfit_Bottom.geometry}
+						material={materials.Wolf3D_Outfit_Bottom}
+						skeleton={nodes.Wolf3D_Outfit_Bottom.skeleton}
+					/>
+					<skinnedMesh
+						name="Wolf3D_Outfit_Footwear"
+						geometry={nodes.Wolf3D_Outfit_Footwear.geometry}
+						material={materials.Wolf3D_Outfit_Footwear}
+						skeleton={nodes.Wolf3D_Outfit_Footwear.skeleton}
+					/>
+					<skinnedMesh
+						name="Wolf3D_Outfit_Top"
+						geometry={nodes.Wolf3D_Outfit_Top.geometry}
+						material={materials.Wolf3D_Outfit_Top}
+						skeleton={nodes.Wolf3D_Outfit_Top.skeleton}
+					/>
+					<skinnedMesh
+						name="Wolf3D_Teeth"
+						geometry={nodes.Wolf3D_Teeth.geometry}
+						material={materials.Wolf3D_Teeth}
+						skeleton={nodes.Wolf3D_Teeth.skeleton}
+						morphTargetDictionary={
+							nodes.Wolf3D_Teeth.morphTargetDictionary
+						}
+						morphTargetInfluences={
+							nodes.Wolf3D_Teeth.morphTargetInfluences
+						}
+					/>
+					<primitive object={nodes.Hips} />
 				</group>
 			</group>
 		</group>
 	);
 };
 
-useGLTF.preload("/3d/Amazon danbo.glb");
+useGLTF.preload("/3d/avatar.glb");
 export default Model;

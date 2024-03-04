@@ -1,23 +1,48 @@
-import { ReactNode, createContext, useContext, useState } from "react";
+import {
+	Dispatch,
+	ReactNode,
+	SetStateAction,
+	createContext,
+	useContext,
+	useState,
+} from "react";
+
+type AnimationEvent = {
+	animationIndex: number;
+	cameraPosition: object;
+	pagePosition: object;
+	duration: number;
+};
+
+type ContextType = {
+	animations: AnimationEvent[];
+	setAnimations: Dispatch<SetStateAction<AnimationEvent[]>>;
+};
+
+const VirtualAssistantContext = createContext<ContextType>({
+	animations: [],
+	setAnimations: () => {},
+});
 
 type Props = {
 	children: ReactNode;
 };
 
-const VirtualAssistantContext = createContext({});
-
 const VirtualAssistantProvider = ({ children }: Props) => {
-	const [animationIndex, setAnimationIndex] = useState(0);
-	const [animations, setAnimations] = useState([]);
+	const [animations, setAnimations] = useState<AnimationEvent[]>([]);
+
+	function addAnimation(animation: AnimationEvent) {
+		setAnimations((prevAnimations) => [...prevAnimations, animation]);
+	}
+
+	function removeAnimation(animationIndex: number) {
+		setAnimations((prevAnimations) =>
+			prevAnimations.filter((_, i) => i !== animationIndex)
+		);
+	}
 
 	return (
-		<VirtualAssistantContext.Provider
-			value={{
-				animationIndex,
-				setAnimationIndex,
-				animations,
-				setAnimations,
-			}}>
+		<VirtualAssistantContext.Provider value={{ animations, setAnimations }}>
 			{children}
 		</VirtualAssistantContext.Provider>
 	);
