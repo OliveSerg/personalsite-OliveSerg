@@ -1,8 +1,7 @@
 import {
-	Dispatch,
 	ReactNode,
-	SetStateAction,
 	createContext,
+	useCallback,
 	useContext,
 	useState,
 } from "react";
@@ -14,14 +13,26 @@ type AnimationEvent = {
 	duration: number;
 };
 
-type ContextType = {
+type VirtualAssistantState = {
 	animations: AnimationEvent[];
-	setAnimations: Dispatch<SetStateAction<AnimationEvent[]>>;
+};
+
+type VirtualAssistantAction = {
+	pushAnimation: (animation: AnimationEvent) => void;
+	popAnimation: (animationIndex: number) => void;
+};
+
+type ContextType = {
+	state: VirtualAssistantState;
+	actions: VirtualAssistantAction;
 };
 
 const VirtualAssistantContext = createContext<ContextType>({
-	animations: [],
-	setAnimations: () => {},
+	state: { animations: [] },
+	actions: {
+		pushAnimation: (animation: AnimationEvent) => {},
+		popAnimation: (animationIndex: number) => {},
+	},
 });
 
 type Props = {
@@ -31,18 +42,27 @@ type Props = {
 const VirtualAssistantProvider = ({ children }: Props) => {
 	const [animations, setAnimations] = useState<AnimationEvent[]>([]);
 
-	function addAnimation(animation: AnimationEvent) {
-		setAnimations((prevAnimations) => [...prevAnimations, animation]);
-	}
+	const pushAnimation = useCallback(
+		(animation: AnimationEvent) =>
+			setAnimations((prevAnimations) => [...prevAnimations, animation]),
+		[]
+	);
 
-	function removeAnimation(animationIndex: number) {
-		setAnimations((prevAnimations) =>
-			prevAnimations.filter((_, i) => i !== animationIndex)
-		);
-	}
+	const popAnimation = useCallback(
+		(animationIndex: number) =>
+			setAnimations((prevAnimations) =>
+				prevAnimations.filter((_, i) => i !== animationIndex)
+			),
+		[]
+	);
+
+	const value = {
+		state: { animations },
+		actions: { pushAnimation, popAnimation },
+	};
 
 	return (
-		<VirtualAssistantContext.Provider value={{ animations, setAnimations }}>
+		<VirtualAssistantContext.Provider value={value}>
 			{children}
 		</VirtualAssistantContext.Provider>
 	);
@@ -55,7 +75,7 @@ const useVirtualAssistant = () => {
 		throw new Error("Method must be used within VisturalAssistantProvider");
 	}
 
-	return context;
+	return { ...context.state, ...context.actions };
 };
 
 export { VirtualAssistantProvider, useVirtualAssistant };

@@ -38,8 +38,9 @@ const Model = (props: JSX.IntrinsicElements["group"]) => {
 		"/3d/avatar.glb"
 	) as GLTFResult;
 	const { actions, names } = useAnimations<GLTFActions>(animations, model);
-	const { animations: animationEvents } = useVirtualAssistant();
-	const animationIndex = animationEvents[0]?.animationIndex ?? 0;
+	const { animations: animationsEvents, popAnimation } =
+		useVirtualAssistant();
+	const animationIndex = animationsEvents[0]?.animationIndex ?? 0;
 
 	useEffect(() => {
 		if (names[animationIndex]) {
