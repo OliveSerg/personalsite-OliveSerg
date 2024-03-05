@@ -5,32 +5,12 @@ import {
 	useContext,
 	useState,
 } from "react";
-
-type AnimationEvent = {
-	animationIndex: number;
-	cameraPosition: object;
-	pagePosition: object;
-	duration: number;
-};
-
-type VirtualAssistantState = {
-	animations: AnimationEvent[];
-};
-
-type VirtualAssistantAction = {
-	pushAnimation: (animation: AnimationEvent) => void;
-	popAnimation: () => void;
-};
-
-type ContextType = {
-	state: VirtualAssistantState;
-	actions: VirtualAssistantAction;
-};
+import { ModelAnimationEvent, ContextType } from "./types/context";
 
 const VirtualAssistantContext = createContext<ContextType>({
 	state: { animations: [] },
 	actions: {
-		pushAnimation: (animation: AnimationEvent) => {},
+		pushAnimation: (animation: ModelAnimationEvent) => {},
 		popAnimation: () => {},
 	},
 });
@@ -40,10 +20,10 @@ type Props = {
 };
 
 const VirtualAssistantProvider = ({ children }: Props) => {
-	const [animations, setAnimations] = useState<AnimationEvent[]>([]);
+	const [animations, setAnimations] = useState<ModelAnimationEvent[]>([]);
 
 	const pushAnimation = useCallback(
-		(animation: AnimationEvent) =>
+		(animation: ModelAnimationEvent) =>
 			setAnimations((prevAnimations) => [...prevAnimations, animation]),
 		[]
 	);
