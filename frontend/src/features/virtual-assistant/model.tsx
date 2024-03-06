@@ -19,10 +19,10 @@ const Model = (props: JSX.IntrinsicElements["group"]) => {
 			const animationName = names[animationIndex];
 			actions[animationName]?.reset().fadeIn(0.5).play();
 			if (animationName !== "idle") {
-				setTimeout(
-					popAnimation,
-					actions[animationName]?.duration * 1000
-				);
+				const duration =
+					animationsEvents[0]?.duration ??
+					actions[animationName]?._clip.duration;
+				setTimeout(popAnimation, duration * 1000);
 			}
 			return () => {
 				actions[animationName]?.fadeOut(0.5);

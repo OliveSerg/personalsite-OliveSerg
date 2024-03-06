@@ -70,7 +70,7 @@ function App() {
 						link="mailto:oliveserg@gmail.com"
 					/>
 				</div>
-				<section className="hero mb-30 relative">
+				<section id="hero" className="mb-30 relative">
 					<Glow top="-25%" left="-25%" width="50%" height="75%" />
 					<div className="grid max-w-screen-xl mx-auto grid-cols-10 px-6 mb-10">
 						<div className="my-40 row-span-full col-start-1 col-span-6 self-center z-10">
@@ -91,7 +91,7 @@ function App() {
 						</div>
 					</div>
 				</section>
-				<section className="relative">
+				<section id="about-me" className="relative">
 					<Glow top="0" left="-10%" width="50%" height="100%" />
 					<Glow top="25%" left="75%" width="25%" height="75%" />
 

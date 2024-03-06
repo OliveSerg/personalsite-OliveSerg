@@ -2,6 +2,7 @@ export type ModelAnimationEvent = {
 	animationIndex: number;
 	cameraPosition: object;
 	pagePosition: object;
+	duration?: number;
 };
 
 export type VirtualAssistantState = {
