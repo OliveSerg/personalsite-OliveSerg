@@ -1,4 +1,4 @@
-import { Suspense, useEffect } from "react";
+import { Suspense, useEffect, useRef } from "react";
 import { Canvas } from "@react-three/fiber";
 import Model from "@features/virtual-assistant/model";
 import { useVirtualAssistant } from "./model-context";
@@ -13,6 +13,11 @@ const VirtualAssistant = () => {
 		cameraPosition: [],
 		pagePosition: {},
 	};
+	const prevAnimationEvent = useRef<ModelAnimationEvent>({
+		animationIndex: 0,
+		cameraPosition: [],
+		pagePosition: {},
+	});
 
 	type ScrollEvents = {
 		[key: string]: ModelAnimationEvent;
@@ -23,10 +28,10 @@ const VirtualAssistant = () => {
 			animationIndex: 2,
 			cameraPosition: [],
 			pagePosition: {
-				initialX: "300%",
-				initialY: 0,
-				x: "50%",
-				y: 0,
+				initialX: "100%",
+				initialY: 200,
+				x: "25%",
+				y: 200,
 			},
 			duration: 6,
 		},
@@ -34,13 +39,16 @@ const VirtualAssistant = () => {
 			animationIndex: 1,
 			cameraPosition: [],
 			pagePosition: {
-				initialX: "50%",
-				initialY: 0,
-				x: "50%",
-				y: 0,
+				x: "25%",
+				y: 500,
 			},
+			duration: 3,
 		},
 	};
+
+	useEffect(() => {
+		prevAnimationEvent.current = currentAnimationEvent;
+	}, [currentAnimationEvent]);
 
 	useEffect(() => {
 		const observer = new IntersectionObserver(
@@ -73,10 +81,14 @@ const VirtualAssistant = () => {
 
 	return (
 		<motion.div
-			className="absolute h-screen w-1/3 z-10"
+			className="absolute h-screen w-1/3 z-10 left-1/2"
 			style={{
-				x: currentAnimationEvent.pagePosition?.initialX,
-				y: currentAnimationEvent.pagePosition?.initialY,
+				x:
+					currentAnimationEvent.pagePosition?.initialX ??
+					prevAnimationEvent.current.pagePosition.x,
+				y:
+					currentAnimationEvent.pagePosition?.initialY ??
+					prevAnimationEvent.current.pagePosition.y,
 			}}
 			animate={{
 				x: currentAnimationEvent.pagePosition?.x,
