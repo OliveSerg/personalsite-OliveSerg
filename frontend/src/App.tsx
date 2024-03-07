@@ -14,7 +14,7 @@ import { RegistrationForm, UserProvider } from "@features/user-auth";
 import ChatWindow from "./features/chat/chat-window";
 import { useState } from "react";
 import { VirtualAssistantProvider } from "@features/virtual-assistant/model-context";
-import VirtualAssistant from "@features/virtual-assistant/virtual-assistant";
+import VirtualAssistantContainer from "@features/virtual-assistant/va-container";
 
 function App() {
 	const [isModalOpen, setIsModalOpen] = useState(false);
@@ -22,7 +22,7 @@ function App() {
 	return (
 		<VirtualAssistantProvider>
 			<div className="relative overflow-hidden">
-				<VirtualAssistant />
+				<VirtualAssistantContainer />
 				<DiagonalLine
 					skew="skew-y-[130deg]"
 					offset="-top-[50vw]"

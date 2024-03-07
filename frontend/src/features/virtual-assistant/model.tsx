@@ -3,13 +3,15 @@ import { useAnimations, useGLTF } from "@react-three/drei";
 import { useEffect, useRef } from "react";
 import { useVirtualAssistant } from "./model-context";
 import { GLTFActions, GLTFResult } from "./types/model";
+import { useFrame } from "@react-three/fiber";
 
 const Model = (props: JSX.IntrinsicElements["group"]) => {
-	const model = useRef<THREE.Group>();
+	const modelRef = useRef<THREE.Group>();
+	const hips = useRef<THREE.Mesh>();
 	const { nodes, materials, animations } = useGLTF(
 		"/3d/avatar.glb"
 	) as GLTFResult;
-	const { actions, names } = useAnimations<GLTFActions>(animations, model);
+	const { actions, names } = useAnimations<GLTFActions>(animations, modelRef);
 	const { animations: animationsEvents, popAnimation } =
 		useVirtualAssistant();
 	const animationIndex = animationsEvents[0]?.animationIndex ?? 0;
@@ -22,7 +24,10 @@ const Model = (props: JSX.IntrinsicElements["group"]) => {
 				const duration =
 					animationsEvents[0]?.duration ??
 					actions[animationName]?._clip.duration;
-				setTimeout(popAnimation, duration * 1000);
+				setTimeout(() => {
+					actions[animationName]?.fadeOut(0.5);
+					popAnimation();
+				}, duration * 1000);
 			}
 			return () => {
 				actions[animationName]?.fadeOut(0.5);
@@ -30,8 +35,24 @@ const Model = (props: JSX.IntrinsicElements["group"]) => {
 		}
 	}, [animationIndex, names]);
 
+	useFrame((state, delta) => {
+		if (state.camera && hips.current && animationsEvents[0]) {
+			const modelPosition = hips.current.position;
+			state.camera.position.set(
+				modelPosition.x + animationsEvents[0].cameraPosition[0],
+				modelPosition.y + animationsEvents[0].cameraPosition[1],
+				modelPosition.z + animationsEvents[0].cameraPosition[2]
+			);
+			state.camera.lookAt(
+				modelPosition.x,
+				modelPosition.y,
+				modelPosition.z
+			);
+		}
+	});
+
 	return (
-		<group ref={model} {...props} dispose={null} position={[0, -1, 0]}>
+		<group ref={modelRef} {...props} dispose={null} position={[0, -1, 2]}>
 			<group name="Scene">
 				<group name="Armature">
 					<skinnedMesh
@@ -112,7 +133,7 @@ const Model = (props: JSX.IntrinsicElements["group"]) => {
 							nodes.Wolf3D_Teeth.morphTargetInfluences
 						}
 					/>
-					<primitive object={nodes.Hips} />
+					<primitive ref={hips} object={nodes.Hips} />
 				</group>
 			</group>
 		</group>

@@ -1,12 +1,12 @@
 export type ModelAnimationEvent = {
 	animationIndex: number;
-	cameraPosition: object;
+	cameraPosition: number[];
 	pagePosition: object;
 	duration?: number;
 };
 
 export type VirtualAssistantState = {
-	animations: AnimationEvent[];
+	animations: ModelAnimationEvent[];
 };
 
 export type VirtualAssistantAction = {

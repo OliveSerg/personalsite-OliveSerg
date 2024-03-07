@@ -1,43 +1,30 @@
-import { Suspense, useEffect, useRef } from "react";
-import { Canvas } from "@react-three/fiber";
+import { Suspense, useEffect } from "react";
 import Model from "@features/virtual-assistant/model";
 import { useVirtualAssistant } from "./model-context";
-import { OrthographicCamera } from "@react-three/drei";
 import { ModelAnimationEvent } from "./types/context";
-import { motion } from "framer-motion";
+
+type ScrollEvents = {
+	[key: string]: ModelAnimationEvent;
+};
 
 const VirtualAssistant = () => {
-	const { animations, pushAnimation } = useVirtualAssistant();
-	const currentAnimationEvent: ModelAnimationEvent = animations[0] ?? {
-		animationIndex: 0,
-		cameraPosition: [],
-		pagePosition: {},
-	};
-	const prevAnimationEvent = useRef<ModelAnimationEvent>({
-		animationIndex: 0,
-		cameraPosition: [],
-		pagePosition: {},
-	});
-
-	type ScrollEvents = {
-		[key: string]: ModelAnimationEvent;
-	};
+	const { pushAnimation } = useVirtualAssistant();
 
 	const animationEvents: ScrollEvents = {
 		hero: {
 			animationIndex: 2,
-			cameraPosition: [],
+			cameraPosition: [0, 0, 7],
 			pagePosition: {
 				initialX: "100%",
-				initialY: 200,
+				initialY: 150,
 				x: "25%",
-				y: 200,
+				y: 150,
 			},
 			duration: 6,
 		},
 		"about-me": {
 			animationIndex: 1,
-			cameraPosition: [],
+			cameraPosition: [0, 0, 9],
 			pagePosition: {
 				x: "25%",
 				y: 500,
@@ -45,10 +32,6 @@ const VirtualAssistant = () => {
 			duration: 3,
 		},
 	};
-
-	useEffect(() => {
-		prevAnimationEvent.current = currentAnimationEvent;
-	}, [currentAnimationEvent]);
 
 	useEffect(() => {
 		const observer = new IntersectionObserver(
@@ -80,29 +63,11 @@ const VirtualAssistant = () => {
 	}, []);
 
 	return (
-		<motion.div
-			className="absolute h-screen w-1/3 z-10 left-1/2"
-			style={{
-				x:
-					currentAnimationEvent.pagePosition?.initialX ??
-					prevAnimationEvent.current.pagePosition.x,
-				y:
-					currentAnimationEvent.pagePosition?.initialY ??
-					prevAnimationEvent.current.pagePosition.y,
-			}}
-			animate={{
-				x: currentAnimationEvent.pagePosition?.x,
-				y: currentAnimationEvent.pagePosition?.y,
-			}}
-			transition={{ duration: currentAnimationEvent.duration }}>
-			<Canvas>
-				<OrthographicCamera />
-				<ambientLight intensity={3} />
-				<Suspense fallback={null}>
-					<Model />
-				</Suspense>
-			</Canvas>
-		</motion.div>
+		<group>
+			<Suspense fallback={null}>
+				<Model />
+			</Suspense>
+		</group>
 	);
 };
 
