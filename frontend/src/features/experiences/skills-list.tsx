@@ -1,6 +1,6 @@
 import { Skill } from "@features/experiences/types/skill";
 import { useQuery } from "@tanstack/react-query";
-import { fetchApiResponse } from "@features/utilities/api";
+import { fetchDBResponse } from "@features/utilities/api";
 import SkillItem from "./skill-item";
 import { motion, LayoutGroup } from "framer-motion";
 
@@ -11,7 +11,7 @@ type Props = {
 const SkillsList = ({ vocationSkills }: Props) => {
 	const skillsQuery = useQuery({
 		queryKey: ["experiences", "skills"],
-		queryFn: () => fetchApiResponse<Skill>("skills/"),
+		queryFn: () => fetchDBResponse<Skill>("/skills"),
 	});
 
 	if (skillsQuery.isLoading) return <div>Loading...</div>;
