@@ -1,3 +1,6 @@
+import { db } from "./db";
+import { ref, child, get } from "firebase/database";
+
 export const fetchApiResponse = async <T>(
 	path: string,
 	init?: RequestInit | undefined
@@ -14,4 +17,19 @@ export const fetchApiResponse = async <T>(
 		const err = error as Error;
 		throw new Error(`Error fetching data: ${err.message}`);
 	}
+};
+
+export const fetchDBResponse = async <T>(path: string): Promise<T | T[]> => {
+	const dbRef = ref(db);
+	return await get(child(dbRef, path))
+		.then((snapshot) => {
+			if (snapshot.exists()) {
+				return snapshot.val();
+			} else {
+				throw new Error(`No data available`);
+			}
+		})
+		.catch((error) => {
+			throw new Error(error);
+		});
 };
