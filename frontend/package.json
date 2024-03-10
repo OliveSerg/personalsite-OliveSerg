@@ -11,17 +11,20 @@
   },
   "dependencies": {
     "@fontsource-variable/montserrat": "^5.0.16",
+    "@langchain/community": "^0.0.36",
     "@react-three/drei": "^9.97.5",
     "@react-three/fiber": "^8.15.16",
     "@tanstack/react-query": "^5.8.4",
     "@types/three": "^0.161.2",
     "firebase": "^10.8.1",
     "framer-motion": "^10.16.12",
+    "langchain": "^0.1.26",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-hook-form": "^7.48.2",
     "react-icons": "^4.12.0",
-    "three": "^0.161.0"
+    "three": "^0.161.0",
+    "voy-search": "^0.6.2"
   },
   "devDependencies": {
     "@types/react": "^18.2.15",
