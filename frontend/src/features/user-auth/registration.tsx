@@ -1,6 +1,5 @@
 import { RegistrationInputs } from "./types/inputs";
 import { useForm, SubmitHandler } from "react-hook-form";
-import { authenticateUser } from "./services/auth-service";
 import { useUser } from "./user-context";
 
 type Props = {
@@ -23,7 +22,7 @@ const RegistrationForm = ({ setIsModalOpen }: Props) => {
 			return;
 		}
 		try {
-			const token = await authenticateUser(data.name, data.from_email);
+			const token = crypto.randomUUID(); //Switch to JWT
 			setIsModalOpen(true);
 			setUser({
 				name: data.name,

@@ -19,7 +19,7 @@ export const fetchChatHistory = async (token: string): Promise<Interview> => {
 	}
 };
 
-export const fetchAIResponse = async (
+export const fetchAIResponseFromAPI = async (
 	message: string,
 	token: string
 ): Promise<Message> => {
@@ -37,6 +37,53 @@ export const fetchAIResponse = async (
 		}
 
 		return response;
+	} catch (error) {
+		const err = error as Error;
+		throw new Error(`Failed to fetch chat history: ${err.message}`);
+	}
+};
+
+export const fetchAIResponse = async (
+	messages: Message[],
+	worker: Worker
+): Promise<ReadableStream> => {
+	try {
+		return new ReadableStream({
+			start(controller) {
+				if (!worker) {
+					controller.close();
+					return;
+				}
+				worker.postMessage({ messages });
+				const onMessageReceived = (e: any) => {
+					const error = new Error(e.data.error);
+					switch (e.data.type) {
+						case "log":
+							console.log(e.data);
+							break;
+						case "chunk":
+							controller.enqueue(e.data.data);
+							break;
+						case "error":
+							worker.removeEventListener(
+								"message",
+								onMessageReceived
+							);
+							console.log(e.data.error);
+							controller.error(error);
+							break;
+						case "complete":
+							worker.removeEventListener(
+								"message",
+								onMessageReceived
+							);
+							controller.close();
+							break;
+					}
+				};
+				worker.addEventListener("message", onMessageReceived);
+			},
+		});
 	} catch (error) {
 		const err = error as Error;
 		throw new Error(`Failed to fetch chat history: ${err.message}`);
