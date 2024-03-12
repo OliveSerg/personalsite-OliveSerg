@@ -24,5 +24,14 @@ export default defineConfig({
 			},
 		],
 	},
-	worker: { plugins: [wasm(), topLevelAwait()] },
+	worker: {
+		plugins: [wasm(), topLevelAwait()],
+		format: "es",
+		// rollupOptions: {
+		// 	output: {
+		// 		format: "iife",
+		// 		inlineDynamicImports: true,
+		// 	},
+		// },
+	},
 });
