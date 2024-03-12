@@ -1,10 +1,10 @@
 import { useUser } from "@features/user-auth";
 import { useEffect, useRef, useState } from "react";
 import { Message } from "./types/interview";
-import { fetchAIResponse, fetchChatHistory } from "./services/chat-service";
+import { fetchAIResponse } from "./services/chat-service";
 import { useForm, SubmitHandler } from "react-hook-form";
 import LoadingAnimation from "./loading-animation";
-import ChatHistory from "./chat-history";
+import MessageComponent from "./message-component";
 
 type MessageInput = {
 	message: string;
@@ -27,6 +27,7 @@ const ChatWindow = ({ isModalOpen = true, setIsModalOpen }: Props) => {
 		reset,
 	} = useForm<MessageInput>();
 	const chatHistoryRef = useRef<HTMLDivElement>(null);
+	const worker = useRef<Worker | null>(null);
 
 	const onSubmit: SubmitHandler<MessageInput> = async (
 		data: MessageInput
@@ -34,17 +35,47 @@ const ChatWindow = ({ isModalOpen = true, setIsModalOpen }: Props) => {
 		if (data.message_me || !user?.token || isSubmitting) {
 			return;
 		}
-		addChatMessage({
-			id: crypto.randomUUID(),
-			message: data.message,
-			from_user: true,
-		});
+		const fallbackChatHistory = [...chatHistory];
+		const newChatHistory = [
+			...chatHistory,
+			{
+				id: crypto.randomUUID(),
+				message: data.message,
+				from_user: true,
+			},
+		];
+
+		setChatHistory(newChatHistory);
 
 		try {
-			const message = await fetchAIResponse(data.message, user?.token);
-			addChatMessage(message);
+			if (!worker.current) {
+				throw new Error("Hold on things are still getting ready.");
+			}
+			const stream = await fetchAIResponse(
+				newChatHistory,
+				worker.current
+			);
+			const reader = stream.getReader();
+
+			let chunk = await reader.read();
+
+			const aiResponseMessage: Message = {
+				id: crypto.randomUUID(),
+				message: "",
+				from_user: false,
+			};
+
+			addChatMessage(aiResponseMessage);
+
+			while (!chunk.done) {
+				aiResponseMessage.message =
+					aiResponseMessage.message + chunk.value;
+				setChatHistory([...newChatHistory, aiResponseMessage]);
+				chunk = await reader.read();
+			}
 			reset();
 		} catch (error) {
+			setChatHistory(fallbackChatHistory);
 			const err = error as Error;
 			setError("root.api_error", {
 				message: err.message,
@@ -65,20 +96,14 @@ const ChatWindow = ({ isModalOpen = true, setIsModalOpen }: Props) => {
 	};
 
 	useEffect(() => {
-		const fetchChatData = async () => {
-			try {
-				if (user?.token) {
-					const history = await fetchChatHistory(user.token);
-					setChatHistory(history.messages);
-					moveViewToNewMessage();
+		if (!worker.current) {
+			worker.current = new Worker(
+				new URL("./services/worker.ts", import.meta.url),
+				{
+					type: "module",
 				}
-			} catch (error) {
-				const err = error as Error;
-				console.error(err.message);
-			}
-		};
-
-		fetchChatData();
+			);
+		}
 	}, [user]);
 
 	return (
@@ -132,7 +157,13 @@ const ChatWindow = ({ isModalOpen = true, setIsModalOpen }: Props) => {
 					<div
 						ref={chatHistoryRef}
 						className="flex flex-col max-h-[66vh] overflow-y-auto">
-						<ChatHistory chatHistory={chatHistory} />
+						<MessageComponent
+							message="Hello and welcome! Thank you for trying out this AI interview bot. Try asking an interview-style question about me, and I will answer it to the best of my ability."
+							from_user={false}
+						/>
+						{chatHistory?.map((message: Message) => (
+							<MessageComponent key={message.id} {...message} />
+						))}
 					</div>
 					<div className={isSubmitting ? "block" : "hidden"}>
 						<LoadingAnimation />
@@ -140,7 +171,6 @@ const ChatWindow = ({ isModalOpen = true, setIsModalOpen }: Props) => {
 				</div>
 				<form
 					className="flex items-center justify-center w-full"
-					action={import.meta.env.VITE_API_URL + "interviews/"}
 					onSubmit={handleSubmit(onSubmit)}
 					method="POST">
 					<input
