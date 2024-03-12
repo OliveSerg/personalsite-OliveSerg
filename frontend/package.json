@@ -11,6 +11,7 @@
   },
   "dependencies": {
     "@fontsource-variable/montserrat": "^5.0.16",
+    "@huggingface/inference": "^2.6.4",
     "@langchain/community": "^0.0.36",
     "@react-three/drei": "^9.97.5",
     "@react-three/fiber": "^8.15.16",
@@ -39,6 +40,8 @@
     "postcss": "^8.4.31",
     "tailwindcss": "^3.3.5",
     "typescript": "^5.0.2",
-    "vite": "^4.4.5"
+    "vite": "^4.4.5",
+    "vite-plugin-top-level-await": "^1.4.1",
+    "vite-plugin-wasm": "^3.3.0"
   }
 }
