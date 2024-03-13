@@ -4,6 +4,7 @@ import { useEffect, useRef } from "react";
 import { useVirtualAssistant } from "./model-context";
 import { GLTFActions, GLTFResult } from "./types/model";
 import { useFrame } from "@react-three/fiber";
+import { off } from "firebase/database";
 
 const Model = (props: JSX.IntrinsicElements["group"]) => {
 	const modelRef = useRef<THREE.Group>();
@@ -35,13 +36,17 @@ const Model = (props: JSX.IntrinsicElements["group"]) => {
 		}
 	}, [animationIndex, names]);
 
-	useFrame((state, delta) => {
-		if (state.camera && hips.current && animationsEvents[0]) {
+	useFrame((state) => {
+		if (state.camera && hips.current) {
+			const offset = animationsEvents.at(0)?.cameraPosition ?? [0, 0, 7];
 			const modelPosition = hips.current.position;
+			if (animationsEvents[0]?.rotation) {
+				hips.current.rotation.set(0, animationsEvents[0]?.rotation, 0);
+			}
 			state.camera.position.set(
-				modelPosition.x + animationsEvents[0].cameraPosition[0],
-				modelPosition.y + animationsEvents[0].cameraPosition[1],
-				modelPosition.z + animationsEvents[0].cameraPosition[2]
+				modelPosition.x + offset[0],
+				modelPosition.y + offset[1],
+				modelPosition.z + offset[2]
 			);
 			state.camera.lookAt(
 				modelPosition.x,
