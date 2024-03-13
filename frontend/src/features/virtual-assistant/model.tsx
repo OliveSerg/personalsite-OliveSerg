@@ -23,25 +23,29 @@ const Model = (props: JSX.IntrinsicElements["group"]) => {
 			if (animationName !== "idle") {
 				const duration =
 					animationsEvents[0]?.duration ??
-					actions[animationName]?._clip.duration;
+					actions[animationName]?.getClip().duration;
 				setTimeout(() => {
 					actions[animationName]?.fadeOut(0.5);
 					popAnimation();
-				}, duration * 1000);
+				}, (duration ?? 0) * 1000);
 			}
 			return () => {
 				actions[animationName]?.fadeOut(0.5);
 			};
 		}
-	}, [animationIndex, names]);
+	}, [actions, animationIndex, names, popAnimation, animationsEvents]);
 
-	useFrame((state, delta) => {
-		if (state.camera && hips.current && animationsEvents[0]) {
+	useFrame((state) => {
+		if (state.camera && hips.current) {
+			const offset = animationsEvents.at(0)?.cameraPosition ?? [0, 0, 7];
 			const modelPosition = hips.current.position;
+			if (animationsEvents[0]?.rotation) {
+				hips.current.rotation.set(0, animationsEvents[0]?.rotation, 0);
+			}
 			state.camera.position.set(
-				modelPosition.x + animationsEvents[0].cameraPosition[0],
-				modelPosition.y + animationsEvents[0].cameraPosition[1],
-				modelPosition.z + animationsEvents[0].cameraPosition[2]
+				modelPosition.x + offset[0],
+				modelPosition.y + offset[1],
+				modelPosition.z + offset[2]
 			);
 			state.camera.lookAt(
 				modelPosition.x,

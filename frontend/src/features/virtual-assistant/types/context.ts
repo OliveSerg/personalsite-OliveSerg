@@ -1,8 +1,16 @@
+export type PagePosition = {
+	initialX?: string | number;
+	initialY?: string | number;
+	x?: string | number;
+	y?: string | number;
+};
+
 export type ModelAnimationEvent = {
 	animationIndex: number;
 	cameraPosition: number[];
-	pagePosition: object;
+	pagePosition: PagePosition;
 	duration?: number;
+	rotation?: number;
 };
 
 export type VirtualAssistantState = {
