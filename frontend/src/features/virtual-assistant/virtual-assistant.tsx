@@ -10,31 +10,31 @@ type ScrollEvents = {
 const VirtualAssistant = () => {
 	const { pushAnimation } = useVirtualAssistant();
 
-	const animationEvents: ScrollEvents = {
-		hero: {
-			animationIndex: 2,
-			cameraPosition: [0, 0, 7, -1.5],
-			pagePosition: {
-				initialX: "110%",
-				initialY: 100,
-				x: "25%",
-				y: 150,
-			},
-			duration: 5,
-			rotation: -1.5,
-		},
-		"about-me": {
-			animationIndex: 1,
-			cameraPosition: [0, 0, 7],
-			pagePosition: {
-				x: "25%",
-				y: 400,
-			},
-			duration: 3,
-		},
-	};
-
 	useEffect(() => {
+		const animationEvents: ScrollEvents = {
+			hero: {
+				animationIndex: 2,
+				cameraPosition: [0, 0, 7, -1.5],
+				pagePosition: {
+					initialX: "110%",
+					initialY: 100,
+					x: "25%",
+					y: 150,
+				},
+				duration: 5,
+				rotation: -1.5,
+			},
+			"about-me": {
+				animationIndex: 1,
+				cameraPosition: [0, 0, 7],
+				pagePosition: {
+					x: "25%",
+					y: 400,
+				},
+				duration: 3,
+			},
+		};
+
 		const observer = new IntersectionObserver(
 			(entries) => {
 				entries.forEach((entry) => {
@@ -61,7 +61,7 @@ const VirtualAssistant = () => {
 		return () => {
 			observer.disconnect();
 		};
-	}, []);
+	}, [pushAnimation]);
 
 	return (
 		<group>
