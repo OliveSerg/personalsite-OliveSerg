@@ -6,7 +6,7 @@ import { GLTFActions, GLTFResult } from "./types/model";
 import { useFrame } from "@react-three/fiber";
 
 const Model = (props: JSX.IntrinsicElements["group"]) => {
-	const modelRef = useRef<THREE.Group>();
+	const modelRef = useRef<THREE.Group>(null);
 	const hips = useRef<THREE.Mesh>();
 	const { nodes, materials, animations } = useGLTF(
 		"/3d/avatar.glb"
