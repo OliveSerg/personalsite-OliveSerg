@@ -10,7 +10,7 @@ import { ModelAnimationEvent, ContextType } from "./types/context";
 const VirtualAssistantContext = createContext<ContextType>({
 	state: { animations: [] },
 	actions: {
-		pushAnimation: (animation: ModelAnimationEvent) => {},
+		pushAnimation: () => {},
 		popAnimation: () => {},
 	},
 });
