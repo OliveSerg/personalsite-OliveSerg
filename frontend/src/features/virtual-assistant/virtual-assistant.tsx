@@ -13,21 +13,22 @@ const VirtualAssistant = () => {
 	const animationEvents: ScrollEvents = {
 		hero: {
 			animationIndex: 2,
-			cameraPosition: [0, 0, 7],
+			cameraPosition: [0, 0, 7, -1.5],
 			pagePosition: {
-				initialX: "100%",
-				initialY: 150,
+				initialX: "110%",
+				initialY: 100,
 				x: "25%",
 				y: 150,
 			},
-			duration: 6,
+			duration: 5,
+			rotation: -1.5,
 		},
 		"about-me": {
 			animationIndex: 1,
-			cameraPosition: [0, 0, 9],
+			cameraPosition: [0, 0, 7],
 			pagePosition: {
 				x: "25%",
-				y: 500,
+				y: 400,
 			},
 			duration: 3,
 		},
