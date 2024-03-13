@@ -4,7 +4,6 @@ import { useEffect, useRef } from "react";
 import { useVirtualAssistant } from "./model-context";
 import { GLTFActions, GLTFResult } from "./types/model";
 import { useFrame } from "@react-three/fiber";
-import { off } from "firebase/database";
 
 const Model = (props: JSX.IntrinsicElements["group"]) => {
 	const modelRef = useRef<THREE.Group>();
@@ -24,17 +23,17 @@ const Model = (props: JSX.IntrinsicElements["group"]) => {
 			if (animationName !== "idle") {
 				const duration =
 					animationsEvents[0]?.duration ??
-					actions[animationName]?._clip.duration;
+					actions[animationName]?.getClip().duration;
 				setTimeout(() => {
 					actions[animationName]?.fadeOut(0.5);
 					popAnimation();
-				}, duration * 1000);
+				}, (duration ?? 0) * 1000);
 			}
 			return () => {
 				actions[animationName]?.fadeOut(0.5);
 			};
 		}
-	}, [animationIndex, names]);
+	}, [actions, animationIndex, names, popAnimation, animationsEvents]);
 
 	useFrame((state) => {
 		if (state.camera && hips.current) {

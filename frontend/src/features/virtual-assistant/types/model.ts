@@ -1,5 +1,8 @@
-import { AnimationAction } from "three";
+import { AnimationClip } from "three";
 import { GLTF } from "three-stdlib";
+
+export type ActionNames = "idle" | "jumping_down" | "walking";
+export type GLTFActions = AnimationClip & { names: ActionNames };
 
 export type GLTFResult = GLTF & {
 	nodes: {
@@ -24,7 +27,5 @@ export type GLTFResult = GLTF & {
 		Wolf3D_Outfit_Top: THREE.MeshStandardMaterial;
 		Wolf3D_Teeth: THREE.MeshStandardMaterial;
 	};
+	animations: GLTFActions[];
 };
-
-export type ActionNames = "idle" | "jumping_down" | "walking";
-export type GLTFActions = Record<ActionNames, AnimationAction>;
