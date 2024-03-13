@@ -1,7 +1,7 @@
 import { useEffect, useRef } from "react";
 import { Canvas } from "@react-three/fiber";
 import { useVirtualAssistant } from "./model-context";
-import { OrthographicCamera, Stats } from "@react-three/drei";
+import { OrthographicCamera } from "@react-three/drei";
 import { ModelAnimationEvent } from "./types/context";
 import VirtualAssistant from "./virtual-assistant";
 import PagePosition from "./page-position";
@@ -29,7 +29,6 @@ const VirtualAssistantContainer = () => {
 				<OrthographicCamera />
 				<ambientLight intensity={5} />
 				<VirtualAssistant />
-				<Stats />
 			</Canvas>
 		</PagePosition>
 	);
