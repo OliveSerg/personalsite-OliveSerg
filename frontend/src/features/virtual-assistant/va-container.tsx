@@ -21,16 +21,18 @@ const VirtualAssistantContainer = () => {
 	});
 
 	return (
-		<PagePosition
-			pagePosition={currentAnimationEvent.pagePosition}
-			prevPagePosition={prevPagePosition.current}
-			duration={currentAnimationEvent.duration}>
-			<Canvas>
-				<OrthographicCamera />
-				<ambientLight intensity={5} />
-				<VirtualAssistant />
-			</Canvas>
-		</PagePosition>
+		<div className="hidden md:block">
+			<PagePosition
+				pagePosition={currentAnimationEvent.pagePosition}
+				prevPagePosition={prevPagePosition.current}
+				duration={currentAnimationEvent.duration}>
+				<Canvas>
+					<OrthographicCamera />
+					<ambientLight intensity={5} />
+					<VirtualAssistant />
+				</Canvas>
+			</PagePosition>
+		</div>
 	);
 };
 
