@@ -53,15 +53,21 @@ const responseChainPrompt = ChatPromptTemplate.fromMessages<{
 	["user", `{input}`],
 ]);
 
-const loadResumeEmbeddings = async () => {
+const loadResumeEmbeddings = async (resumeEmbeddings: {
+	label: { [key: string]: string };
+	embedding: { [key: string]: number[] };
+}) => {
 	const documents: Document[] = [];
-	resumeEmbeddings.label.forEach((value: string) => {
+	const resumeEmbeddingsValues: number[][] = Object.values(
+		resumeEmbeddings.embedding
+	);
+	for (const [, value] of Object.entries(resumeEmbeddings.label)) {
 		documents.push(new Document({ pageContent: value }));
-	});
+	}
 
-	await vectorstore.addVectors(resumeEmbeddings.embedding, documents);
+	await vectorstore.addVectors(resumeEmbeddingsValues, documents);
 };
-loadResumeEmbeddings();
+loadResumeEmbeddings(resumeEmbeddings);
 
 const _formatChatHistoryAsMessages = async (chatHistory: Message[]) => {
 	return chatHistory.map((chatMessage) => {
