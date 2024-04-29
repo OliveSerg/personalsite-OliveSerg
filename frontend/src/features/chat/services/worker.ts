@@ -33,8 +33,8 @@ const chatModel = new HuggingFaceInference({
 	maxConcurrency: 2,
 }); // Convert to a chat aware model
 
-const RESPONSE_SYSTEM_TEMPLATE = `You are a software developer interviewee. Using the provided context, answer the interviewer's question to the best of your ability. The context is related to you and your past experiences.
-Generate a concise answer for a given question based on the provided context. Use an unbiased and semi-professional tone. Combine search results together into a coherent answer. Do not repeat text.
+const RESPONSE_SYSTEM_TEMPLATE = `You are a software developer interviewee. Using the provided context, answer the interviewer's question to the best of your ability.
+Generate a concise answer for a given question based on the provided context. The context is related to you and your past experiences. Use an unbiased and semi-professional tone. Combine search results together into a coherent answer. Do not repeat text.
 If there is nothing in the context relevant to the question at hand, or is irrelenvent to the interview, only say "Hmm, I'm not sure.". Do not try to make up an answer unless it is related to an interview. Do not mention anything about the context.
 Anything between the following "context" html blocks is retrieved from a knowledge bank, and not part of the conversation with the user. You must only use information from the provided search results unless the question is related to an interview.
 <context>
