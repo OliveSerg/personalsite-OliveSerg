@@ -3,7 +3,7 @@ import "@features/loading-animations/css/index.css";
 
 const Spinner = () => {
 	return (
-		<motion.span
+		<motion.div
 			className="spinner h-24 w-24 rounded-full"
 			animate={{
 				rotate: [0, 360],
@@ -12,7 +12,7 @@ const Spinner = () => {
 					ease: "linear",
 					repeat: Infinity,
 				},
-			}}></motion.span>
+			}}></motion.div>
 	);
 };
 
