@@ -3,6 +3,7 @@ import { useQuery } from "@tanstack/react-query";
 import { fetchDBResponse } from "@features/utilities/api";
 import SkillItem from "./skill-item";
 import { motion, LayoutGroup } from "framer-motion";
+import Spinner from "@features/loading-animations/spinner";
 
 type Props = {
 	vocationSkills: number[];
@@ -14,7 +15,12 @@ const SkillsList = ({ vocationSkills }: Props) => {
 		queryFn: () => fetchDBResponse<Skill>("/skills"),
 	});
 
-	if (skillsQuery.isLoading) return <div>Loading...</div>;
+	if (skillsQuery.isLoading)
+		return (
+			<div className="flex w-full justify-center">
+				<Spinner />
+			</div>
+		);
 	if (skillsQuery.error) return <div>Error: {skillsQuery.error.message}</div>;
 	const skills = skillsQuery.data as Array<Skill>;
 
