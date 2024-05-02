@@ -30,7 +30,7 @@ const loadingCircleTransition = {
 	repeatType: "reverse" as const,
 };
 
-const LoadingAnimation = () => {
+const JumpingDots = () => {
 	return (
 		<motion.div
 			className="flex w-10 h-4 justify-around mx-auto"
@@ -56,4 +56,4 @@ const LoadingAnimation = () => {
 	);
 };
 
-export default LoadingAnimation;
+export default JumpingDots;

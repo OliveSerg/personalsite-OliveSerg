@@ -3,7 +3,7 @@ import { useEffect, useRef, useState } from "react";
 import { Message } from "./types/interview";
 import { fetchAIResponse } from "./services/chat-service";
 import { useForm, SubmitHandler } from "react-hook-form";
-import LoadingAnimation from "./loading-animation";
+import JumpingDots from "@features/loading-animations/jumping-dots";
 import MessageComponent from "./message-component";
 
 type MessageInput = {
@@ -166,7 +166,7 @@ const ChatWindow = ({ isModalOpen = true, setIsModalOpen }: Props) => {
 						))}
 					</div>
 					<div className={isSubmitting ? "block" : "hidden"}>
-						<LoadingAnimation />
+						<JumpingDots />
 					</div>
 				</div>
 				<form
