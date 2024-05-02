@@ -3,6 +3,7 @@ import { Vocation } from "./types/vocation";
 import { fetchDBResponse } from "@features/utilities/api";
 import VocationItem from "./vocation-item";
 import { LayoutGroup } from "framer-motion";
+import Spinner from "@features/loading-animations/spinner";
 
 type Props = {
 	vocationSkills: number[];
@@ -15,7 +16,12 @@ const VocationsList = ({ vocationSkills, handleClick }: Props) => {
 		queryFn: () => fetchDBResponse<Vocation>("/vocations"),
 	});
 
-	if (vocationsQuery.isLoading) return <div>Loading...</div>;
+	if (vocationsQuery.isLoading)
+		return (
+			<div className="flex w-full justify-center">
+				<Spinner />
+			</div>
+		);
 	if (vocationsQuery.error)
 		return <div>Error: {vocationsQuery.error.message}</div>;
 	const vocations = vocationsQuery.data as Array<Vocation>;
