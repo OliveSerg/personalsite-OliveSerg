@@ -4,28 +4,11 @@ import { ReactNode } from "react";
 type Props = {
 	children: ReactNode;
 	slideId: number;
-	direction: number;
 	offset: number;
 	width: number;
 };
 
-const variants = {
-	enter: (direction: number) => {
-		return {
-			x: direction > 0 ? 1000 : -1000,
-			opacity: 0,
-		};
-	},
-	exit: (direction: number) => {
-		return {
-			zIndex: 0,
-			x: direction < 0 ? 1000 : -1000,
-			opacity: 0,
-		};
-	},
-};
-
-const Slide = ({ children, slideId, direction, offset, width }: Props) => {
+const Slide = ({ children, slideId, offset, width }: Props) => {
 	if (!width) return;
 
 	return (
@@ -33,16 +16,12 @@ const Slide = ({ children, slideId, direction, offset, width }: Props) => {
 			key={slideId}
 			className="absolute left-1/2 top-1/2 cursor-pointer border-black p-8 text-black transition-colors duration-500 z-0 bg-white"
 			layoutId="slider"
-			custom={direction}
-			variants={variants}
-			initial="enter"
 			animate={{
 				zIndex: 1,
 				opacity: 1,
-				x: offset,
+				x: offset - width / 2,
 			}}
-			style={{ width: width }}
-			exit="exit"
+			style={{ width: width, originX: "center", originY: "center" }}
 			transition={{
 				x: {
 					type: "spring",
