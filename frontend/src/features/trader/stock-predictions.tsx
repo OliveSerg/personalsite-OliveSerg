@@ -1,12 +1,20 @@
 import Carousel from "@features/carousel/carousel";
-import Slide from "@features/carousel/slide";
 import Spinner from "@features/loading-animations/spinner";
 import { useQuery } from "@tanstack/react-query";
+import { Prediction, Quote, StockPrediction } from "./types/prediction";
+import {
+	fetchPredictionsResponse,
+	fetchQuoteResponse,
+} from "./services/predictions-service";
+import PredictionCard from "./prediction";
 
 const predictions = [
 	{
 		ticker: "ABCD",
-		predictions: [
+		companyName: "ABC Company",
+		lastPrice: 32.44,
+		open: 31.19,
+		values: [
 			{ date: "2022-02-15T14:30:00Z", value: 32.44 },
 			{ date: "2022-02-16T10:45:00Z", value: 33.21 },
 			{ date: "2022-02-17T12:15:00Z", value: 31.19 },
@@ -18,7 +26,10 @@ const predictions = [
 	},
 	{
 		ticker: "EFGH",
-		predictions: [
+		companyName: "EFG Company",
+		lastPrice: 28.11,
+		open: 26.44,
+		values: [
 			{ date: "2021-11-17T08:30:00Z", value: 24.98 },
 			{ date: "2021-11-18T10:45:00Z", value: 26.53 },
 			{ date: "2021-11-19T12:15:00Z", value: 25.17 },
@@ -30,7 +41,10 @@ const predictions = [
 	},
 	{
 		ticker: "IJKL",
-		predictions: [
+		companyName: "IJ Company",
+		lastPrice: 48.67,
+		open: 45.89,
+		values: [
 			{ date: "2021-08-24T12:15:00Z", value: 41.92 },
 			{ date: "2021-08-25T10:45:00Z", value: 43.81 },
 			{ date: "2021-08-26T14:30:00Z", value: 42.67 },
@@ -42,7 +56,10 @@ const predictions = [
 	},
 	{
 		ticker: "MNOP",
-		predictions: [
+		companyName: "MNO Company",
+		lastPrice: 62.33,
+		open: 60.89,
+		values: [
 			{ date: "2021-09-15T10:00:00Z", value: 53.11 },
 			{ date: "2021-09-16T12:30:00Z", value: 54.89 },
 			{ date: "2021-09-17T14:45:00Z", value: 56.23 },
@@ -55,51 +72,63 @@ const predictions = [
 ];
 
 const StockPredictions = () => {
-	const { isLoading, error, data } = useQuery({
-		queryKey: ["predicitonsData"],
-		// queryFn: () => {
-		// 	fetch(import.meta.env.VITE_PREDICTIONS_URL).then((res) =>
-		// 		res.json()
-		// 	);
-		// },
-		queryFn: () => Promise.resolve(5),
-	});
+	// const {
+	// 	isLoading: isPredictionsLoading,
+	// 	error: predictionsError,
+	// 	data: predictions,
+	// } = useQuery({
+	// 	queryKey: ["predictions"],
+	// 	queryFn: fetchPredictionsResponse,
+	// });
 
-	if (isLoading)
-		return (
-			<div className="flex w-full justify-center">
-				<Spinner />
-			</div>
-		);
+	// const tickers = predictions?.map((prediction: Prediction) => {
+	// 	return prediction.ticker;
+	// });
 
-	if (error) return "Error fetching predicitons: " + error.message;
+	// const {
+	// 	isLoading,
+	// 	error,
+	// 	data: quotes,
+	// } = useQuery({
+	// 	queryKey: ["stockPredictions", tickers],
+	// 	queryFn: fetchQuoteResponse,
+	// 	enabled: !!tickers,
+	// });
 
+	// const combineQuotePrediction = (
+	// 	quotes: Quote[],
+	// 	predicitons: Prediction[]
+	// ): StockPrediction[] => {
+	// 	return predicitons.map((prediction) => {
+	// 		const quote = quotes.filter((quote) => {
+	// 			return quote.ticker == prediction.ticker;
+	// 		})[0];
+	// 		return { ...prediction, ...quote };
+	// 	});
+	// };
+
+	// if (isPredictionsLoading || isLoading)
+	// 	return (
+	// 		<div className="flex w-full justify-center">
+	// 			<Spinner />
+	// 		</div>
+	// 	);
+
+	// if (predictionsError)
+	// 	return "Error fetching predicitons: " + predictionsError.message;
+	// if (error) return "Error fetching quotes: " + error.message;
+
+	// const stockPredictions =
+	// 	quotes?.length && predictions?.length
+	// 		? combineQuotePrediction(quotes, predictions)
+	// 		: [];
+	const stockPredictions = predictions;
 	return (
 		<Carousel
 			numVisible={3}
-			slideIds={[0, 1, 2, 3]}
+			slideIds={Object.keys(stockPredictions).map(Number)}
 			renderSlides={(id, index) => {
-				const theDate = new Date(predictions[id].predictions[0].date);
-				return (
-					<div className="bg-white rounded mx-1 p-4">
-						<div className="flex justify-between">
-							<h4 className="font-bold text-xl">
-								{predictions[id].ticker}
-							</h4>
-							<span>{theDate.toDateString()}</span>
-							<span>7 days -&gt;</span>
-						</div>
-						<div className="flex justify-center text-7xl">
-							{predictions[id].predictions[0].value}
-							{/* {predictions[id].predictions.map((prediction) => (
-								<>
-									<p>{prediction.date}</p>
-									<p>{prediction.value}</p>
-								</>
-							))} */}
-						</div>
-					</div>
-				);
+				return <PredictionCard prediction={stockPredictions[id]} />;
 			}}></Carousel>
 	);
 };

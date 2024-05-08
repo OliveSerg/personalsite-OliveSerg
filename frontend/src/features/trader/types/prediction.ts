@@ -5,8 +5,9 @@ export type Prediction = {
 
 export type Quote = {
 	companyName: string;
-	current: number;
+	lastPrice: number;
 	open: number;
+	ticker: string;
 };
 
 export type StockPrediction = Prediction & Quote;

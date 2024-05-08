@@ -1,36 +1,23 @@
-export const fetchPredictionsResponse = async <T>(): Promise<T | T[]> => {
-	try {
-		const response = await fetch(import.meta.env.VITE_PREDICTIONS_URL);
+import { Prediction, Quote } from "../types/prediction";
 
-		if (!response.ok) {
-			throw new Error(`Failed to fetch data: ${response.statusText}`);
-		}
+export const fetchPredictionsResponse = async (): Promise<Prediction[]> => {
+	const response = await fetch(import.meta.env.VITE_PREDICTIONS_URL);
 
-		return await response.json();
-	} catch (error) {
-		const err = error as Error;
-		throw new Error(`Error fetching data: ${err.message}`);
+	if (!response.ok) {
+		throw new Error(`Failed to fetch data: ${response.statusText}`);
 	}
+
+	return await response.json();
 };
 
-export const fetchQuoteResponse = async <T>(
-	tickers: string | string[],
-	init?: RequestInit | undefined
-): Promise<T | T[]> => {
-	if (tickers instanceof Array) tickers = tickers.toString();
-	try {
-		const response = await fetch(
-			import.meta.env.VITE_QUOTE_URL + `?tickers=${tickers}`,
-			init
-		);
+export const fetchQuoteResponse = async (tickers: string): Promise<Quote[]> => {
+	const response = await fetch(
+		import.meta.env.VITE_QUOTE_URL + `?tickers=${tickers}`
+	);
 
-		if (!response.ok) {
-			throw new Error(`Failed to fetch data: ${response.statusText}`);
-		}
-
-		return await response.json();
-	} catch (error) {
-		const err = error as Error;
-		throw new Error(`Error fetching data: ${err.message}`);
+	if (!response.ok) {
+		throw new Error(`Failed to fetch data: ${response.statusText}`);
 	}
+
+	return await response.json();
 };
