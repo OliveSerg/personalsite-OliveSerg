@@ -5,9 +5,7 @@ import ExperiencesWrapper from "@features/experiences/experiences-wrapper";
 import ContactForm from "@features/contactform/contact-form";
 import HeaderSocial from "@features/socials/header-social";
 import DiagonalLine from "@features/background-layers/diagonal-line";
-import { FaGithubSquare } from "react-icons/fa";
-import { FaLinkedin } from "react-icons/fa";
-import { FaEnvelope } from "react-icons/fa";
+import { FaGithubSquare, FaLinkedin, FaEnvelope } from "react-icons/fa";
 import Glow from "@features/background-layers/glow";
 import { Tabs, Tab } from "@features/tabs";
 import { RegistrationForm, UserProvider } from "@features/user-auth";
@@ -15,6 +13,7 @@ import ChatWindow from "./features/chat/chat-window";
 import { useState } from "react";
 import { VirtualAssistantProvider } from "@features/virtual-assistant/model-context";
 import VirtualAssistantContainer from "@features/virtual-assistant/va-container";
+import StockPredictions from "@features/trader/stock-predictions";
 
 function App() {
 	const [isModalOpen, setIsModalOpen] = useState(false);
@@ -120,6 +119,17 @@ function App() {
 					<Glow top="70%" left="0" width="400px" height="400px" />
 					<div className="container mx-auto">
 						<ExperiencesWrapper />
+					</div>
+				</section>
+				<section className="projects my-20 relative ">
+					<Glow top="2%" left="" width="100%" height="500px" />
+					<Glow top="0" left="75%" width="400px" height="100px" />
+					<Glow top="70%" left="0" width="400px" height="400px" />
+					<h2 className="text-center text-4xl font-bold uppercase mb-4">
+						Projects
+					</h2>
+					<div className="container min-h-[40vh] mx-auto py-8 px-6 backdrop-blur-sm rounded bg-white bg-opacity-30">
+						<StockPredictions />
 					</div>
 				</section>
 				<UserProvider>
