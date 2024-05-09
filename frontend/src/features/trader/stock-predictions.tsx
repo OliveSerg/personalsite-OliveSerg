@@ -60,7 +60,7 @@ const predictions = [
 		lastPrice: 62.33,
 		open: 60.89,
 		values: [
-			{ date: "2021-09-15T10:00:00Z", value: 53.11 },
+			{ date: "2021-09-15T10:00:00Z", value: 63.11 },
 			{ date: "2021-09-16T12:30:00Z", value: 54.89 },
 			{ date: "2021-09-17T14:45:00Z", value: 56.23 },
 			{ date: "2021-09-18T10:15:00Z", value: 57.67 },
@@ -126,6 +126,7 @@ const StockPredictions = () => {
 	return (
 		<Carousel
 			numVisible={3}
+			minWidth={300}
 			slideIds={Object.keys(stockPredictions).map(Number)}
 			renderSlides={(id, index) => {
 				return <PredictionCard prediction={stockPredictions[id]} />;
