@@ -60,7 +60,8 @@ const PredictionCard = ({ prediction }: Props) => {
 						{prediction.values.map((value) => (
 							<div>
 								<p>
-									{value.date} {value.value}
+									{new Date(value.date).toDateString()}{" "}
+									{value.value}
 								</p>
 							</div>
 						))}
