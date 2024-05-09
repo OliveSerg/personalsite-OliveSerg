@@ -45,16 +45,35 @@ const StockPredictions = () => {
 			? combineQuotePrediction(quotes, predictions)
 			: [];
 	if (!stockPredictions.length) return;
-	console.log(stockPredictions);
 
 	return (
-		<Carousel
-			numVisible={3}
-			minWidth={300}
-			slideIds={Object.keys(stockPredictions).map(Number)}
-			renderSlides={(id) => {
-				return <PredictionCard prediction={stockPredictions[id]} />;
-			}}></Carousel>
+		<div className="">
+			<h3 className="text-xl font-bold mb-2">Stock Prediction</h3>
+			<p className="">
+				The classic "I can predict the stock market and get rich"
+				idea... Well kind of~ this was made to understand timeseries
+				analysis and prediction, and what better place to try it then
+				<b>STONKS</b>. The following data is pulled from a program
+				created with a customly trained machine learning model to
+				predict a set of stock market tickers. It is a no brainer to
+				say:
+				<blockquote>
+					No financial advice or recommendations should be inferred
+					from any content, and it is not recommended to make
+					investment decisions based solely on the information
+					provided, as personalized financial planning requires
+					professional expertise and consideration of individual
+					circumstances.
+				</blockquote>
+			</p>
+			<Carousel
+				numVisible={3}
+				minWidth={300}
+				slideIds={Object.keys(stockPredictions).map(Number)}
+				renderSlides={(id) => {
+					return <PredictionCard prediction={stockPredictions[id]} />;
+				}}></Carousel>
+		</div>
 	);
 };
 
