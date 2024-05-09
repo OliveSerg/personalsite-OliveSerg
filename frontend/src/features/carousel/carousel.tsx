@@ -85,16 +85,18 @@ const Carousel = ({ numVisible, minWidth, slideIds, renderSlides }: Props) => {
 							{renderSlides(slideId, index)}
 						</Slide>
 					))}
+					<div
+						className="flex justify-center items-center text-center w-9 h-9 absolute top-1/2 right-2 z-10 font-bold text-4xl cursor-pointer hover:bg-sunglow-100 transition-colors rounded-full"
+						onClick={() => handleSlideChange(1)}>
+						{"‣"}
+					</div>
+					<div
+						className="flex justify-center items-center text-center w-9 h-9 absolute top-1/2 left-2 z-10 font-bold text-4xl cursor-pointer hover:bg-sunglow-100 transition-colors rounded-full -scale-100"
+						onClick={() => handleSlideChange(-1)}>
+						{"‣"}
+					</div>
 				</div>
 			</AnimatePresence>
-			<div className="next" onClick={() => handleSlideChange(1)}>
-				{"‣"}
-			</div>
-			<div
-				className="prev -scale-100"
-				onClick={() => handleSlideChange(-1)}>
-				{"‣"}
-			</div>
 		</>
 	);
 };
