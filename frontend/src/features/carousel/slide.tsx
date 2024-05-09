@@ -14,7 +14,7 @@ const Slide = ({ children, slideId, offset, width }: Props) => {
 	return (
 		<motion.div
 			key={slideId}
-			className="absolute left-1/2 top-1/2 cursor-pointer transition-colors duration-500 z-0 translate-y-1/2"
+			className="absolute left-1/2 top-1/2 cursor-pointer transition-colors duration-500 z-0 translate-y-1/2 min-w-min"
 			layoutId="slider"
 			animate={{
 				zIndex: 1,

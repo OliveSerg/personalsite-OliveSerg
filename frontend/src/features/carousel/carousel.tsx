@@ -1,9 +1,10 @@
 import { AnimatePresence } from "framer-motion";
-import { ReactNode, useLayoutEffect, useRef, useState } from "react";
+import { ReactNode, useEffect, useLayoutEffect, useRef, useState } from "react";
 import Slide from "./slide";
 
 type Props = {
 	numVisible: number;
+	minWidth: number;
 	slideIds: number[];
 	renderSlides: (id: number, index: number) => ReactNode;
 };
@@ -27,7 +28,7 @@ const wrap = (min: number, max: number, v: number) => {
 	return ((((v - min) % rangeSize) + rangeSize) % rangeSize) + min;
 };
 
-const Carousel = ({ numVisible, slideIds, renderSlides }: Props) => {
+const Carousel = ({ numVisible, minWidth, slideIds, renderSlides }: Props) => {
 	const carousel = useRef<HTMLDivElement>(null);
 	const [itemWidth, setItemWidth] = useState<number>(0);
 	const [page, setPage] = useState<number>(0);
@@ -38,13 +39,25 @@ const Carousel = ({ numVisible, slideIds, renderSlides }: Props) => {
 		setItemWidth(width / numVisible);
 	}, [numVisible]);
 
+	useEffect(() => {
+		function handleWindowResize() {
+			const width = carousel.current?.offsetWidth ?? 0;
+			setItemWidth(width / numVisible);
+		}
+
+		window.addEventListener("resize", handleWindowResize);
+		return () => {
+			window.removeEventListener("resize", handleWindowResize);
+		};
+	});
+
 	const handleSlideChange = (newDirection: number) => {
 		setPage(page + newDirection);
 	};
 
 	if (!slideIds.length) return;
 	if (slideIds.length < numVisible) return;
-
+	const width = itemWidth > minWidth ? itemWidth : minWidth;
 	return (
 		<>
 			<AnimatePresence initial={false} custom={page}>
@@ -55,13 +68,13 @@ const Carousel = ({ numVisible, slideIds, renderSlides }: Props) => {
 						<Slide
 							key={slideId}
 							slideId={slideId}
-							width={itemWidth}
+							width={width}
 							offset={
 								offsetDirection(
 									slideIds.length,
 									itemIndex,
 									slideId
-								) * itemWidth
+								) * width
 							}>
 							{renderSlides(slideId, index)}
 						</Slide>
