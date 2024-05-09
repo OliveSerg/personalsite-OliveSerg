@@ -42,10 +42,11 @@ const Carousel = ({ numVisible, minWidth, slideIds, renderSlides }: Props) => {
 	const itemIndex = wrap(0, slideIds.length, page);
 
 	const handleWindowResize = useCallback(() => {
-		const carouselWidth = carousel.current?.offsetWidth ?? 0;
-		const width = carouselWidth > minWidth ? carouselWidth : minWidth;
-		setItemWidth(width / numVisible);
-	}, [numVisible, minWidth]);
+		const resizedWidth = (carousel.current?.offsetWidth ?? 0) / numVisible;
+		const width = resizedWidth > minWidth ? resizedWidth : minWidth;
+
+		setItemWidth(width);
+	}, [numVisible, minWidth, carousel]);
 
 	useLayoutEffect(handleWindowResize, [handleWindowResize]);
 

@@ -9,9 +9,6 @@ type Props = {
 };
 
 const Slide = ({ children, slideId, offset, width }: Props) => {
-	console.log(offset);
-	console.log(slideId);
-
 	if (!width) return;
 
 	return (
