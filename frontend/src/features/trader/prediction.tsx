@@ -16,7 +16,9 @@ const PredictionCard = ({ prediction }: Props) => {
 	};
 
 	const nextValue = prediction.values[0].value;
-	const precentDiff = getPrecentageDiff(prediction.lastPrice, nextValue);
+	const precentDiff = Number(
+		getPrecentageDiff(prediction.lastPrice, nextValue).toFixed(2)
+	);
 
 	return (
 		<div className="bg-white rounded mx-1 p-4 min-h-[250px]">
