@@ -1,5 +1,12 @@
 import { AnimatePresence } from "framer-motion";
-import { ReactNode, useEffect, useLayoutEffect, useRef, useState } from "react";
+import {
+	ReactNode,
+	useCallback,
+	useEffect,
+	useLayoutEffect,
+	useRef,
+	useState,
+} from "react";
 import Slide from "./slide";
 
 type Props = {
@@ -34,22 +41,20 @@ const Carousel = ({ numVisible, minWidth, slideIds, renderSlides }: Props) => {
 	const [page, setPage] = useState<number>(0);
 	const itemIndex = wrap(0, slideIds.length, page);
 
-	useLayoutEffect(() => {
-		const width = carousel.current?.offsetWidth ?? 0;
+	const handleWindowResize = useCallback(() => {
+		const carouselWidth = carousel.current?.offsetWidth ?? 0;
+		const width = carouselWidth > minWidth ? carouselWidth : minWidth;
 		setItemWidth(width / numVisible);
-	}, [numVisible]);
+	}, [numVisible, minWidth]);
+
+	useLayoutEffect(handleWindowResize, [handleWindowResize]);
 
 	useEffect(() => {
-		function handleWindowResize() {
-			const width = carousel.current?.offsetWidth ?? 0;
-			setItemWidth(width / numVisible);
-		}
-
 		window.addEventListener("resize", handleWindowResize);
 		return () => {
 			window.removeEventListener("resize", handleWindowResize);
 		};
-	});
+	}, [handleWindowResize]);
 
 	const handleSlideChange = (newDirection: number) => {
 		setPage(page + newDirection);
@@ -57,7 +62,7 @@ const Carousel = ({ numVisible, minWidth, slideIds, renderSlides }: Props) => {
 
 	if (!slideIds.length) return;
 	if (slideIds.length < numVisible) return;
-	const width = itemWidth > minWidth ? itemWidth : minWidth;
+
 	return (
 		<>
 			<AnimatePresence initial={false} custom={page}>
@@ -68,13 +73,13 @@ const Carousel = ({ numVisible, minWidth, slideIds, renderSlides }: Props) => {
 						<Slide
 							key={slideId}
 							slideId={slideId}
-							width={width}
+							width={itemWidth}
 							offset={
 								offsetDirection(
 									slideIds.length,
 									itemIndex,
 									slideId
-								) * width
+								) * itemWidth
 							}>
 							{renderSlides(slideId, index)}
 						</Slide>
