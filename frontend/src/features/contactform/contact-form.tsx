@@ -90,7 +90,7 @@ const ContactForm = () => {
 	return (
 		<form
 			className="grid grid-cols-2 gap-2"
-			action={import.meta.env.VITE_API_URL + "contact"}
+			action={import.meta.env.VITE_API_URL + "/contact_us"}
 			onSubmit={handleSubmit(onSubmit)}
 			method="POST">
 			{errors.root?.api_error && (
