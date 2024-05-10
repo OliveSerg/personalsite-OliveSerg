@@ -16,7 +16,7 @@ const ContactForm = () => {
 			return;
 		}
 		try {
-			return fetchApiResponse("contact", {
+			return fetchApiResponse("/contact_us", {
 				method: "POST",
 				headers: {
 					"Content-Type": "application/json",
