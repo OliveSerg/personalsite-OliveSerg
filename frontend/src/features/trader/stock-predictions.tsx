@@ -10,6 +10,7 @@ const StockPredictions = () => {
 		error: predictionsError,
 		data: predictions,
 	} = usePredictions();
+	console.log(predictions);
 
 	const tickers = predictions?.map((prediction: Prediction) => {
 		return prediction.ticker;
@@ -36,9 +37,18 @@ const StockPredictions = () => {
 			</div>
 		);
 
-	if (predictionsError)
-		return "Error fetching predicitons: " + predictionsError.message;
-	if (error) return "Error fetching quotes: " + error.message;
+	if (predictionsError || error)
+		return (
+			<div className="flex flex-wrap w-full justify-center">
+				<p className="w-full text-center mx-4">
+					Error fetching project predicitons... In the meantime look
+					at this cool spinner
+				</p>
+				<div className="mx-auto">
+					<Spinner />
+				</div>
+			</div>
+		);
 
 	const stockPredictions =
 		quotes?.length && predictions?.length

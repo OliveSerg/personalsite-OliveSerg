@@ -1,28 +1,34 @@
 import { Prediction, Quote } from "../types/prediction";
-import { UseQueryResult, useQuery } from "@tanstack/react-query";
+import { useQuery } from "@tanstack/react-query";
 
-const fetchResponse = async (path: string): Promise<Prediction[] | Quote[]> => {
-	return await fetch(path)
-		.then((response) => response.json())
-		.catch((err) => err);
+export const fetchResponse = async <T>(
+	path: string,
+	init?: RequestInit | undefined
+): Promise<T[]> => {
+	const response = await fetch(import.meta.env.VITE_API_URL + path, init);
+
+	if (!response.ok) {
+		throw new Error(`Failed to fetch data: ${response.statusText}`);
+	}
+
+	return await response.json();
 };
 
-export const usePredictions = (): UseQueryResult<Prediction[]> => {
+export const usePredictions = () => {
 	return useQuery({
 		queryKey: ["predictions"],
-		queryFn: () => fetchResponse(import.meta.env.VITE_PREDICTIONS_URL),
+		queryFn: () =>
+			fetchResponse<Prediction>(import.meta.env.VITE_PREDICTIONS_URL),
 	});
 };
 
-export const useQuotes = (
-	tickers: string[] | undefined
-): UseQueryResult<Quote[]> => {
+export const useQuotes = (tickers: string[] | undefined) => {
 	let path = import.meta.env.VITE_QUOTE_URL;
 	if (tickers?.length) path += `?tickers=${tickers}`;
 
 	return useQuery({
 		queryKey: ["quotes", tickers],
-		queryFn: () => fetchResponse(path),
+		queryFn: () => fetchResponse<Quote>(path),
 		enabled: !!tickers,
 	});
 };
