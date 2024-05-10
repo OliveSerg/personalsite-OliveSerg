@@ -10,7 +10,6 @@ const StockPredictions = () => {
 		error: predictionsError,
 		data: predictions,
 	} = usePredictions();
-	console.log(predictions);
 
 	const tickers = predictions?.map((prediction: Prediction) => {
 		return prediction.ticker;
