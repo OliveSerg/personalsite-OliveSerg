@@ -61,7 +61,7 @@ const StockPredictions = () => {
 			<p>
 				The classic "I can predict the stock market and get rich"
 				idea... Well kind of~ this was made to understand timeseries
-				analysis and prediction. What better way then to try it then on
+				analysis and prediction. What better way to try it then on
 				<b> STONKS</b>. The following data is pulled from a program
 				created with a customly trained machine learning model to
 				predict a set of stock market tickers. It is a no brainer to
