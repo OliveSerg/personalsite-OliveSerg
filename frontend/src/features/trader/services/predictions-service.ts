@@ -5,7 +5,7 @@ export const fetchResponse = async <T>(
 	path: string,
 	init?: RequestInit | undefined
 ): Promise<T[]> => {
-	const response = await fetch(import.meta.env.VITE_API_URL + path, init);
+	const response = await fetch(path, init);
 
 	if (!response.ok) {
 		throw new Error(`Failed to fetch data: ${response.statusText}`);
