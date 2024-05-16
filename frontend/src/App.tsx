@@ -149,7 +149,7 @@ function App() {
 								</p>
 								<ContactForm />
 							</Tab>
-							<Tab label="Mock Interview">
+							{/* <Tab label="Mock Interview">
 								<h3 className="text-4xl mb-4">
 									Simulating Real-world Scenarios
 								</h3>
@@ -164,7 +164,7 @@ function App() {
 								<RegistrationForm
 									setIsModalOpen={setIsModalOpen}
 								/>
-							</Tab>
+							</Tab> */}
 						</Tabs>
 					</div>
 					<ChatWindow
