@@ -8,11 +8,11 @@ import DiagonalLine from "@features/background-layers/diagonal-line";
 import { FaGithubSquare, FaLinkedin, FaEnvelope } from "react-icons/fa";
 import Glow from "@features/background-layers/glow";
 import { Tabs, Tab } from "@features/tabs";
-import { RegistrationForm, UserProvider } from "@features/user-auth";
+import { UserProvider } from "@features/user-auth";
 import ChatWindow from "./features/chat/chat-window";
 import { useState } from "react";
 import { VirtualAssistantProvider } from "@features/virtual-assistant/model-context";
-import VirtualAssistantContainer from "@features/virtual-assistant/va-container";
+// import VirtualAssistantContainer from "@features/virtual-assistant/va-container";
 import StockPredictions from "@features/trader/stock-predictions";
 
 function App() {
@@ -21,7 +21,7 @@ function App() {
 	return (
 		<VirtualAssistantProvider>
 			<div className="relative overflow-hidden">
-				<VirtualAssistantContainer />
+				{/* <VirtualAssistantContainer /> */}
 				<DiagonalLine
 					skew="skew-y-[130deg]"
 					offset="-top-[50vw]"
@@ -95,11 +95,11 @@ function App() {
 					<Glow top="25%" left="75%" width="25%" height="75%" />
 
 					<div className="container min-h-[40vh] my-20 mx-auto grid grid-cols-12 gap-4 py-8 px-6 backdrop-blur-sm rounded bg-white bg-opacity-30">
-						<div className="col-span-12 md:col-span-7">
+						<div className="col-span-12">
 							<h2 className="mb-6 text-2xl md:text-3xl lg:text-4xl font-bold tracking-wide uppercase">
 								About Me
 							</h2>
-							<p>
+							<p className="mb-2">
 								Welcome to my digital playground, where lines of
 								code become works of art. I'm Sergio, a
 								dedicated software developer weaving together
@@ -107,8 +107,41 @@ function App() {
 								that stand out. With a passion for innovation
 								and a knack for precision, I invite you to
 								explore my journey in crafting digital
-								excellence. Let's connect and explore the
-								endless possibilities of code!
+								excellence.
+							</p>
+							<p className="mb-2">
+								With years of hands-on experience in AI-driven
+								projects, I specialize in developing
+								sophisticated systems that harness the power of
+								machine learning to analyze data, identify
+								patterns, and make intelligent decisions.
+								Whether it’s predicting trends, automating
+								processes, or creating personalized user
+								experiences, I’m always striving to push the
+								boundaries of what’s possible with technology.
+							</p>
+							<p className="mb-2">
+								I take pride in my ability to not only solve
+								problems but also to create solutions that are
+								not just effective—innovative and elegant. My
+								approach is rooted in a blend of technical
+								excellence, creative thinking, and a deep
+								understanding of user needs. Whether it’s
+								optimizing algorithms for speed or designing
+								systems that adapt over time, I’m always focused
+								on delivering results that make a real-world
+								impact. Beyond the code, I’m driven by a desire
+								to stay ahead of the curve—continuously
+								learning, experimenting, and staying curious
+								about what’s next in AI and machine learning. I
+								enjoy collaborating with like-minded
+								professionals and contributing my skills to
+								projects that matter, knowing that every line of
+								code has the potential to transform industries.
+							</p>
+							<p className="text-center">
+								Let’s connect and explore the exciting
+								possibilities of technology together!
 							</p>
 						</div>
 					</div>
